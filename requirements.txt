@@ -1,0 +1,39 @@
+# Core dependencies with fixed versions to avoid conflicts
+langchain==0.3.7
+langchain-community==0.3.19
+langchain-core==0.3.15
+langchain-openai>=0.0.5
+langchain-text-splitters>=0.0.1
+beautifulsoup4>=4.12.2
+faiss-cpu>=1.7.4
+python-dotenv>=1.0.0
+openai>=1.10.0
+streamlit>=1.32.0
+pandas>=2.2.0
+pydantic>=2.6.0
+typing-extensions>=4.9.0
+aiohttp>=3.9.0
+
+# Agent dependencies
+spacy>=3.7.2
+nltk>=3.8.1
+requests>=2.31.0
+fastapi>=0.104.1
+uvicorn>=0.24.0
+pyperclip>=1.8.2
+# perplexity is handled in the research_agent.py file
+retrying>=1.3.4
+fuzzywuzzy>=0.18.0
+python-Levenshtein>=0.21.1
+tqdm>=4.66.1
+matplotlib>=3.8.0
+seaborn>=0.13.0
+wordcloud>=1.9.2
+
+# Additional dependencies for content quality agent
+textblob>=0.15.3
+readability>=0.3.1
+textstat>=0.7.3  # Added for readability analysis
+
+# Optional AI providers
+anthropic>=0.5.0  # For Claude API access

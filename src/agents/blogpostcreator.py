@@ -18,7 +18,7 @@ class BlogPostCreator:
     def __init__(self, keyword, number_of_web_references):
         self.keyword = keyword
         self.number_of_web_references = number_of_web_references
-        self.llm = ChatOpenAI(model="gpt-4o")
+        self.llm = ChatOpenAI(model="gpt-4")
 
     def parse_links(self, search_results: str):
         print("-----------------------------------")

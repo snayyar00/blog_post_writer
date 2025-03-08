@@ -1,0 +1,853 @@
+{
+  "keywords": [
+    {
+      "keyword": "web accessibility",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "ada compliance",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "wcag",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "accessibility standards",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "digital accessibility",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "inclusive design",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "screen readers",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "assistive technology",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "high",
+      "category": "core"
+    },
+    {
+      "keyword": "wcag compliance",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "high",
+      "category": "general"
+    },
+    {
+      "keyword": "ada lawsuits",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "high",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility in specific industries",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "high",
+      "category": "general"
+    },
+    {
+      "keyword": "emerging trends in accessibility",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "high",
+      "category": "general"
+    },
+    {
+      "keyword": "content depth and comprehensiveness:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 2,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada accessibility for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 32,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "make your website ada compliant",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 30,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada website compliance certification",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 30,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada website accessibility requirements",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 30,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility compliance for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 30,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "standards for website accessibility",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 30,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "make my website ada compliant",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 29,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada compliance for software applications",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 29,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "web accessibility for people with disabilities",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 29,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada compliant website requirements",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 28,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility requirements for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 28,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada compliance certification for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 28,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "website visually impaired accessible",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 28,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "website accessibility for visually impaired",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 28,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "visually impaired website compliance",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 27,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "how to make my website more accessible",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "make website ada compliant",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada website compliance services",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility options for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "websites that are ada compliant",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada accessibility guidelines for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada requirements for website accessibility",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "requirements for ada compliant website",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada compliance standards for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "making your website accessible visually impaired",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada requirements for visually impaired",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "web accessibility for visually impaired",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility options for visually impaired",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 26,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "make your website accessible",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 25,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility features for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 25,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada compliance requirements for websites",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 25,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "website disability access standards",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 25,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "web application accessibility standards",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 25,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada website compliance standards",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 25,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "how do i access my website to make changes",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 22,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "website ada compliance requirements",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 22,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility widget for website",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 21,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada requirements for hearing impaired",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 21,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "how to make my website accessible",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 20,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility requirements for software",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 20,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "contentiq",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "competitor"
+    },
+    {
+      "keyword": "seopro writer",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "competitor"
+    },
+    {
+      "keyword": "bloggenius",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "competitor"
+    },
+    {
+      "keyword": "sentiment analysis",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "feature"
+    },
+    {
+      "keyword": "multilingual content optimization",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "feature"
+    },
+    {
+      "keyword": "serp position tracking",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "feature"
+    },
+    {
+      "keyword": "competitor content analysis",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "feature"
+    },
+    {
+      "keyword": "social media integration",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "feature"
+    },
+    {
+      "keyword": "content calendar",
+      "source": "business_competitors.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "feature"
+    },
+    {
+      "keyword": "https://www.webability.io/",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "keywords",
+      "source": "Webability_Updated Keyword Research.xlsx - webability.csv",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "analyzing webability.io's existing content",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "key observations",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "keyword targeting:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content formatting and readability:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content freshness and updates:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "competitor analysis",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "key competitors",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibe:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "userway:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "siteimprove:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "monsido:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "level access:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "competitor content strategies",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "focus on keywords:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content formatting and visuals:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content promotion and distribution:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "keyword research",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "high-value keywords",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "wcag compliance:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "ada lawsuits:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "accessibility in specific industries:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "emerging trends in accessibility:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content gap analysis",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "identified content gaps",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "case studies:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "data and statistics:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "long-tail keywords:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content formats:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "seo best practices",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "on-page optimization",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "title tags and meta descriptions:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "header tags:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "image optimization:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "internal and external linking:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content structure and readability",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "clear and concise writing:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content formatting:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "visual content:",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content calendar development",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "content calendar recommendations",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "conclusion",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    },
+    {
+      "keyword": "works cited",
+      "source": "SEO Content.md",
+      "search_volume": 0,
+      "frequency": 1,
+      "priority": "medium",
+      "category": "general"
+    }
+  ],
+  "last_updated": "2025-03-08T14:36:50.720077"
+}

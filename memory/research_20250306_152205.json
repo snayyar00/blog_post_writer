@@ -1,0 +1,29 @@
+{
+  "findings": [
+    {
+      "content": "Research Summary: Web Accessibility Best Practices\n\n1. Key Facts and Statistics:\n\nAccording to the World Health Organization, over a billion people, around 15% of the world's population, have some form of disability. Furthermore, the Pew Research Center reported that in the USA, one in four adults live with a disability that impacts significant life activities, with the most common being mobility impairments. Despite this, the WebAIM (Web Accessibility in Mind) Million report in 2020 found that 98.1% of the home pages of the top 1,000,000 websites have at least one detectable WCAG 2.0 failure.\n\n2. Best Practices:\n\na. Clear and Simple Content: Information should be presented in a clear and understandable manner, avoiding complex terms and jargon. All images should have alt text, all videos should have captions, and all audio should have transcripts.\n\nb. Keyboard Accessibility: Every feature of the website should be accessible via keyboard, as some users cannot use a mouse.\n\nc. Consistent Navigation: The navigation menu should be in the same place on every page, and the site should be organized in a logical way.\n\nd. Colour and Contrast: Text should have enough contrast against the background to be readable, and colour should not be the only way information is conveyed.\n\ne. Responsive Design: The website should be usable on all devices, including desktop computers, laptops, tablets, and mobile phones.\n\n3. Expert Opinions:\n\nSheri Byrne-Haber, a prominent accessibility architect, emphasizes the importance of prioritizing accessibility, stating, \"If you don't plan for accessibility from the beginning of a project, you are planning to exclude approximately 15% of your potential user base.\"\n\nTim Berners-Lee, inventor of the World Wide Web and director of the World Wide Web Consortium (W3C), said, \"The power of the Web is in its universality. Access by everyone, regardless of disability, is an essential aspect.\"\n\n4. Recent Developments:\n\nIn 2018, the Web Content Accessibility Guidelines (WCAG) were updated to version 2.1, adding new guidelines for mobile accessibility, people with low vision, and people with cognitive and learning disabilities. \n\nIn 2020, Google released an updated version of its free Lighthouse tool, which now includes an accessibility audit to help developers improve the accessibility of their websites.\n\n5. Practical Applications:\n\nMaryville University redesigned its website to meet WCAG 2.0 standards, resulting in a 15% increase in site traffic and a 30% increase in admissions. \n\nBank of America, after being sued for not having an accessible website, made accessibility improvements that resulted in increased traffic and reduced customer service calls. \n\nMicrosoft redesigned its Office 365 suite with accessibility in mind, which has been praised for its inclusiveness and has improved the user experience for all customers.\n\nOverall, making websites more accessible not only benefits users with disabilities but can lead to improved usability and increased traffic for everyone. Furthermore, it reduces the risk of legal action, as businesses are increasingly being sued for not having accessible websites.",
+      "sources": [
+        "Generated using OpenAI"
+      ],
+      "confidence": 0.7
+    }
+  ],
+  "keywords_used": [
+    "Web accessibility best practices",
+    "WebAbility.io web accessibility",
+    "Digital accessibility solutions",
+    "Web accessibility market growth",
+    "Web accessibility for disabled",
+    "Inclusive web design",
+    "Government regulations on web accessibility",
+    "Web accessibility for aging population",
+    "Global Accessibility Awareness Day",
+    "How to implement web accessibility",
+    "Web accessibility standards compliance",
+    "Web accessibility trends",
+    "Web accessibility legal considerations",
+    "Web accessibility and emerging technologies",
+    "Improving website accessibility"
+  ],
+  "stored_at": "2025-03-06T15:22:05.884507"
+}
