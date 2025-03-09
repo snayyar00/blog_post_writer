@@ -25,10 +25,10 @@ A powerful AI-powered blog post generator with chat-style history, real-time cos
 
 ## Running Locally
 
-Run the enhanced app with:
+Run the app with:
 
 ```bash
-streamlit run enhanced_app.py
+streamlit run unified_app.py
 ```
 
 ## Deployment
@@ -38,7 +38,7 @@ streamlit run enhanced_app.py
 1. Push your code to a GitHub repository
 2. Log in to [Streamlit Cloud](https://streamlit.io/cloud)
 3. Create a new app and select your repository
-4. Set the main file to `streamlit_deploy.py`
+4. Set the main file to `unified_app.py`
 5. Add your API keys as secrets in the Streamlit Cloud dashboard
 6. Deploy!
 
@@ -50,12 +50,13 @@ Make sure to set these environment variables in your deployment platform:
 
 ## Directory Structure
 
-- `enhanced_app.py`: Main application file
-- `streamlit_deploy.py`: Simplified version for deployment
+- `unified_app.py`: Main application file
 - `.streamlit/config.toml`: Streamlit configuration
 - `requirements.txt`: Python dependencies
 - `generated_posts/`: Directory for saved blog posts
   - `markdown/`: Directory for markdown versions of posts
+- `utils/`: Utility functions
+- `src/`: Source code for agents and models
 
 ## Troubleshooting Deployment
 
@@ -64,7 +65,6 @@ If you encounter issues with deployment:
 1. Check that all dependencies are in `requirements.txt`
 2. Verify that your API keys are correctly set as environment variables
 3. Make sure the `.streamlit/config.toml` file is properly configured
-4. Try using `streamlit_deploy.py` instead of `enhanced_app.py` for deployment
 
 ## License
 

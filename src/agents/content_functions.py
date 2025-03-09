@@ -24,7 +24,7 @@ def generate_outline(keyword: str, research_results: Dict[str, Any], competitor_
     
     # Create the prompt for outline generation
     outline_prompt = PromptTemplate.from_template("""
-    You are an expert content strategist tasked with creating an effective blog post outline.
+    You are an elite SEO content strategist who specializes in creating outlines with headings that EXACTLY match what real humans type into search engines.
     
     MAIN KEYWORD: {keyword}
     
@@ -36,16 +36,39 @@ def generate_outline(keyword: str, research_results: Dict[str, Any], competitor_
     
     CONTENT TYPE: {content_type}
     
-    Please create a comprehensive blog post outline that includes:
+    Create a blog post outline with headings that PRECISELY MATCH actual search queries. Your outline must include:
     
-    1. An engaging title that includes the main keyword
-    2. TLDR (Too Long; Didn't Read) section - a brief summary of the article
-    3. Introduction section
-    4. 4-6 main sections with descriptive headings
-    5. A "Crazy Facts" section that includes surprising or interesting facts about the topic
-    6. Conclusion section
+    1. A title that reads like a high-CTR Google search result (max 60 chars)
+       - Must include the exact main keyword
+       - Should promise clear value (guide, steps, benefits, etc.)
     
-    Each section should address key aspects of the topic and incorporate insights from the research.
+    2. "In a Nutshell" section (replaces TLDR)
+    
+    3. 4-6 main sections with headings that:
+       - Are EXACTLY what people would type into Google (3-5 words max)
+       - Include at least 2 question-based headings ("How to...", "Why Does...", "What Is...")
+       - Use simple, everyday language (5th-7th grade reading level)
+       - Contain high-volume search terms and phrases
+    
+    4. A "Quick Facts" section with surprising information
+    
+    5. A brief conclusion (max 4 words)
+    
+    CRITICAL HEADING GUIDELINES:
+    - NEVER use academic or formal language
+    - ALWAYS write as if speaking to a friend
+    - Use numbers whenever possible (e.g., "5 Ways to..." not "Ways to...")
+    - Include emotional triggers (best, easy, fast, free, proven, etc.)
+    - Match search intent perfectly (informational, commercial, etc.)
+    - Use "you" and "your" to make it personal
+    
+    STUDY THESE EXAMPLES OF PERFECT SEARCH-MATCHING HEADINGS:
+    - "What Is Web Accessibility" (not "Understanding Web Accessibility Concepts")
+    - "How to Fix Alt Text" (not "Methods for Improving Alternative Text")
+    - "5 WCAG Compliance Tips" (not "Strategies for WCAG Compliance")
+    - "Best Screen Readers 2025" (not "Top Screen Reading Technologies")
+    - "Why ADA Matters for Websites" (not "The Importance of ADA for Digital Properties")
+    
     Format your response as a list of section headings only, one per line.
     """)
     
@@ -109,36 +132,43 @@ def generate_sections(outline: List[str], research_results: Dict[str, Any], keyw
     
     # Create the prompt for section content generation based on content type
     base_instructions = """
-    1. Be comprehensive and informative
-    2. Include the main keyword and related terms naturally
-    3. Be engaging and reader-friendly
-    4. Include examples and practical advice where appropriate
-    5. ALWAYS include a TLDR section at the beginning that summarizes the key points in 2-3 sentences
-    6. ALWAYS include a "Crazy Facts" section with 3-5 surprising or interesting facts about the topic
+    1. Write in a conversational, human-like style that feels natural to read
+    2. Use short paragraphs (3-4 sentences max) for better readability
+    3. Include the main keyword and related terms naturally without keyword stuffing
+    4. Be engaging and reader-friendly with a conversational tone
+    5. Include practical examples and actionable advice
+    6. ALWAYS include an "In a Nutshell" section at the beginning (instead of TLDR) that summarizes the key points in 2-3 sentences
+    7. ALWAYS include a "Wild Facts" section with 3-5 surprising or interesting facts about the topic
+    8. Use bullet points and numbered lists where appropriate
+    9. Include questions in the content that readers might ask
+    10. End with a clear conclusion that summarizes key points
     """
     
     # Add content-type specific instructions
     if content_type == "journalistic":
         specific_instructions = """
-    7. Include research-backed statistics and cite sources properly
-    8. Present a balanced view with multiple perspectives
-    9. Use a more formal, authoritative tone
+    11. Include research-backed statistics and cite sources properly
+    12. Present a balanced view with multiple perspectives
+    13. Use a more authoritative but still conversational tone
+    14. Include expert quotes or insights where relevant
     """
     elif content_type == "technical":
         specific_instructions = """
-    7. Focus on technical details and implementation steps
-    8. Include code examples or technical diagrams where relevant
-    9. Use a precise, clear explanation style
+    11. Explain technical concepts in simple, accessible language
+    12. Include practical examples that illustrate technical points
+    13. Use a clear, step-by-step approach for technical instructions
+    14. Balance technical depth with readability for non-experts
     """
     else:  # standard
         specific_instructions = """
-    7. Focus on practical applications and takeaways
-    8. Use a conversational, approachable tone
-    9. Emphasize benefits and solutions
+    11. Focus on practical applications and real-world benefits
+    12. Use a friendly, approachable tone throughout
+    13. Include personal touches like "you" and "we" to connect with readers
+    14. Emphasize solutions to common problems
     """
     
     section_prompt = PromptTemplate.from_template("""
-    You are an expert content writer tasked with creating comprehensive blog post content.
+    You are an expert content writer tasked with creating engaging, human-friendly blog post content.
     
     BLOG POST OUTLINE:
     {outline}
@@ -154,8 +184,18 @@ def generate_sections(outline: List[str], research_results: Dict[str, Any], keyw
     
     {instructions}
     
+    IMPORTANT WRITING GUIDELINES:
+    - Write like a human talking to another human
+    - Use contractions (don't, can't, we're) to sound natural
+    - Vary sentence length - mix short and medium sentences
+    - Use active voice instead of passive voice
+    - Include rhetorical questions to engage readers
+    - Use analogies and metaphors to explain complex concepts
+    - Avoid jargon and overly formal language
+    - Write at approximately an 8th-grade reading level
+    
     Format your response as a complete blog post with proper headings (use # for the title, ## for main sections, ### for subsections).
-    Make sure the TLDR section appears immediately after the title and before the introduction.
+    Make sure the "In a Nutshell" section appears immediately after the title and before the introduction.
     """)
     
     # Create and execute the chain
@@ -217,7 +257,7 @@ def humanize_content(content: Union[str, Dict, List], brand_voice: str, target_a
     
     # Create the prompt for humanization
     humanize_prompt = PromptTemplate.from_template("""
-    You are an expert content writer tasked with transforming technical research into engaging, human-friendly content.
+    You are an expert content writer tasked with transforming technical content into engaging, human-friendly blog posts.
     
     BRAND VOICE GUIDELINES:
     {brand_voice}
@@ -225,19 +265,32 @@ def humanize_content(content: Union[str, Dict, List], brand_voice: str, target_a
     TARGET AUDIENCE:
     {target_audience}
     
-    RESEARCH CONTENT TO TRANSFORM:
+    CONTENT TO TRANSFORM:
     {content}
     
-    Please rewrite this research content into an engaging blog post that follows the brand voice guidelines 
-    and appeals to the target audience. The content should:
+    Please rewrite this content into a highly engaging blog post that sounds like it was written by a real human,
+    not AI. The content should:
     
-    1. Have a compelling introduction that hooks the reader
-    2. Maintain accuracy while being more conversational and accessible
-    3. Include subheadings for better readability
-    4. Add storytelling elements where appropriate
-    5. End with a conclusion that includes a call to action
-    6. Be well-structured with a logical flow
-    7. Maintain SEO value by including important keywords naturally
+    1. Use a conversational, natural tone that feels like someone talking to a friend
+    2. Have short, punchy paragraphs (3-4 sentences max)
+    3. Include rhetorical questions that engage the reader
+    4. Use contractions (don't, can't, we're) and casual language
+    5. Include personal touches like "you" and "we" to connect with readers
+    6. Vary sentence length - mix short and medium sentences for rhythm
+    7. Use analogies and metaphors to explain complex concepts
+    8. Include occasional humor or personality where appropriate
+    9. Maintain all the original information but present it in a more engaging way
+    10. Keep headings concise and conversational (max 5-7 words)
+    11. End with a conclusion that includes a natural call to action
+    
+    IMPORTANT WRITING GUIDELINES:
+    - Write at approximately an 8th-grade reading level
+    - Use active voice instead of passive voice
+    - Avoid jargon and overly formal language
+    - Include transition words between paragraphs for flow
+    - Break up text with bullet points where appropriate
+    - Maintain all SEO value by keeping important keywords
+    - Ensure headings match what real humans would search for
     
     Your response should be the complete, humanized blog post content only.
     """)

@@ -272,10 +272,6 @@ class ResearchAgent:
             }
         ]
         
-        # Count tokens for cost tracking (approximate)
-        encoding = tiktoken.encoding_for_model("cl100k_base")  # General purpose encoding
-        input_tokens = len(encoding.encode(system_content)) + len(encoding.encode(user_content))
-        
         # Use a more cost-effective model when appropriate
         model = "sonar-medium-online"  # Less expensive than sonar-deep-research
         if mode == ResearchMode.DEEP or depth > 3:
@@ -300,16 +296,6 @@ class ResearchAgent:
             findings = []
             if "choices" in research_data and research_data["choices"]:
                 content = research_data["choices"][0]["message"]["content"]
-                output_tokens = len(encoding.encode(content))
-                
-                # Log API call for cost tracking
-                log_api_call(
-                    provider="perplexity",
-                    model=model,
-                    operation="research",
-                    input_tokens=input_tokens,
-                    output_tokens=output_tokens
-                )
                 
                 # Extract sources from the content (improved implementation)
                 sources = []
@@ -399,11 +385,6 @@ class ResearchAgent:
         system_content = system_prompt + " Provide comprehensive, factual information with sources that is directly relevant to the user's business context."
         user_content = f"{research_query}. {user_prompt_suffix} {competitor_insights}\n\nCite your sources."
         
-        # Count tokens for cost tracking (approximate since Claude uses a different tokenizer)
-        # Using tiktoken as an approximation
-        encoding = tiktoken.encoding_for_model("cl100k_base")  # Claude-compatible encoding
-        input_tokens = len(encoding.encode(system_content)) + len(encoding.encode(user_content))
-        
         try:
             # Use cheaper model (claude-3-haiku) instead of opus
             model = "claude-3-haiku-20240307"
@@ -418,16 +399,6 @@ class ResearchAgent:
             )
             
             content = response.content[0].text
-            output_tokens = len(encoding.encode(content))
-            
-            # Log API call for cost tracking
-            log_api_call(
-                provider="anthropic",
-                model=model,
-                operation="research",
-                input_tokens=input_tokens,
-                output_tokens=output_tokens
-            )
             
             # Extract sources from the content
             sources = []
@@ -516,10 +487,6 @@ class ResearchAgent:
         user_message = {"role": "user", "content": f"{research_query}. {user_prompt_suffix} {competitor_insights}\n\nCite your sources."}
         messages = [system_message, user_message]
         
-        # Count tokens for cost tracking
-        encoding = tiktoken.encoding_for_model("gpt-4o-mini")
-        input_tokens = len(encoding.encode(system_message["content"])) + len(encoding.encode(user_message["content"]))
-        
         try:
             # Use cheaper model (gpt-4o-mini) instead of gpt-4-turbo
             model = "gpt-4o-mini"
@@ -531,16 +498,6 @@ class ResearchAgent:
             )
             
             content = response.choices[0].message.content
-            output_tokens = len(encoding.encode(content))
-            
-            # Log API call for cost tracking
-            log_api_call(
-                provider="openai",
-                model=model,
-                operation="research",
-                input_tokens=input_tokens,
-                output_tokens=output_tokens
-            )
             
             # Extract sources from the content
             sources = []

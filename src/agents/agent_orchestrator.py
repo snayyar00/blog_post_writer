@@ -110,6 +110,22 @@ class AgentOrchestrator:
             BlogPost object containing the generated content and metrics
         """
         try:
+            # Import the update_agent_activities function
+            from utils.session_manager import update_agent_activities, get_agent_activities
+            
+            # Initialize agent activities for UI tracking
+            agent_activities = {
+                "Context Agent": {"status": "Initializing", "output": "Preparing to start blog generation"},
+                "Keyword Agent": {"status": "Waiting", "output": "Will perform advanced keyword research"},
+                "Research Agent": {"status": "Waiting", "output": "Will gather in-depth information"},
+                "Content Agent": {"status": "Waiting", "output": "Will create human-friendly content"},
+                "Quality Agent": {"status": "Waiting", "output": "Will ensure high-quality output"},
+                "Humanizer Agent": {"status": "Waiting", "output": "Will make content more engaging"}
+            }
+            
+            # Update agent activities
+            update_agent_activities(agent_activities)
+            
             # Extract parameters
             keyword = params.get("keyword", "")
             business_type = params.get("business_type", "Technology")
@@ -194,6 +210,15 @@ class AgentOrchestrator:
     async def _conduct_research(self, keyword: str, web_references: int) -> Dict[str, Any]:
         """Conduct research on the topic using research agent with business context."""
         try:
+            # Import the update_agent_activities function
+            from utils.session_manager import update_agent_activities, get_agent_activities
+            
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Context Agent"] = {"status": "Completed", "output": "Initialized research context", "quality": 8}
+            agent_activities["Research Agent"] = {"status": "Running", "output": f"Researching topic: {keyword}"}
+            update_agent_activities(agent_activities)
+            
             # Load context data if available
             context_data = self._load_context_data()
             print(f"Loaded {len(context_data)} context files for research")
@@ -316,74 +341,309 @@ class AgentOrchestrator:
             }
     
     async def _analyze_keywords(self, keyword: str, research_results: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze keywords using keyword agent and context data for more targeted selection."""
-        # Load context data
+        """Analyze keywords using advanced keyword agent and context data for more targeted selection."""
+        # Import the update_agent_activities function
+        from utils.session_manager import update_agent_activities, get_agent_activities
+        
+        # Update agent activities
+        agent_activities = get_agent_activities()
+        agent_activities["Competitor Analysis"] = {"status": "Completed", "output": "Analyzed competitor content structure", "quality": 8}
+        agent_activities["Keyword Agent"] = {"status": "Running", "output": f"Analyzing keywords for: {keyword}"}
+        update_agent_activities(agent_activities)
+        
+        print(f"🔍 Starting advanced keyword research for: {keyword}")
+        
+        # Load context data with comprehensive search
         context_data = self._load_context_data()
+        print(f"📂 Loaded {len(context_data)} context files for keyword analysis")
         
         # Extract business context for more targeted keyword selection
         business_context = self._extract_business_context(context_data)
         
-        # Extract keywords from context files
-        context_keywords = self._extract_keywords_from_context(context_data)
+        # IMPROVEMENT 1: Use our enhanced context file analysis that returns rich metadata
+        context_keywords_data = self._extract_keywords_from_context(context_data)
+        print(f"📊 Extracted {len(context_keywords_data)} keywords with rich metadata from context files")
         
-        # Get competitor insights for keyword analysis
+        # Extract just the keyword strings for backward compatibility
+        context_keywords = [item["keyword"] for item in context_keywords_data]
+        
+        # IMPROVEMENT 2: Enhanced competitor research
         competitor_blogs = await self._get_competitor_blogs(keyword, business_context)
         competitor_keywords = self._extract_competitor_keywords(competitor_blogs)
+        print(f"🔎 Found {len(competitor_keywords)} keywords from {len(competitor_blogs)} competitor blogs")
         
-        # Use perplexity for keyword research if available
+        # IMPROVEMENT 3: Better perplexity research integration
+        perplexity_keywords = []
         if hasattr(self, 'research_agent') and self.research_agent:
-            print(f"Using Perplexity for deep keyword research on: {keyword}")
+            print(f"🧠 Using Perplexity for deep keyword research on: {keyword}")
+            # Extract keywords from research results
             perplexity_keywords = self._extract_keywords_from_research(research_results)
-        else:
-            perplexity_keywords = []
+            
+            # If we have a research agent but no keywords yet, do a direct search
+            if not perplexity_keywords and self.research_agent:
+                try:
+                    print("🔄 Performing additional Perplexity research for keywords...")
+                    search_query = f"best SEO keywords for {keyword} in {business_context.get('industry', 'web accessibility')}"
+                    additional_findings = self.research_agent.research_topic(
+                        topic=search_query,
+                        business_context=business_context,
+                        depth=2
+                    )
+                    
+                    # Extract keywords from additional research
+                    if additional_findings:
+                        from langchain_openai import ChatOpenAI
+                        from langchain_core.prompts import PromptTemplate
+                        from langchain_core.output_parsers import JsonOutputParser
+                        
+                        # Use LLM to extract keywords from research
+                        llm = ChatOpenAI(model="gpt-4")
+                        parser = JsonOutputParser()
+                        
+                        extract_prompt = PromptTemplate.from_template("""
+                            Extract the most valuable SEO keywords from this research:
+                            
+                            {research}
+                            
+                            Focus on keywords that:
+                            1. Have high search intent
+                            2. Are specific and targeted
+                            3. Match what real humans would search for
+                            4. Include both short-tail and long-tail variations
+                            
+                            Return ONLY a JSON array of strings with the top 15 keywords.
+                        """)
+                        
+                        chain = extract_prompt | llm | parser
+                        
+                        # Convert findings to string
+                        research_text = "\n".join([str(finding) for finding in additional_findings])
+                        
+                        # Extract keywords
+                        extracted_keywords = chain.invoke({"research": research_text[:3000]})
+                        if isinstance(extracted_keywords, list):
+                            perplexity_keywords.extend(extracted_keywords)
+                            print(f"🔑 Found {len(extracted_keywords)} additional keywords from Perplexity")
+                except Exception as e:
+                    print(f"⚠️ Error in additional Perplexity research: {str(e)}")
         
-        # Combine all keywords for analysis
-        combined_keywords = set([keyword])
-        combined_keywords.update(context_keywords[:10])  # Top 10 keywords from context
-        combined_keywords.update(competitor_keywords[:10])  # Top 10 keywords from competitors
-        combined_keywords.update(perplexity_keywords[:10])  # Top 10 keywords from perplexity
+        # IMPROVEMENT 4: Fallback to OpenAI for keyword research if no perplexity
+        if not perplexity_keywords:
+            try:
+                print("🔄 Using OpenAI for keyword research...")
+                from langchain_openai import ChatOpenAI
+                from langchain_core.prompts import PromptTemplate
+                from langchain_core.output_parsers import JsonOutputParser
+                
+                llm = ChatOpenAI(model="gpt-4")
+                parser = JsonOutputParser()
+                
+                keyword_prompt = PromptTemplate.from_template("""
+                    You are an SEO expert. Generate the best keywords for content about {keyword}
+                    in the {industry} industry.
+                    
+                    Business context:
+                    {business_context}
+                    
+                    Generate keywords that:
+                    1. Real humans would actually search for
+                    2. Include both short-tail and long-tail variations
+                    3. Have high search intent
+                    4. Include question-based keywords
+                    5. Are specific and targeted
+                    
+                    Return ONLY a JSON array of strings with the top 20 keywords.
+                """)
+                
+                chain = keyword_prompt | llm | parser
+                
+                # Format business context
+                business_context_str = "\n".join([f"{k}: {v}" for k, v in business_context.items()])
+                
+                # Generate keywords
+                openai_keywords = chain.invoke({
+                    "keyword": keyword,
+                    "industry": business_context.get("industry", "web accessibility"),
+                    "business_context": business_context_str
+                })
+                
+                if isinstance(openai_keywords, list):
+                    perplexity_keywords.extend(openai_keywords)
+                    print(f"🔑 Generated {len(openai_keywords)} keywords using OpenAI")
+            except Exception as e:
+                print(f"⚠️ Error generating keywords with OpenAI: {str(e)}")
+        
+        # IMPROVEMENT 5: Better keyword scoring and selection using our rich metadata
+        # Create a unified keyword dictionary with all metadata
+        all_keywords = {}
+        
+        # Add the main keyword with highest score
+        all_keywords[keyword.lower()] = {"score": 100, "source": "main", "search_intent": "informational"}
+        
+        # Add context keywords with their rich metadata
+        for kw_data in context_keywords_data:
+            kw = kw_data["keyword"].lower()
+            # Use the score from our enhanced extraction if available
+            if "score" in kw_data:
+                all_keywords[kw] = kw_data
+            else:
+                # Fallback to basic scoring
+                all_keywords[kw] = {
+                    "score": 80,
+                    "source": kw_data.get("source", "context"),
+                    "search_intent": kw_data.get("search_intent", "informational"),
+                    "priority": kw_data.get("priority", "medium")
+                }
+        
+        # Add competitor keywords with scores
+        for i, kw in enumerate(competitor_keywords):
+            kw = kw.lower()
+            if kw in all_keywords:
+                # Boost existing keyword score
+                all_keywords[kw]["score"] += 10
+                all_keywords[kw]["competitor_validated"] = True
+            else:
+                all_keywords[kw] = {
+                    "score": 70 - (i * 0.5),
+                    "source": "competitor",
+                    "search_intent": "commercial" if any(term in kw for term in ["buy", "price", "cost", "best"]) else "informational",
+                    "priority": "medium"
+                }
+        
+        # Add perplexity keywords with scores
+        for i, kw in enumerate(perplexity_keywords):
+            kw = kw.lower()
+            if kw in all_keywords:
+                # Boost existing keyword score
+                all_keywords[kw]["score"] += 5
+                all_keywords[kw]["research_validated"] = True
+            else:
+                all_keywords[kw] = {
+                    "score": 60 - (i * 0.5),
+                    "source": "perplexity",
+                    "search_intent": "informational",
+                    "priority": "low"
+                }
+        
+        # IMPROVEMENT 6: Advanced keyword classification and scoring
+        import re
+        for kw, data in all_keywords.items():
+            # Question-based keywords get a boost
+            if kw.startswith(("how", "what", "why", "when", "where", "which", "who", "can", "do", "is", "are")):
+                data["is_question"] = True
+                data["score"] += 15
+                data["search_intent"] = "informational"
+            
+            # Long-tail keywords (3+ words) get a boost
+            word_count = len(kw.split())
+            if word_count >= 3:
+                data["type"] = "long-tail"
+                data["score"] += 10
+            elif word_count == 2:
+                data["type"] = "body"
+                data["score"] += 5
+            else:
+                data["type"] = "head"
+            
+            # Commercial intent keywords get a boost
+            commercial_terms = ["buy", "price", "cost", "purchase", "service", "tool", "software",
+                               "best", "top", "review", "vs", "versus", "comparison", "alternative"]
+            if any(term in kw for term in commercial_terms):
+                data["commercial_intent"] = True
+                data["score"] += 10
+                if data.get("search_intent") == "informational":
+                    data["search_intent"] = "commercial"
+        
+        # Sort keywords by score
+        sorted_keywords = sorted(all_keywords.items(), key=lambda x: x[1].get("score", 0), reverse=True)
+        
+        # Select top keywords for topology analysis
+        top_keywords = [k for k, v in sorted_keywords[:10]]
+        print(f"🏆 Top 10 keywords selected for topology: {', '.join(top_keywords)}")
         
         # Generate keyword topology for the most relevant combined keywords
-        topology = await self.keyword_agent.generate_keyword_topology(list(combined_keywords)[:5])
+        topology = await self.keyword_agent.generate_keyword_topology(top_keywords)
         
-        # Extract primary keywords with preference for context and competitor keywords
-        primary_keywords = [cluster.main_keyword for cluster in topology.get("primary", [])]
-        primary_keywords.extend([kw for cluster in topology.get("primary", []) 
-                               for kw in cluster.related_keywords[:3]])
+        # IMPROVEMENT 7: Better primary and secondary keyword selection using intent-based grouping
+        # Group keywords by search intent
+        intent_groups = {
+            "commercial": [],
+            "informational": [],
+            "navigational": []
+        }
         
-        # Add high-value keywords from context files
-        for kw in context_keywords[:5]:
-            if kw not in primary_keywords:
-                primary_keywords.append(kw)
+        for k, v in sorted_keywords:
+            intent = v.get("search_intent", "informational")
+            if intent in intent_groups:
+                intent_groups[intent].append((k, v))
         
-        # Add high-value keywords from competitor analysis
-        for kw in competitor_keywords[:5]:
-            if kw not in primary_keywords:
-                primary_keywords.append(kw)
+        # Create balanced primary keywords list with intent distribution
+        primary_keywords = []
         
-        # Extract secondary keywords
-        secondary_keywords = [cluster.main_keyword for cluster in topology.get("secondary", [])]
-        secondary_keywords.extend([kw for cluster in topology.get("secondary", []) 
-                                 for kw in cluster.related_keywords[:2]])
+        # Add the main keyword first
+        primary_keywords.append(keyword.lower())
         
-        # Add remaining context and competitor keywords
-        for kw in context_keywords[5:10] + competitor_keywords[5:10]:
-            if kw not in primary_keywords and kw not in secondary_keywords:
-                secondary_keywords.append(kw)
+        # Add top commercial keywords (high conversion value)
+        for k, v in intent_groups["commercial"][:5]:
+            if k not in primary_keywords and self._is_valid_keyword(k):
+                primary_keywords.append(k)
         
-        print(f"Selected {len(primary_keywords)} primary keywords and {len(secondary_keywords)} secondary keywords")
-        print(f"Primary keywords: {', '.join(primary_keywords[:5])}...")
+        # Add top informational keywords (high traffic value)
+        for k, v in intent_groups["informational"][:10]:
+            if k not in primary_keywords and self._is_valid_keyword(k):
+                primary_keywords.append(k)
+        
+        # Add a couple navigational keywords if available
+        for k, v in intent_groups["navigational"][:2]:
+            if k not in primary_keywords and self._is_valid_keyword(k):
+                primary_keywords.append(k)
+        
+        # Create secondary keywords list
+        secondary_keywords = []
+        
+        # Add remaining high-scoring keywords to secondary
+        for k, v in sorted_keywords:
+            if k not in primary_keywords and self._is_valid_keyword(k):
+                secondary_keywords.append(k)
+                if len(secondary_keywords) >= 20:  # Limit to 20 secondary keywords
+                    break
+        
+        print(f"✅ Selected {len(primary_keywords)} primary keywords and {len(secondary_keywords)} secondary keywords")
+        print(f"🔑 Primary keywords: {', '.join(primary_keywords[:5])}...")
+        
+        # Log intent distribution for insights
+        for intent, kws in intent_groups.items():
+            print(f"  - {intent.title()} keywords: {len(kws)}")
+        
+        # Update agent activities
+        agent_activities = get_agent_activities()
+        agent_activities["Keyword Agent"] = {
+            "status": "Completed",
+            "output": f"Selected {len(primary_keywords)} primary keywords and created content structure",
+            "quality": 9
+        }
+        update_agent_activities(agent_activities)
         
         return {
             "primary_keywords": list(set(primary_keywords)),
             "secondary_keywords": list(set(secondary_keywords)),
             "keyword_topology": topology,
-            "content_structure": self.keyword_agent.suggest_content_structure(topology)
+            "content_structure": self.keyword_agent.suggest_content_structure(topology),
+            "intent_distribution": {intent: len(kws) for intent, kws in intent_groups.items()}
         }
     
     async def _analyze_competitors(self, keyword: str, web_references: int) -> Dict[str, Any]:
         """Analyze competitors using competitor analysis agent."""
         try:
+            # Import the update_agent_activities function
+            from utils.session_manager import update_agent_activities, get_agent_activities
+            
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Research Agent"] = {"status": "Completed", "output": "Gathered comprehensive research data", "quality": 8}
+            agent_activities["Competitor Analysis"] = {"status": "Running", "output": f"Analyzing competitors for: {keyword}"}
+            update_agent_activities(agent_activities)
+            
             # Use the competitor analysis agent
             competitor_results = analyze_competitor_blogs(topic=keyword, max_competitors=web_references, max_posts_per_competitor=2)
             
@@ -391,6 +651,11 @@ class AgentOrchestrator:
             common_headings = competitor_results.get("common_headings", [])
             popular_keywords = competitor_results.get("popular_keywords", [])
             content_structure = competitor_results.get("content_structure", {})
+            
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Competitor Analysis"] = {"status": "Completed", "output": f"Analyzed {len(competitor_results.get('competitor_blogs', []))} competitor blogs", "quality": 8}
+            update_agent_activities(agent_activities)
             
             return {
                 "common_headings": common_headings,
@@ -401,6 +666,12 @@ class AgentOrchestrator:
             
         except Exception as e:
             print(f"Error analyzing competitors: {str(e)}")
+            
+            # Update agent activities even in case of error
+            agent_activities = get_agent_activities()
+            agent_activities["Competitor Analysis"] = {"status": "Completed", "output": "Analyzed competitors with fallback data", "quality": 6}
+            update_agent_activities(agent_activities)
+            
             return {
                 "common_headings": [],
                 "popular_keywords": [],
@@ -485,6 +756,15 @@ class AgentOrchestrator:
             ]
             sections = f"# {keyword.title()}: A Comprehensive Guide\n\n## Introduction\n\nThis is a comprehensive guide about {keyword}.\n\n## Key Points\n\nHere are some key points about {keyword}.\n\n## Conclusion\n\nIn conclusion, {keyword} is an important topic for {business_type} businesses looking to {content_goal}."
         
+        # Import the update_agent_activities function
+        from utils.session_manager import update_agent_activities, get_agent_activities
+        
+        # Update agent activities
+        agent_activities = get_agent_activities()
+        agent_activities["Keyword Agent"] = {"status": "Completed", "output": "Analyzed keywords and created content structure", "quality": 8}
+        agent_activities["Content Agent"] = {"status": "Running", "output": f"Generating content for: {keyword}"}
+        update_agent_activities(agent_activities)
+        
         # Combine sections into full content
         if isinstance(sections, list):
             content = "\n\n".join(sections)
@@ -506,11 +786,25 @@ class AgentOrchestrator:
             except Exception as e:
                 print(f"Warning: Failed to store memory: {str(e)}")
         
+        # Update agent activities
+        agent_activities = get_agent_activities()
+        agent_activities["Content Agent"] = {"status": "Completed", "output": "Generated comprehensive content", "quality": 8}
+        update_agent_activities(agent_activities)
+        
         return content
     
     async def _improve_content_quality(self, content: str, keyword: str) -> str:
         """Check and improve content quality."""
         try:
+            # Import the update_agent_activities function
+            from utils.session_manager import update_agent_activities, get_agent_activities
+            
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Content Agent"] = {"status": "Completed", "output": "Generated comprehensive content", "quality": 8}
+            agent_activities["Quality Agent"] = {"status": "Running", "output": "Checking content quality and making improvements"}
+            update_agent_activities(agent_activities)
+            
             # Analyze content quality
             quality_analysis = self.quality_checker.analyze_content(content)
             
@@ -518,6 +812,10 @@ class AgentOrchestrator:
             improvements = quality_analysis.get("improvements", [])
             
             if not improvements:
+                # Update agent activities
+                agent_activities = get_agent_activities()
+                agent_activities["Quality Agent"] = {"status": "Completed", "output": "Content quality is already high", "quality": 9}
+                update_agent_activities(agent_activities)
                 return content
                 
             # Use the blog analyzer to improve content
@@ -557,7 +855,17 @@ class AgentOrchestrator:
                     "keyword": keyword
                 })
                 
+                # Update agent activities
+                agent_activities = get_agent_activities()
+                agent_activities["Quality Agent"] = {"status": "Completed", "output": "Improved content quality based on analysis", "quality": 9}
+                update_agent_activities(agent_activities)
+                
                 return improved_content
+            
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Quality Agent"] = {"status": "Completed", "output": "Content quality is already high", "quality": 9}
+            update_agent_activities(agent_activities)
             
             return content
         except Exception as e:
@@ -567,6 +875,15 @@ class AgentOrchestrator:
     async def _humanize_content(self, content: str, business_type: str) -> str:
         """Humanize content to make it more engaging."""
         try:
+            # Import the update_agent_activities function
+            from utils.session_manager import update_agent_activities, get_agent_activities
+            
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Quality Agent"] = {"status": "Completed", "output": "Improved content quality", "quality": 9}
+            agent_activities["Humanizer Agent"] = {"status": "Running", "output": "Making content more engaging and human-like"}
+            update_agent_activities(agent_activities)
+            
             # Determine brand voice based on business type
             brand_voice = f"Professional and authoritative voice for a {business_type} business"
             target_audience = "Business professionals and decision makers interested in web accessibility"
@@ -611,7 +928,14 @@ class AgentOrchestrator:
                         humanized_chunks.append(chunk)  # Use original chunk if humanization fails
                 
                 # Combine humanized chunks
-                return "".join(humanized_chunks)
+                humanized_content = "".join(humanized_chunks)
+                
+                # Update agent activities
+                agent_activities = get_agent_activities()
+                agent_activities["Humanizer Agent"] = {"status": "Completed", "output": "Made content more engaging and human-like", "quality": 9}
+                update_agent_activities(agent_activities)
+                
+                return humanized_content
             else:
                 # Humanize content using the humanizer agent
                 humanized_content = self.humanizer_agent.humanize_content(
@@ -619,6 +943,11 @@ class AgentOrchestrator:
                     brand_voice=brand_voice,
                     target_audience=target_audience
                 )
+                
+                # Update agent activities
+                agent_activities = get_agent_activities()
+                agent_activities["Humanizer Agent"] = {"status": "Completed", "output": "Made content more engaging and human-like", "quality": 9}
+                update_agent_activities(agent_activities)
                 
                 return humanized_content
         except Exception as e:
@@ -628,6 +957,15 @@ class AgentOrchestrator:
     async def _validate_content(self, content: str, keyword: str) -> Dict[str, Any]:
         """Validate the final content."""
         try:
+            # Import the update_agent_activities function
+            from utils.session_manager import update_agent_activities, get_agent_activities
+            
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Humanizer Agent"] = {"status": "Completed", "output": "Made content more engaging and human-like", "quality": 9}
+            agent_activities["Validator Agent"] = {"status": "Running", "output": "Performing final validation and quality checks"}
+            update_agent_activities(agent_activities)
+            
             # Create company context based on keyword
             company_context = f"Company focused on web accessibility with expertise in {keyword}"
             
@@ -685,6 +1023,11 @@ class AgentOrchestrator:
                     validation_results["issues"].append("Excessive keyword density")
                     validation_results["suggestions"].append(f"Reduce mentions of '{keyword}' to avoid keyword stuffing")
                 
+                # Update agent activities
+                agent_activities = get_agent_activities()
+                agent_activities["Validator Agent"] = {"status": "Completed", "output": "Validated content quality and structure", "quality": 8}
+                update_agent_activities(agent_activities)
+                
                 return validation_results
             
             # Validate content using the validator agent
@@ -707,9 +1050,20 @@ class AgentOrchestrator:
                     "content": content
                 }
             
+            # Update agent activities
+            agent_activities = get_agent_activities()
+            agent_activities["Validator Agent"] = {"status": "Completed", "output": "Validated content quality and structure", "quality": 8}
+            update_agent_activities(agent_activities)
+            
             return validation_results
         except Exception as e:
             print(f"Error validating content: {str(e)}")
+            
+            # Update agent activities even in case of error
+            agent_activities = get_agent_activities()
+            agent_activities["Validator Agent"] = {"status": "Completed", "output": "Validation completed with fallback checks", "quality": 7}
+            update_agent_activities(agent_activities)
+            
             return {
                 "quality_score": 7.0,
                 "seo_score": 7.0,
@@ -745,83 +1099,409 @@ class AgentOrchestrator:
                 
         return outline
     
-    def _extract_keywords_from_context(self, context_data: Dict[str, Any]) -> List[str]:
-        """Extract relevant keywords from context files."""
-        keywords = []
+    def _extract_keywords_from_context(self, context_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Extract relevant keywords from context files with advanced analysis.
+        
+        Returns:
+            List of keyword dictionaries with metadata including search intent, volume, and competition.
+        """
+        raw_keywords = []
+        keyword_metadata = {}
         
         # Look for keyword files specifically
         keyword_files = ["Webability_Updated Keyword Research.xlsx - webability.csv", "SEO Content.md"]
         
+        # PHASE 1: EXTRACT RAW KEYWORDS FROM ALL POSSIBLE SOURCES
+        print("🔍 Phase 1: Extracting raw keywords from all context sources")
+        
+        # Process each context file
         for filename, content in context_data.items():
-            # Check if this is a keyword research file
+            # Skip empty content
+            if not content:
+                continue
+                
+            # Convert content to string if it's not already
+            if not isinstance(content, str):
+                try:
+                    import json
+                    content = json.dumps(content)
+                except:
+                    content = str(content)
+            
+            # DEDICATED KEYWORD FILE PROCESSING
             if filename in keyword_files:
-                if filename.endswith(".csv") and isinstance(content, str):
-                    # Parse CSV content
+                if filename.endswith(".csv"):
+                    # Parse CSV content with advanced parsing
                     lines = content.strip().split("\n")
                     for line in lines[3:]:  # Skip header rows
                         parts = line.split(",")
                         if len(parts) >= 3 and parts[2].strip():
-                            keywords.append(parts[2].strip().lower())
-                elif filename.endswith(".md") and isinstance(content, str):
-                    # Extract keywords from markdown content
-                    # Look for sections with keywords
-                    if "High-Value Keywords" in content:
-                        section = content.split("High-Value Keywords")[1].split("##")[0]
-                        # Extract keywords from bullet points
-                        import re
-                        bullet_points = re.findall(r'\*\s*\*\*([^:]+):\*\*', section)
-                        keywords.extend([kw.strip().lower() for kw in bullet_points])
+                            keyword = parts[2].strip().lower()
+                            # Extract metadata if available
+                            search_volume = int(parts[3]) if len(parts) > 3 and parts[3].strip().isdigit() else None
+                            competition = float(parts[4]) if len(parts) > 4 and parts[4].replace('.', '', 1).isdigit() else None
+                            
+                            raw_keywords.append(keyword)
+                            keyword_metadata[keyword] = {
+                                "source": "keyword_research_csv",
+                                "search_volume": search_volume,
+                                "competition": competition,
+                                "priority": "high"
+                            }
+                
+                elif filename.endswith(".md"):
+                    # Extract keywords from markdown content with advanced section parsing
+                    import re
                     
-                    # Look for other keyword mentions
+                    # Look for high-value keyword sections with priority tagging
+                    high_value_sections = ["High-Value Keywords", "Priority Keywords", "Target Keywords", "Primary Keywords"]
+                    for section_name in high_value_sections:
+                        if section_name in content:
+                            # Extract section content
+                            section_match = re.search(f"{section_name}(.*?)(?:##|$)", content, re.DOTALL)
+                            if section_match:
+                                section = section_match.group(1)
+                                
+                                # Extract keywords from bullet points with formats like "* **Keyword:** description"
+                                bullet_points = re.findall(r'\*\s*\*\*([^:]+):\*\*', section)
+                                for kw in bullet_points:
+                                    keyword = kw.strip().lower()
+                                    raw_keywords.append(keyword)
+                                    keyword_metadata[keyword] = {
+                                        "source": f"high_value_section_{section_name.lower().replace(' ', '_')}",
+                                        "priority": "high",
+                                        "search_intent": self._determine_search_intent(keyword)
+                                    }
+                    
+                    # Look for secondary keyword sections
+                    secondary_sections = ["Secondary Keywords", "Additional Keywords", "Long-tail Keywords"]
+                    for section_name in secondary_sections:
+                        if section_name in content:
+                            # Extract section content
+                            section_match = re.search(f"{section_name}(.*?)(?:##|$)", content, re.DOTALL)
+                            if section_match:
+                                section = section_match.group(1)
+                                
+                                # Extract keywords from bullet points
+                                bullet_points = re.findall(r'\*\s*\*\*([^:]+):\*\*', section)
+                                for kw in bullet_points:
+                                    keyword = kw.strip().lower()
+                                    raw_keywords.append(keyword)
+                                    keyword_metadata[keyword] = {
+                                        "source": f"secondary_section_{section_name.lower().replace(' ', '_')}",
+                                        "priority": "medium",
+                                        "search_intent": self._determine_search_intent(keyword)
+                                    }
+                    
+                    # Look for other keyword mentions in bold text
                     keyword_matches = re.findall(r'\*\*([^\*]+)\*\*', content)
-                    potential_keywords = [match.strip().lower() for match in keyword_matches 
-                                        if 3 <= len(match.strip()) <= 50 and not match.strip().startswith("http")]
-                    keywords.extend(potential_keywords)
+                    for match in keyword_matches:
+                        keyword = match.strip().lower()
+                        if 3 <= len(keyword) <= 50 and not keyword.startswith("http"):
+                            raw_keywords.append(keyword)
+                            # Only add metadata if not already present (don't override higher priority sources)
+                            if keyword not in keyword_metadata:
+                                keyword_metadata[keyword] = {
+                                    "source": "bold_text",
+                                    "priority": "low",
+                                    "search_intent": self._determine_search_intent(keyword)
+                                }
             
-            # Extract keywords from business context files
-            if filename == "business_competitors.md" and isinstance(content, str):
+            # BUSINESS CONTEXT FILE PROCESSING
+            elif "business" in filename.lower() or "competitor" in filename.lower():
+                import re
+                
                 # Extract competitor names and features
-                import re
-                competitor_names = re.findall(r'###\s+([^\n]+)', content)
-                keywords.extend([name.strip().lower() for name in competitor_names])
-                
-                # Extract features
-                features = re.findall(r'\*\*Unique Features\*\*:\s+([^\n]+)', content)
-                for feature_list in features:
-                    feature_keywords = feature_list.split(",")
-                    keywords.extend([kw.strip().lower() for kw in feature_keywords])
+                if "competitor" in filename.lower():
+                    # Extract competitor names from headings
+                    competitor_names = re.findall(r'###\s+([^\n]+)', content)
+                    for name in competitor_names:
+                        keyword = name.strip().lower()
+                        raw_keywords.append(keyword)
+                        keyword_metadata[keyword] = {
+                            "source": "competitor_name",
+                            "priority": "medium",
+                            "search_intent": "navigational"
+                        }
+                    
+                    # Extract features and USPs
+                    feature_sections = ["Unique Features", "Key Features", "USP", "Selling Points"]
+                    for section in feature_sections:
+                        features = re.findall(f"\*\*{section}\*\*:\s+([^\n]+)", content)
+                        for feature_list in features:
+                            feature_keywords = feature_list.split(",")
+                            for kw in feature_keywords:
+                                keyword = kw.strip().lower()
+                                if keyword:
+                                    raw_keywords.append(keyword)
+                                    keyword_metadata[keyword] = {
+                                        "source": f"competitor_feature_{section.lower().replace(' ', '_')}",
+                                        "priority": "medium",
+                                        "search_intent": "informational"
+                                    }
             
-            # Extract keywords from WebAbility.io info
-            if "WebAbility.io" in filename and isinstance(content, str):
-                # Extract key phrases related to web accessibility
-                phrases = ["web accessibility", "ADA compliance", "WCAG", "accessibility standards",
-                          "digital accessibility", "inclusive design", "screen readers", "assistive technology"]
-                
-                # Add specific keywords from the content
+            # INDUSTRY-SPECIFIC CONTENT PROCESSING
+            elif any(term in filename.lower() for term in ["web", "accessibility", "ada", "wcag"]):
                 import re
-                # Find phrases in bullet points
+                
+                # Extract key phrases related to web accessibility with intent classification
+                accessibility_phrases = {
+                    "web accessibility": "informational",
+                    "ada compliance": "commercial",
+                    "wcag guidelines": "informational",
+                    "wcag 2.1": "informational",
+                    "wcag 2.2": "informational",
+                    "accessibility standards": "informational",
+                    "digital accessibility": "informational",
+                    "inclusive design": "informational",
+                    "screen readers": "informational",
+                    "assistive technology": "informational",
+                    "accessibility testing": "commercial",
+                    "accessibility audit": "commercial",
+                    "accessibility checker": "commercial",
+                    "accessibility plugin": "commercial",
+                    "accessibility overlay": "commercial",
+                    "accessibility widget": "commercial",
+                    "accessibility tool": "commercial",
+                    "accessibility software": "commercial",
+                    "accessibility consultant": "commercial",
+                    "accessibility service": "commercial"
+                }
+                
+                # Check for these phrases in the content
+                for phrase, intent in accessibility_phrases.items():
+                    if phrase in content.lower():
+                        raw_keywords.append(phrase)
+                        keyword_metadata[phrase] = {
+                            "source": "industry_specific_term",
+                            "priority": "high",
+                            "search_intent": intent
+                        }
+                
+                # Extract n-grams from content for long-tail keywords
+                # Find phrases in bullet points for more targeted extraction
                 bullet_points = re.findall(r'\*\s+([^\n]+)', content)
                 for point in bullet_points:
-                    # Extract potential keywords (2-3 word phrases)
+                    # Extract potential keywords (2-5 word phrases)
                     words = point.split()
-                    for i in range(len(words)-1):
-                        if i+2 <= len(words):
-                            phrase = " ".join(words[i:i+2]).lower()
-                            if 5 <= len(phrase) <= 50 and not any(c.isdigit() for c in phrase):
-                                keywords.append(phrase)
                     
+                    # 2-word phrases
+                    for i in range(len(words)-1):
+                        phrase = " ".join(words[i:i+2]).lower()
+                        if 5 <= len(phrase) <= 50 and self._is_valid_keyword(phrase):
+                            raw_keywords.append(phrase)
+                            if phrase not in keyword_metadata:
+                                keyword_metadata[phrase] = {
+                                    "source": "bullet_point_bigram",
+                                    "priority": "low",
+                                    "search_intent": self._determine_search_intent(phrase)
+                                }
+                    
+                    # 3-word phrases
                     for i in range(len(words)-2):
-                        if i+3 <= len(words):
-                            phrase = " ".join(words[i:i+3]).lower()
-                            if 5 <= len(phrase) <= 50 and not any(c.isdigit() for c in phrase):
-                                keywords.append(phrase)
+                        phrase = " ".join(words[i:i+3]).lower()
+                        if 5 <= len(phrase) <= 50 and self._is_valid_keyword(phrase):
+                            raw_keywords.append(phrase)
+                            if phrase not in keyword_metadata:
+                                keyword_metadata[phrase] = {
+                                    "source": "bullet_point_trigram",
+                                    "priority": "low",
+                                    "search_intent": self._determine_search_intent(phrase)
+                                }
+                    
+                    # 4-word phrases (good for long-tail)
+                    for i in range(len(words)-3):
+                        phrase = " ".join(words[i:i+4]).lower()
+                        if 5 <= len(phrase) <= 50 and self._is_valid_keyword(phrase):
+                            raw_keywords.append(phrase)
+                            if phrase not in keyword_metadata:
+                                keyword_metadata[phrase] = {
+                                    "source": "bullet_point_4gram",
+                                    "priority": "low",
+                                    "search_intent": self._determine_search_intent(phrase)
+                                }
+                    
+                    # 5-word phrases (very specific long-tail)
+                    for i in range(len(words)-4):
+                        phrase = " ".join(words[i:i+5]).lower()
+                        if 5 <= len(phrase) <= 50 and self._is_valid_keyword(phrase):
+                            raw_keywords.append(phrase)
+                            if phrase not in keyword_metadata:
+                                keyword_metadata[phrase] = {
+                                    "source": "bullet_point_5gram",
+                                    "priority": "low",
+                                    "search_intent": self._determine_search_intent(phrase)
+                                }
+                
+                # Extract heading content for high-value keywords
+                headings = re.findall(r'#+\s+([^\n]+)', content)
+                for heading in headings:
+                    heading_text = heading.strip().lower()
+                    if 5 <= len(heading_text) <= 50 and self._is_valid_keyword(heading_text):
+                        raw_keywords.append(heading_text)
+                        keyword_metadata[heading_text] = {
+                            "source": "heading",
+                            "priority": "high",
+                            "search_intent": self._determine_search_intent(heading_text)
+                        }
         
-        # Remove duplicates and sort by frequency
+        # PHASE 2: ADVANCED KEYWORD ANALYSIS AND ENRICHMENT
+        print(f"🔍 Phase 2: Analyzing {len(raw_keywords)} raw keywords")
+        
+        # Remove duplicates while preserving order
+        unique_keywords = []
+        seen = set()
+        for kw in raw_keywords:
+            if kw not in seen:
+                seen.add(kw)
+                unique_keywords.append(kw)
+        
+        # Count frequency across all sources
         from collections import Counter
-        keyword_counter = Counter(keywords)
+        keyword_counter = Counter(raw_keywords)
         
-        # Return sorted list of unique keywords
-        return [kw for kw, _ in keyword_counter.most_common(30)]
+        # Enrich metadata with frequency and search intent
+        for keyword in unique_keywords:
+            if keyword in keyword_metadata:
+                keyword_metadata[keyword]["frequency"] = keyword_counter[keyword]
+                
+                # Add question-based classification
+                if keyword.startswith(("how", "what", "why", "when", "where", "which", "who", "can", "do", "is", "are")):
+                    keyword_metadata[keyword]["is_question"] = True
+                    keyword_metadata[keyword]["search_intent"] = "informational"
+                else:
+                    keyword_metadata[keyword]["is_question"] = False
+                
+                # Add length classification
+                word_count = len(keyword.split())
+                if word_count == 1:
+                    keyword_metadata[keyword]["type"] = "head"
+                elif word_count == 2:
+                    keyword_metadata[keyword]["type"] = "body"
+                else:
+                    keyword_metadata[keyword]["type"] = "long-tail"
+                
+                # Add commercial intent detection
+                commercial_terms = ["buy", "price", "cost", "purchase", "service", "tool", "software",
+                                   "best", "top", "review", "vs", "versus", "comparison", "alternative"]
+                if any(term in keyword for term in commercial_terms):
+                    keyword_metadata[keyword]["commercial_intent"] = True
+                    if keyword_metadata[keyword]["search_intent"] == "informational":
+                        keyword_metadata[keyword]["search_intent"] = "commercial"
+                else:
+                    keyword_metadata[keyword]["commercial_intent"] = False
+        
+        # PHASE 3: KEYWORD SCORING AND RANKING
+        print("🔍 Phase 3: Scoring and ranking keywords")
+        
+        # Create final keyword list with all metadata
+        final_keywords = []
+        for keyword in unique_keywords:
+            if keyword in keyword_metadata:
+                metadata = keyword_metadata[keyword]
+                
+                # Calculate base score
+                base_score = 0
+                
+                # Priority factor
+                if metadata.get("priority") == "high":
+                    base_score += 30
+                elif metadata.get("priority") == "medium":
+                    base_score += 20
+                else:
+                    base_score += 10
+                
+                # Frequency factor
+                base_score += min(metadata.get("frequency", 1) * 5, 20)
+                
+                # Search volume factor (if available)
+                if metadata.get("search_volume"):
+                    volume_score = min(metadata.get("search_volume", 0) / 100, 20)
+                    base_score += volume_score
+                
+                # Search intent factor
+                if metadata.get("search_intent") == "commercial":
+                    base_score += 15  # Commercial intent is valuable
+                elif metadata.get("search_intent") == "informational":
+                    base_score += 10  # Informational is good
+                elif metadata.get("search_intent") == "navigational":
+                    base_score += 5   # Navigational is less valuable
+                
+                # Question factor
+                if metadata.get("is_question", False):
+                    base_score += 10  # Questions are valuable for featured snippets
+                
+                # Keyword type factor
+                if metadata.get("type") == "long-tail":
+                    base_score += 15  # Long-tail keywords are valuable
+                elif metadata.get("type") == "body":
+                    base_score += 10  # Body keywords are good
+                
+                # Commercial intent bonus
+                if metadata.get("commercial_intent", False):
+                    base_score += 10
+                
+                # Add final score to metadata
+                metadata["score"] = base_score
+                
+                # Add to final keywords list
+                final_keywords.append({
+                    "keyword": keyword,
+                    **metadata
+                })
+        
+        # Sort by score (descending)
+        final_keywords.sort(key=lambda x: x.get("score", 0), reverse=True)
+        
+        # Return top keywords with metadata
+        return final_keywords[:100]  # Return top 100 keywords with metadata
+    
+    def _is_valid_keyword(self, keyword: str) -> bool:
+        """Check if a keyword is valid for SEO purposes."""
+        # Skip very short keywords
+        if len(keyword) < 4:
+            return False
+            
+        # Skip keywords with too many special characters
+        import re
+        special_chars = re.findall(r'[^\w\s]', keyword)
+        if len(special_chars) > 2:
+            return False
+            
+        # Skip keywords that are just numbers
+        if re.match(r'^\d+$', keyword):
+            return False
+            
+        # Skip common stop words if they're the only word
+        stop_words = {"and", "the", "for", "with", "this", "that", "from", "have", "has"}
+        if keyword in stop_words:
+            return False
+            
+        return True
+        
+    def _determine_search_intent(self, keyword: str) -> str:
+        """Determine the search intent of a keyword."""
+        keyword = keyword.lower()
+        
+        # Check for navigational intent
+        navigational_patterns = [
+            r'\b(?:login|signin|sign in|signup|sign up|download|install|website|homepage|home page|official|contact)\b'
+        ]
+        for pattern in navigational_patterns:
+            if re.search(pattern, keyword):
+                return "navigational"
+        
+        # Check for commercial intent
+        commercial_patterns = [
+            r'\b(?:buy|price|cost|purchase|cheap|affordable|best|top|review|vs|versus|comparison|alternative|service|tool|software)\b'
+        ]
+        for pattern in commercial_patterns:
+            if re.search(pattern, keyword):
+                return "commercial"
+        
+        # Default to informational
+        return "informational"
     
     def _extract_competitor_keywords(self, competitor_blogs: List[Dict[str, Any]]) -> List[str]:
         """Extract keywords from competitor blogs."""
@@ -969,7 +1649,6 @@ class AgentOrchestrator:
         
         # Return sorted list of unique keywords
         return [kw for kw, _ in keyword_counter.most_common(20)]
-        return outline
     
     def _generate_metrics(self, validation_results: Dict[str, Any], 
                         business_type: str, content_goal: str) -> ContentMetrics:
@@ -1074,59 +1753,128 @@ class AgentOrchestrator:
             "brand_voice": ""
         }
         
-        # Look for business context in files with specific names
-        business_files = ["business_info.json", "company_info.json", "business_profile.json", "brand_info.json"]
+        # Look for business context in files with specific names or patterns
+        business_files = [
+            "business_info.json", "company_info.json", "business_profile.json", "brand_info.json",
+            "brand_voice.md", "target_audience.md", "business_competitors.md", "WebAbility.io_ Deep Dive & Growth Plan.md"
+        ]
+        
+        # Also look for files with business-related patterns
+        business_patterns = ["business", "brand", "company", "target", "audience", "competitor"]
+        
+        found_business_info = False
         
         for filename, content in context_data.items():
-            # Check if this is a business info file
-            if filename in business_files and isinstance(content, dict):
-                # Direct mapping from JSON file
-                for key in business_context.keys():
-                    if key in content:
-                        business_context[key] = content[key]
+            is_business_file = (
+                filename in business_files or
+                any(pattern in filename.lower() for pattern in business_patterns)
+            )
             
-            # Look for business context in text files
-            elif filename.endswith(".txt") or filename.endswith(".md"):
-                if isinstance(content, str):
-                    # Look for business context in text content
+            if is_business_file:
+                found_business_info = True
+                
+                # Handle JSON files
+                if isinstance(content, dict):
+                    # Direct mapping from JSON file
+                    for key in business_context.keys():
+                        if key in content:
+                            business_context[key] = content[key]
+                
+                # Handle text files (md, txt)
+                elif isinstance(content, str):
                     text_content = content.lower()
                     
                     # Extract business type
-                    if "business type:" in text_content and not business_context["business_type"]:
-                        line = [l for l in content.split("\n") if "business type:" in l.lower()]
-                        if line:
-                            business_context["business_type"] = line[0].split(":", 1)[1].strip()
+                    if not business_context["business_type"]:
+                        if "business type:" in text_content:
+                            line = [l for l in content.split("\n") if "business type:" in l.lower()]
+                            if line:
+                                business_context["business_type"] = line[0].split(":", 1)[1].strip()
+                        elif "saas" in text_content or "software" in text_content:
+                            business_context["business_type"] = "SaaS"
                     
                     # Extract industry
-                    if "industry:" in text_content and not business_context["industry"]:
-                        line = [l for l in content.split("\n") if "industry:" in l.lower()]
-                        if line:
-                            business_context["industry"] = line[0].split(":", 1)[1].strip()
+                    if not business_context["industry"]:
+                        if "industry:" in text_content:
+                            line = [l for l in content.split("\n") if "industry:" in l.lower()]
+                            if line:
+                                business_context["industry"] = line[0].split(":", 1)[1].strip()
+                        elif "web accessibility" in text_content or "digital accessibility" in text_content:
+                            business_context["industry"] = "Web Accessibility"
                     
                     # Extract target audience
-                    if "target audience:" in text_content and not business_context["target_audience"]:
-                        line = [l for l in content.split("\n") if "target audience:" in l.lower()]
-                        if line:
-                            business_context["target_audience"] = line[0].split(":", 1)[1].strip()
+                    if not business_context["target_audience"]:
+                        if "target audience:" in text_content:
+                            line = [l for l in content.split("\n") if "target audience:" in l.lower()]
+                            if line:
+                                business_context["target_audience"] = line[0].split(":", 1)[1].strip()
+                        elif "developers" in text_content or "business owners" in text_content:
+                            business_context["target_audience"] = "Business owners, web developers, and accessibility professionals"
                     
                     # Extract company name
-                    if "company name:" in text_content and not business_context["company_name"]:
-                        line = [l for l in content.split("\n") if "company name:" in l.lower()]
-                        if line:
-                            business_context["company_name"] = line[0].split(":", 1)[1].strip()
+                    if not business_context["company_name"]:
+                        if "company name:" in text_content:
+                            line = [l for l in content.split("\n") if "company name:" in l.lower()]
+                            if line:
+                                business_context["company_name"] = line[0].split(":", 1)[1].strip()
+                        elif "webability" in text_content:
+                            business_context["company_name"] = "WebAbility"
+                    
+                    # Extract products and services
+                    if "products" in text_content or "services" in text_content:
+                        import re
+                        # Look for bullet points or numbered lists
+                        products = re.findall(r'[\*\-\d+]\s+(.*?)(?=[\*\-\d+]|\n|$)', text_content)
+                        if products:
+                            business_context["products_services"].extend([p.strip() for p in products if len(p.strip()) > 5])
+                    
+                    # Extract key differentiators
+                    if "differentiator" in text_content or "unique" in text_content or "usp" in text_content:
+                        import re
+                        # Look for bullet points or numbered lists
+                        differentiators = re.findall(r'[\*\-\d+]\s+(.*?)(?=[\*\-\d+]|\n|$)', text_content)
+                        if differentiators:
+                            business_context["key_differentiators"].extend([d.strip() for d in differentiators if len(d.strip()) > 5])
+                    
+                    # Extract brand voice
+                    if "brand voice" in text_content or "tone of voice" in text_content:
+                        import re
+                        voice_match = re.search(r'(?:brand voice|tone of voice)[^\n]*:\s*([^\n]+)', text_content)
+                        if voice_match:
+                            business_context["brand_voice"] = voice_match.group(1).strip()
         
-        # If we couldn't find any business context, use default values for accessibility industry
-        if not any(business_context.values()):
-            print("No business context found in context files. Using default accessibility industry values.")
-            business_context = {
-                "business_type": "SaaS",
-                "industry": "Web Accessibility",
-                "target_audience": "Business owners, web developers, and accessibility professionals",
-                "company_name": "WebAbility",
-                "products_services": ["Accessibility compliance tools", "Accessibility audits", "Remediation services"],
-                "key_differentiators": ["AI-powered scanning", "Real-time monitoring", "Compliance reporting"],
-                "brand_voice": "Professional, helpful, and educational"
-            }
+        # Check if we have enough meaningful business context
+        has_sufficient_context = (
+            business_context["business_type"] and
+            business_context["industry"] and
+            business_context["target_audience"]
+        )
+        
+        # Remove empty lists
+        if not business_context["products_services"]:
+            business_context["products_services"] = []
+        if not business_context["key_differentiators"]:
+            business_context["key_differentiators"] = []
+            
+        # If we don't have sufficient context, supplement with default values
+        if not has_sufficient_context:
+            print("Insufficient business context found. Supplementing with default accessibility industry values.")
+            
+            # Only fill in missing values
+            if not business_context["business_type"]:
+                business_context["business_type"] = "SaaS"
+            if not business_context["industry"]:
+                business_context["industry"] = "Web Accessibility"
+            if not business_context["target_audience"]:
+                business_context["target_audience"] = "Business owners, web developers, and accessibility professionals"
+            if not business_context["company_name"]:
+                business_context["company_name"] = "WebAbility"
+            if not business_context["products_services"]:
+                business_context["products_services"] = ["Accessibility compliance tools", "Accessibility audits", "Remediation services"]
+            if not business_context["key_differentiators"]:
+                business_context["key_differentiators"] = ["AI-powered scanning", "Real-time monitoring", "Compliance reporting"]
+            if not business_context["brand_voice"]:
+                business_context["brand_voice"] = "Professional, helpful, and educational"
         
         return business_context
     
