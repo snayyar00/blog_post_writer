@@ -35,6 +35,8 @@ MARKDOWN_DIRECTORY.mkdir(exist_ok=True, parents=True)
 
 # Global variables for cost tracking
 cost_update_interval = 2  # seconds
+cost_tracker_thread = None
+stop_cost_tracker = False
 
 def init_session_state() -> None:
     """Initialize session state with all required keys"""
@@ -199,34 +201,28 @@ def render_post_card(post, index):
         # Rerun to update the UI
         st.rerun()
 
-def start_cost_tracker():
-    """Start the cost tracking thread if not already running."""
-    if not st.session_state.cost_tracker_running:
-        st.session_state.generation_started = True
-        st.session_state.cost_tracker_running = True
-        cost_thread = threading.Thread(target=update_cost_display)
-        cost_thread.daemon = True
-        cost_thread.start()
-        print("Cost tracker started")
-
 def update_cost_display():
     """Update the cost display in real-time."""
+    global stop_cost_tracker
+    
     try:
         print("Cost tracker thread started")
-        while True:
+        while not stop_cost_tracker:
             try:
                 # Get the latest cost report
                 cost_report = generate_cost_report()
                 
-                # Update session state
-                st.session_state.cost_report = cost_report
+                # Update session state if it exists
+                if 'cost_report' in st.session_state:
+                    st.session_state.cost_report = cost_report
                 
                 # Extract total cost
                 lines = cost_report.split("\n")
                 total_cost_line = next((line for line in lines if "Total Cost:" in line), "Total Cost: $0.0000")
                 total_cost_str = total_cost_line.split("$")[1].strip()
                 try:
-                    st.session_state.total_cost = float(total_cost_str)
+                    if 'total_cost' in st.session_state:
+                        st.session_state.total_cost = float(total_cost_str)
                 except ValueError:
                     pass
                 
@@ -250,7 +246,8 @@ def update_cost_display():
                             except ValueError:
                                 pass
                 
-                st.session_state.cost_by_provider = provider_costs
+                if 'cost_by_provider' in st.session_state:
+                    st.session_state.cost_by_provider = provider_costs
                 
             except Exception as e:
                 print(f"Error updating cost display: {e}")
@@ -258,15 +255,27 @@ def update_cost_display():
             # Sleep for a short interval
             time.sleep(cost_update_interval)
             
-            # Check if we should stop
-            if not st.session_state.generation_started:
-                st.session_state.cost_tracker_running = False
-                print("Cost tracker stopped")
-                break
-                
     except Exception as e:
         print(f"Error in update_cost_display thread: {e}")
-        st.session_state.cost_tracker_running = False
+    
+    print("Cost tracker thread stopped")
+
+def start_cost_tracker():
+    """Start the cost tracking thread if not already running."""
+    global cost_tracker_thread, stop_cost_tracker
+    
+    if cost_tracker_thread is None or not cost_tracker_thread.is_alive():
+        stop_cost_tracker = False
+        cost_tracker_thread = threading.Thread(target=update_cost_display)
+        cost_tracker_thread.daemon = True
+        cost_tracker_thread.start()
+        print("Cost tracker started")
+
+def stop_cost_tracker_thread():
+    """Stop the cost tracking thread."""
+    global stop_cost_tracker
+    stop_cost_tracker = True
+    print("Cost tracker stopping...")
 
 async def load_preloaded_context() -> Dict[str, Any]:
     """Load pre-existing context data from context directory"""
@@ -736,6 +745,7 @@ async def generate_post_automatically() -> Optional[BlogPost]:
         
         # Stop cost tracking thread
         st.session_state.generation_started = False
+        stop_cost_tracker_thread()
         
         # Reset generation in progress flag
         st.session_state.generation_in_progress = False
@@ -749,6 +759,7 @@ async def generate_post_automatically() -> Optional[BlogPost]:
         
         # Stop cost tracking thread
         st.session_state.generation_started = False
+        stop_cost_tracker_thread()
         
         # Reset generation in progress flag
         st.session_state.generation_in_progress = False
@@ -871,6 +882,7 @@ async def create_blog_post(context_data: Dict[str, Any]) -> Optional[BlogPost]:
         
         # Stop cost tracking thread
         st.session_state.generation_started = False
+        stop_cost_tracker_thread()
         
         # Reset generation in progress flag
         st.session_state.generation_in_progress = False
@@ -882,6 +894,7 @@ async def create_blog_post(context_data: Dict[str, Any]) -> Optional[BlogPost]:
         
         # Stop cost tracking thread
         st.session_state.generation_started = False
+        stop_cost_tracker_thread()
         
         # Reset generation in progress flag
         st.session_state.generation_in_progress = False
@@ -909,8 +922,7 @@ def main():
     init_session_state()
     
     # Start cost tracker if not already running
-    if not st.session_state.cost_tracker_running:
-        start_cost_tracker()
+    start_cost_tracker()
     
     # Sidebar for post history and cost reporting
     with st.sidebar:
@@ -1215,62 +1227,3 @@ def main():
                     custom_direction = st.text_input("Please specify your direction:")
                 
                 # Section-specific feedback
-                st.markdown("#### Section-Specific Feedback")
-                section_to_improve = st.selectbox(
-                    "Which section would you like to improve?",
-                    options=["Introduction"] + [f"Section {i+1}" for i in range(len(content_sections)-1)]
-                )
-                
-                improvement_suggestion = st.text_area(
-                    f"How would you like to improve the {section_to_improve.lower()}?",
-                    placeholder="Example: Add more statistics, Include a case study, etc."
-                )
-                
-                if st.button("Submit Feedback", type="primary"):
-                    st.success("Thank you! Your feedback has been submitted. The AI agents will now refine your content.")
-                    # In a real implementation, this would trigger the agents to revise the content
-            
-            with agent_tab:
-                st.markdown("### Agent Activity Log")
-                st.write("See what each AI agent contributed to your blog post.")
-                
-                # Create an expandable section for each agent
-                with st.expander("🔍 Research Agent", expanded=True):
-                    st.markdown("**Contribution:** Gathered comprehensive research on the topic including latest trends, statistics, and expert opinions.")
-                    st.markdown("**Process:** Searched through web sources, academic papers, and industry reports to find relevant information.")
-                    st.markdown("**Output Quality:** 8.5/10")
-                
-                with st.expander("📋 Outline Agent"):
-                    st.markdown("**Contribution:** Created an optimized content structure based on research and competitor analysis.")
-                    st.markdown("**Process:** Analyzed top-performing content structures and adapted them to your specific topic.")
-                    st.markdown("**Output Quality:** 9.0/10")
-                
-                with st.expander("✍️ Content Generation Agent"):
-                    st.markdown("**Contribution:** Drafted comprehensive content for each section of the outline.")
-                    st.markdown("**Process:** Transformed research into engaging, informative content optimized for your target audience.")
-                    st.markdown("**Output Quality:** 8.7/10")
-                
-                with st.expander("🔍 Quality Check Agent"):
-                    st.markdown("**Contribution:** Analyzed content quality and made improvements to enhance readability and engagement.")
-                    st.markdown("**Process:** Evaluated content against readability metrics, SEO best practices, and engagement factors.")
-                    st.markdown("**Output Quality:** 8.9/10")
-                
-                with st.expander("🧠 Humanizer Agent"):
-                    st.markdown("**Contribution:** Made content more conversational, engaging, and aligned with your brand voice.")
-                    st.markdown("**Process:** Added human touches, improved flow, and enhanced the overall tone.")
-                    st.markdown("**Output Quality:** 9.2/10")
-                
-                # Add pause/resume functionality
-                st.markdown("### Agent Control Panel")
-                col1, col2 = st.columns(2)
-                with col1:
-                    if st.button("Pause Generation", disabled=True):
-                        pass
-                with col2:
-                    if st.button("Resume Generation", disabled=True):
-                        pass
-                
-                st.info("Note: Pause/Resume functionality will be available in the next update.")
-
-if __name__ == "__main__":
-    main()
