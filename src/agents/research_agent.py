@@ -12,7 +12,8 @@ import aiohttp
 from datetime import datetime
 from enum import Enum
 from src.utils.cost_tracker import log_api_call
-from openai import AsyncOpenAI  # Import AsyncOpenAI instead of OpenAI
+from openai import AsyncOpenAI
+from src.utils.logging_manager import log_info, log_debug, log_warning, log_error
 
 class AIProvider(Enum):
     """Enum for supported AI providers."""
@@ -257,7 +258,8 @@ class ResearchAgent:
         except Exception as e:
             from src.utils.logging_manager import log_error
             log_error(f"Error during Perplexity research: {str(e)}")
-            return []
+            # Return None instead of empty list to indicate failure
+            return None
     
     async def _research_with_anthropic(self,
                                topic: str,
@@ -498,14 +500,21 @@ async def research_topic(keywords: List[str], mode: str = "deep", business_conte
             mode=research_mode
         )
         
-        # If no findings were returned, try with a different provider
-        if not findings:
-            log_warning(f"Research attempt with AUTO provider returned no data, trying specific providers", "RESEARCH")
-            # Try each provider in sequence until one works
-            for provider in [AIProvider.OPENAI, AIProvider.ANTHROPIC, AIProvider.PERPLEXITY]:
+        # If no findings were returned or if they're None (indicating failure), try with a different provider
+        if findings is None or not findings:
+            log_warning("Research attempt with AUTO provider failed, trying specific providers", "RESEARCH")
+            
+            # Define provider order with fallback preferences
+            provider_order = [
+                (AIProvider.OPENAI, "OpenAI (Primary Fallback)"),
+                (AIProvider.ANTHROPIC, "Anthropic (Secondary Fallback)"),
+                (AIProvider.PERPLEXITY, "Perplexity (Final Fallback)")
+            ]
+            
+            for provider, provider_name in provider_order:
                 if agent.api_keys[provider]:
                     try:
-                        log_info(f"Research attempt with {provider.value} provider", "RESEARCH")
+                        log_info(f"Attempting research with {provider_name}", "RESEARCH")
                         findings = await agent.research_topic(
                             topic=main_topic,
                             business_context=business_context,
@@ -513,19 +522,35 @@ async def research_topic(keywords: List[str], mode: str = "deep", business_conte
                             provider=provider
                         )
                         if findings:
-                            log_info(f"Successfully retrieved research data with {provider.value}", "RESEARCH")
+                            log_info(f"Successfully retrieved research data with {provider_name}", "RESEARCH")
                             break
                     except Exception as provider_error:
-                        from src.utils.logging_manager import log_error
-                        log_error(f"Error with {provider.value}: {str(provider_error)}")
+                        log_error(f"Error with {provider_name}: {str(provider_error)}", "RESEARCH")
                         continue
+                else:
+                    log_debug(f"Skipping {provider_name} - API key not available", "RESEARCH")
         
-        return {
-            "findings": findings if findings else [],
-            "keywords_used": keywords,
-            "mode": mode,
-            "timestamp": datetime.now().isoformat()
-        }
+        # Only return successful results
+        if findings:
+            return {
+                "findings": findings,
+                "keywords_used": keywords,
+                "mode": mode,
+                "timestamp": datetime.now().isoformat(),
+                "status": "success"
+            }
+        else:
+            # Return error state if all providers failed
+            error_msg = "All research providers failed to return results"
+            log_error(error_msg, "RESEARCH")
+            return {
+                "findings": [],
+                "keywords_used": keywords,
+                "error": error_msg,
+                "mode": mode,
+                "timestamp": datetime.now().isoformat(),
+                "status": "error"
+            }
         
     except Exception as e:
         from src.utils.logging_manager import log_error
