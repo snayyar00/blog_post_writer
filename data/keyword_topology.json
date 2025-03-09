@@ -1,0 +1,3677 @@
+{
+  "version": 1,
+  "last_updated": "2025-03-09T15:36:01.105812",
+  "keywords": {
+    "WCAG Compliance": {
+      "priority": "critical",
+      "source": "SEO Content.md",
+      "frequency": 10,
+      "added_date": "2025-03-09T15:26:32.655267"
+    },
+    "ADA Lawsuits": {
+      "priority": "critical",
+      "source": "SEO Content.md",
+      "frequency": 10,
+      "added_date": "2025-03-09T15:26:32.655283"
+    },
+    "Accessibility in Specific Industries": {
+      "priority": "critical",
+      "source": "SEO Content.md",
+      "frequency": 10,
+      "added_date": "2025-03-09T15:26:32.655307"
+    },
+    "Emerging Trends in Accessibility": {
+      "priority": "critical",
+      "source": "SEO Content.md",
+      "frequency": 10,
+      "added_date": "2025-03-09T15:26:32.655310"
+    },
+    ":----": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655313"
+    },
+    "WCAG 2.2 compliance statistics": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655316"
+    },
+    "ADA lawsuit numbers 2025": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655318"
+    },
+    "\\- Present statistics on WCAG 2.2 compliance rates. \\<br\\> \\- Highlight the number of ADA lawsuits filed in 2025\\. \\<br\\> \\- Position WebAbility.io as a solution to achieve compliance and avoid lawsuits.": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655320"
+    },
+    "accessibility in healthcare": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655322"
+    },
+    "HIPAA compliance statistics": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655324"
+    },
+    "\\- Explain the connection between HIPAA compliance and web accessibility. \\<br\\> \\- Present statistics on the number of healthcare websites that are not ADA compliant. \\<br\\> \\- Provide actionable steps to achieve HIPAA compliance and web accessibility.": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655326"
+    },
+    "accessibility case study": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655328"
+    },
+    "ROI of accessibility": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655330"
+    },
+    "website traffic increase": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655332"
+    },
+    "\\- Present a compelling case study of a client's success with WebAbility.io. \\<br\\> \\- Quantify the results (e.g.": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655334"
+    },
+    "increased traffic": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655336"
+    },
+    "conversions": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655337"
+    },
+    "improved user experience). \\<br\\> \\- Highlight the ROI of investing in web accessibility.": {
+      "priority": "high",
+      "source": "SEO Content.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655339"
+    },
+    "ability": {
+      "priority": "medium",
+      "source": "web_d9e2924b_Web_Ability_-_Web_Accessibilit.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655341"
+    },
+    "accessibility": {
+      "priority": "high",
+      "source": "web_d9e2924b_Web_Ability_-_Web_Accessibilit.md",
+      "frequency": 10,
+      "added_date": "2025-03-09T15:26:32.655343"
+    },
+    "solution": {
+      "priority": "medium",
+      "source": "web_d9e2924b_Web_Ability_-_Web_Accessibilit.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655353"
+    },
+    "content": {
+      "priority": "high",
+      "source": "web_d9e2924b_Web_Ability_-_Web_Accessibilit.md",
+      "frequency": 6,
+      "added_date": "2025-03-09T15:26:32.655357"
+    },
+    "brand": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655360"
+    },
+    "voice": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655362"
+    },
+    "guidelines": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655364"
+    },
+    "authoritative": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655366"
+    },
+    "approachable": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655368"
+    },
+    "helpful": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655370"
+    },
+    "solution-oriented": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655372"
+    },
+    "conversational": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655373"
+    },
+    "professional": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655375"
+    },
+    "concise": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655377"
+    },
+    "clear": {
+      "priority": "medium",
+      "source": "brand_voice.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655379"
+    },
+    "WebAbility.io: Immediate Implementation Plan for Success in the Web Accessibility Market": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655381"
+    },
+    "Web Accessibility Market Overview": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655383"
+    },
+    "Global Accessibility Awareness Day": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655385"
+    },
+    "Web Accessibility Statistics": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655387"
+    },
+    "Pillars of Web Accessibility": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655389"
+    },
+    "Perceivable:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655391"
+    },
+    "Operable:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655393"
+    },
+    "Understandable:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655395"
+    },
+    "Robust:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655397"
+    },
+    "Enhancing Website Accessibility": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655399"
+    },
+    "Structure websites using semantic HTML:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655402"
+    },
+    "Guarantee navigability through keyboard use:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655403"
+    },
+    "Include descriptive alt text for visual content:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655405"
+    },
+    "Ensure text and background colors contrast sufficiently:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655407"
+    },
+    "Design accessible forms:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655409"
+    },
+    "Implement appropriate ARIA roles and attributes:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655411"
+    },
+    "Adopt universal design principles:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655413"
+    },
+    "Improved responsive design techniques:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655415"
+    },
+    "Enhanced screen reader compatibility:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655417"
+    },
+    "Accessibility in AR/VR": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655419"
+    },
+    "Cognitive Accessibility": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655421"
+    },
+    "Types of Website Accessibility Software": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655422"
+    },
+    "Automated Tools:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655424"
+    },
+    "Manual Testing Tools:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655426"
+    },
+    "Remediation Tools:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655428"
+    },
+    "Training and Consulting Solutions:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655429"
+    },
+    "Deployment Types": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655431"
+    },
+    "Cloud-based solutions:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655433"
+    },
+    "On-premises solutions:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655435"
+    },
+    "End-user Segmentation": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655437"
+    },
+    "Enterprises:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655439"
+    },
+    "Small and Medium-sized Enterprises (SMEs):": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655441"
+    },
+    "Government Organizations:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655442"
+    },
+    "Non-profits:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655444"
+    },
+    "Geographic Segmentation": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655446"
+    },
+    "North America:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655448"
+    },
+    "Europe:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655450"
+    },
+    "Asia Pacific:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655452"
+    },
+    "Challenges and Restraints": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655453"
+    },
+    "Lack of Awareness:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655455"
+    },
+    "Cost Concerns:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655457"
+    },
+    "Technical Complexity:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655458"
+    },
+    "Resistance to Change:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655461"
+    },
+    "Legal and Regulatory Landscape": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655463"
+    },
+    "Americans with Disabilities Act (ADA) in the USA:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655464"
+    },
+    "Accessibility for Ontarians with Disabilities Act (AODA) in Canada:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655473"
+    },
+    "European Accessibility Act (EAA) in Europe:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655475"
+    },
+    "Competitive Landscape": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655477"
+    },
+    "SWOT Analysis of WebAbility.io": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655479"
+    },
+    "Strengths:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655480"
+    },
+    "Innovative Technology:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655482"
+    },
+    "Strong Customer Service:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655484"
+    },
+    "Focus on User Experience:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655486"
+    },
+    "Potential use of low code development platforms:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655499"
+    },
+    "Potential for leveraging client-side computation:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655502"
+    },
+    "Weaknesses:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655503"
+    },
+    "High Production Costs:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655505"
+    },
+    "Limited Market Share:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655507"
+    },
+    "Lack of Brand Awareness:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655509"
+    },
+    "Opportunities:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655511"
+    },
+    "Market Growth:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655513"
+    },
+    "Emerging Technologies:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655514"
+    },
+    "Strategic Partnerships:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655516"
+    },
+    "Increasing demand for AI-powered accessibility solutions:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655518"
+    },
+    "Growing focus on mobile accessibility:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655520"
+    },
+    "Need for solutions that comply with WCAG 2.2:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655522"
+    },
+    "Threats:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655524"
+    },
+    "Competition:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655525"
+    },
+    "Rapid Technological Changes:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655536"
+    },
+    "Regulatory Changes:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655537"
+    },
+    "WebAbility.io's Competitive Advantage:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655538"
+    },
+    "Innovative technology:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655539"
+    },
+    "Strong customer service:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655540"
+    },
+    "Focus on user experience:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655541"
+    },
+    "Immediate Implementation Plan": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655543"
+    },
+    "Phase 1: Strengthen Foundation (0-3 Months)": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655544"
+    },
+    "Enhance Website Accessibility:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655545"
+    },
+    "Develop Comprehensive Marketing Strategy:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655546"
+    },
+    "Build Strategic Partnerships:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655547"
+    },
+    "Phase 2: Expand Reach and Offerings (3-6 Months)": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655548"
+    },
+    "Enhance Product Features:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655549"
+    },
+    "Develop Targeted Marketing Campaigns:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655549"
+    },
+    "Expand into New Markets:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655550"
+    },
+    "Phase 3: Optimize and Scale (6-12 Months)": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655551"
+    },
+    "Analyze Website Traffic and User Behavior:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655552"
+    },
+    "Optimize SEO Strategy:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655553"
+    },
+    "Refine Revenue Model:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655554"
+    },
+    "Monitor and Evaluate Performance:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655555"
+    },
+    "Website Traffic Analysis": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655556"
+    },
+    "Reverse Outreach Strategy": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655557"
+    },
+    "Web accessibility best practices for specific industries:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655558"
+    },
+    "Case studies of successful accessibility implementations:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655558"
+    },
+    "Expert interviews with accessibility specialists:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655559"
+    },
+    "Guest blogging on relevant websites:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655560"
+    },
+    "Country-Specific Growth Opportunities": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655561"
+    },
+    "Guerrilla Marketing Ideas": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655562"
+    },
+    "Partner with disability advocacy groups:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655563"
+    },
+    "Host online contests and challenges:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655564"
+    },
+    "Create shareable infographics and videos:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655565"
+    },
+    "Leverage user-generated content:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655566"
+    },
+    "Organize flash mobs or public demonstrations:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655566"
+    },
+    "Offer free accessibility consultations:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655567"
+    },
+    "Emotional Impact and Connection": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655568"
+    },
+    "Sharing stories of people with disabilities:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655569"
+    },
+    "Emphasizing the social impact of accessibility:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655570"
+    },
+    "Creating a sense of community:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655571"
+    },
+    "Highlighting the importance of considering diverse user groups, including children 12, when designing accessible solutions:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655572"
+    },
+    "Potential Partnerships and Integrations": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655573"
+    },
+    "Accessibility Testing": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655573"
+    },
+    "Automated Accessibility Testing Tools:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655574"
+    },
+    "Manual Testing:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655575"
+    },
+    "User Feedback Mechanisms:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655576"
+    },
+    "Accessibility Audits:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655577"
+    },
+    "Accessibility Training and Resources": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655578"
+    },
+    "Accessibility Training Programs:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655579"
+    },
+    "Workshops and Webinars:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655580"
+    },
+    "Accessibility Resources and Documentation:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655581"
+    },
+    "Industry Best Practices": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655581"
+    },
+    "Microsoft's Accessibility Initiatives:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655582"
+    },
+    "Apple's Commitment to Accessibility:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655583"
+    },
+    "BBC's Accessible Content Initiatives:": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655584"
+    },
+    "Research Methodology": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655585"
+    },
+    "Financial Projections": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655586"
+    },
+    "Conclusion": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655587"
+    },
+    "Works cited": {
+      "priority": "high",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655588"
+    },
+    "**webability.io:": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655588"
+    },
+    "immediate": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655589"
+    },
+    "implementation": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655590"
+    },
+    "plan": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655591"
+    },
+    "success": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655592"
+    },
+    "market**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655594"
+    },
+    "**web": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655594"
+    },
+    "market": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655596"
+    },
+    "overview**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655597"
+    },
+    "**global": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655597"
+    },
+    "awareness": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655599"
+    },
+    "day**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655600"
+    },
+    "statistics**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655601"
+    },
+    "**pillars": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655603"
+    },
+    "accessibility**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 3,
+      "added_date": "2025-03-09T15:26:32.655604"
+    },
+    "**enhancing": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655605"
+    },
+    "website": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655606"
+    },
+    "**accessibility": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 3,
+      "added_date": "2025-03-09T15:26:32.655607"
+    },
+    "ar/vr**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655608"
+    },
+    "**cognitive": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655608"
+    },
+    "**types": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655610"
+    },
+    "software**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655611"
+    },
+    "**deployment": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655612"
+    },
+    "types**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655613"
+    },
+    "**end-user": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655613"
+    },
+    "segmentation**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655614"
+    },
+    "**geographic": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655615"
+    },
+    "**challenges": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655616"
+    },
+    "restraints**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655617"
+    },
+    "**legal": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655618"
+    },
+    "regulatory": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655619"
+    },
+    "landscape**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655620"
+    },
+    "**competitive": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655621"
+    },
+    "**swot": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655622"
+    },
+    "analysis": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 2,
+      "added_date": "2025-03-09T15:26:32.655622"
+    },
+    "webability.io**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655623"
+    },
+    "**immediate": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655624"
+    },
+    "plan**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655625"
+    },
+    "**website": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655626"
+    },
+    "traffic": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655627"
+    },
+    "analysis**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655628"
+    },
+    "**reverse": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655629"
+    },
+    "outreach": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655629"
+    },
+    "strategy**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655630"
+    },
+    "**country-specific": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655631"
+    },
+    "growth": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655632"
+    },
+    "opportunities**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655633"
+    },
+    "**guerrilla": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655636"
+    },
+    "marketing": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655636"
+    },
+    "ideas**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655637"
+    },
+    "**emotional": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655638"
+    },
+    "impact": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655639"
+    },
+    "connection**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655640"
+    },
+    "**potential": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655641"
+    },
+    "partnerships": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655642"
+    },
+    "integrations**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655642"
+    },
+    "testing**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655643"
+    },
+    "training": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655645"
+    },
+    "resources**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655645"
+    },
+    "**industry": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655646"
+    },
+    "best": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655647"
+    },
+    "practices**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655648"
+    },
+    "**research": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655649"
+    },
+    "methodology**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655650"
+    },
+    "**financial": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655651"
+    },
+    "projections**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655652"
+    },
+    "**conclusion**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655652"
+    },
+    "**works": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655653"
+    },
+    "cited**": {
+      "priority": "medium",
+      "source": "WebAbility.io_ Deep Dive & Growth Plan.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655654"
+    },
+    "installation": {
+      "priority": "medium",
+      "source": "web_16bb5e4d_Installation__integrations__.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655655"
+    },
+    "integrations": {
+      "priority": "medium",
+      "source": "web_16bb5e4d_Installation__integrations__.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655656"
+    },
+    "widget": {
+      "priority": "high",
+      "source": "web_16bb5e4d_Installation__integrations__.md",
+      "frequency": 4,
+      "added_date": "2025-03-09T15:26:32.655657"
+    },
+    "wcag": {
+      "priority": "high",
+      "source": "web_16bb5e4d_Installation__integrations__.md",
+      "frequency": 4,
+      "added_date": "2025-03-09T15:26:32.655658"
+    },
+    "compliance": {
+      "priority": "high",
+      "source": "web_16bb5e4d_Installation__integrations__.md",
+      "frequency": 4,
+      "added_date": "2025-03-09T15:26:32.655658"
+    },
+    "industries": {
+      "priority": "medium",
+      "source": "web_8f4a9771_Industries__Top_Web_Accessibi.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655660"
+    },
+    "webability.io": {
+      "priority": "medium",
+      "source": "web_2fd9f62d_WebAbility.io__Top_Web_Access.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655662"
+    },
+    "Strengths": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 3,
+      "added_date": "2025-03-09T15:26:32.655663"
+    },
+    "Weaknesses": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 3,
+      "added_date": "2025-03-09T15:26:32.655664"
+    },
+    "Target Market": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 3,
+      "added_date": "2025-03-09T15:26:32.655665"
+    },
+    "Unique Features": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 3,
+      "added_date": "2025-03-09T15:26:32.655667"
+    },
+    "Advanced Research Integration": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655670"
+    },
+    "Superior Content Humanization": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655671"
+    },
+    "Memory Management": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655671"
+    },
+    "Customizable Workflows": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655672"
+    },
+    "Integration Capabilities": {
+      "priority": "high",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655673"
+    },
+    "competitor": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655674"
+    },
+    "major": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655675"
+    },
+    "competitors": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655676"
+    },
+    "contentiq": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655677"
+    },
+    "seopro": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655678"
+    },
+    "writer": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655679"
+    },
+    "bloggenius": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655679"
+    },
+    "competitive": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655680"
+    },
+    "advantages": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655681"
+    },
+    "positioning": {
+      "priority": "medium",
+      "source": "business_competitors.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655682"
+    },
+    "docs": {
+      "priority": "medium",
+      "source": "web_762fd58b_Docs__Top_Web_Accessibility_W.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655683"
+    },
+    "target": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655685"
+    },
+    "audience": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655686"
+    },
+    "profile": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655686"
+    },
+    "demographics": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655687"
+    },
+    "psychographics": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655688"
+    },
+    "pain": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655689"
+    },
+    "points": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655690"
+    },
+    "preferences": {
+      "priority": "medium",
+      "source": "target_audience.md",
+      "frequency": 1,
+      "added_date": "2025-03-09T15:26:32.655691"
+    }
+  },
+  "clusters": {
+    "0": {
+      "keywords": [
+        "WCAG Compliance"
+      ],
+      "central_keyword": "WCAG Compliance",
+      "size": 1,
+      "average_priority": 3.0
+    },
+    "1": {
+      "keywords": [
+        "ADA Lawsuits"
+      ],
+      "central_keyword": "ADA Lawsuits",
+      "size": 1,
+      "average_priority": 3.0
+    },
+    "2": {
+      "keywords": [
+        "Accessibility in Specific Industries"
+      ],
+      "central_keyword": "Accessibility in Specific Industries",
+      "size": 1,
+      "average_priority": 3.0
+    },
+    "3": {
+      "keywords": [
+        "Emerging Trends in Accessibility"
+      ],
+      "central_keyword": "Emerging Trends in Accessibility",
+      "size": 1,
+      "average_priority": 3.0
+    },
+    "4": {
+      "keywords": [
+        ":----"
+      ],
+      "central_keyword": ":----",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "5": {
+      "keywords": [
+        "WCAG 2.2 compliance statistics"
+      ],
+      "central_keyword": "WCAG 2.2 compliance statistics",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "6": {
+      "keywords": [
+        "ADA lawsuit numbers 2025"
+      ],
+      "central_keyword": "ADA lawsuit numbers 2025",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "7": {
+      "keywords": [
+        "\\- Present statistics on WCAG 2.2 compliance rates. \\<br\\> \\- Highlight the number of ADA lawsuits filed in 2025\\. \\<br\\> \\- Position WebAbility.io as a solution to achieve compliance and avoid lawsuits."
+      ],
+      "central_keyword": "\\- Present statistics on WCAG 2.2 compliance rates. \\<br\\> \\- Highlight the number of ADA lawsuits filed in 2025\\. \\<br\\> \\- Position WebAbility.io as a solution to achieve compliance and avoid lawsuits.",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "8": {
+      "keywords": [
+        "accessibility in healthcare"
+      ],
+      "central_keyword": "accessibility in healthcare",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "9": {
+      "keywords": [
+        "HIPAA compliance statistics"
+      ],
+      "central_keyword": "HIPAA compliance statistics",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "10": {
+      "keywords": [
+        "\\- Explain the connection between HIPAA compliance and web accessibility. \\<br\\> \\- Present statistics on the number of healthcare websites that are not ADA compliant. \\<br\\> \\- Provide actionable steps to achieve HIPAA compliance and web accessibility."
+      ],
+      "central_keyword": "\\- Explain the connection between HIPAA compliance and web accessibility. \\<br\\> \\- Present statistics on the number of healthcare websites that are not ADA compliant. \\<br\\> \\- Provide actionable steps to achieve HIPAA compliance and web accessibility.",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "11": {
+      "keywords": [
+        "accessibility case study"
+      ],
+      "central_keyword": "accessibility case study",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "12": {
+      "keywords": [
+        "ROI of accessibility"
+      ],
+      "central_keyword": "ROI of accessibility",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "13": {
+      "keywords": [
+        "website traffic increase"
+      ],
+      "central_keyword": "website traffic increase",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "14": {
+      "keywords": [
+        "\\- Present a compelling case study of a client's success with WebAbility.io. \\<br\\> \\- Quantify the results (e.g."
+      ],
+      "central_keyword": "\\- Present a compelling case study of a client's success with WebAbility.io. \\<br\\> \\- Quantify the results (e.g.",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "15": {
+      "keywords": [
+        "increased traffic"
+      ],
+      "central_keyword": "increased traffic",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "16": {
+      "keywords": [
+        "conversions"
+      ],
+      "central_keyword": "conversions",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "17": {
+      "keywords": [
+        "improved user experience). \\<br\\> \\- Highlight the ROI of investing in web accessibility."
+      ],
+      "central_keyword": "improved user experience). \\<br\\> \\- Highlight the ROI of investing in web accessibility.",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "18": {
+      "keywords": [
+        "ability"
+      ],
+      "central_keyword": "ability",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "19": {
+      "keywords": [
+        "accessibility"
+      ],
+      "central_keyword": "accessibility",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "20": {
+      "keywords": [
+        "solution"
+      ],
+      "central_keyword": "solution",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "21": {
+      "keywords": [
+        "content"
+      ],
+      "central_keyword": "content",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "22": {
+      "keywords": [
+        "brand"
+      ],
+      "central_keyword": "brand",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "23": {
+      "keywords": [
+        "voice"
+      ],
+      "central_keyword": "voice",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "24": {
+      "keywords": [
+        "guidelines"
+      ],
+      "central_keyword": "guidelines",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "25": {
+      "keywords": [
+        "authoritative"
+      ],
+      "central_keyword": "authoritative",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "26": {
+      "keywords": [
+        "approachable"
+      ],
+      "central_keyword": "approachable",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "27": {
+      "keywords": [
+        "helpful"
+      ],
+      "central_keyword": "helpful",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "28": {
+      "keywords": [
+        "solution-oriented"
+      ],
+      "central_keyword": "solution-oriented",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "29": {
+      "keywords": [
+        "conversational"
+      ],
+      "central_keyword": "conversational",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "30": {
+      "keywords": [
+        "professional"
+      ],
+      "central_keyword": "professional",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "31": {
+      "keywords": [
+        "concise"
+      ],
+      "central_keyword": "concise",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "32": {
+      "keywords": [
+        "clear"
+      ],
+      "central_keyword": "clear",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "33": {
+      "keywords": [
+        "WebAbility.io: Immediate Implementation Plan for Success in the Web Accessibility Market"
+      ],
+      "central_keyword": "WebAbility.io: Immediate Implementation Plan for Success in the Web Accessibility Market",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "34": {
+      "keywords": [
+        "Web Accessibility Market Overview"
+      ],
+      "central_keyword": "Web Accessibility Market Overview",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "35": {
+      "keywords": [
+        "Global Accessibility Awareness Day"
+      ],
+      "central_keyword": "Global Accessibility Awareness Day",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "36": {
+      "keywords": [
+        "Web Accessibility Statistics"
+      ],
+      "central_keyword": "Web Accessibility Statistics",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "37": {
+      "keywords": [
+        "Pillars of Web Accessibility"
+      ],
+      "central_keyword": "Pillars of Web Accessibility",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "38": {
+      "keywords": [
+        "Perceivable:"
+      ],
+      "central_keyword": "Perceivable:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "39": {
+      "keywords": [
+        "Operable:"
+      ],
+      "central_keyword": "Operable:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "40": {
+      "keywords": [
+        "Understandable:"
+      ],
+      "central_keyword": "Understandable:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "41": {
+      "keywords": [
+        "Robust:"
+      ],
+      "central_keyword": "Robust:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "42": {
+      "keywords": [
+        "Enhancing Website Accessibility"
+      ],
+      "central_keyword": "Enhancing Website Accessibility",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "43": {
+      "keywords": [
+        "Structure websites using semantic HTML:"
+      ],
+      "central_keyword": "Structure websites using semantic HTML:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "44": {
+      "keywords": [
+        "Guarantee navigability through keyboard use:"
+      ],
+      "central_keyword": "Guarantee navigability through keyboard use:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "45": {
+      "keywords": [
+        "Include descriptive alt text for visual content:"
+      ],
+      "central_keyword": "Include descriptive alt text for visual content:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "46": {
+      "keywords": [
+        "Ensure text and background colors contrast sufficiently:"
+      ],
+      "central_keyword": "Ensure text and background colors contrast sufficiently:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "47": {
+      "keywords": [
+        "Design accessible forms:"
+      ],
+      "central_keyword": "Design accessible forms:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "48": {
+      "keywords": [
+        "Implement appropriate ARIA roles and attributes:"
+      ],
+      "central_keyword": "Implement appropriate ARIA roles and attributes:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "49": {
+      "keywords": [
+        "Adopt universal design principles:"
+      ],
+      "central_keyword": "Adopt universal design principles:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "50": {
+      "keywords": [
+        "Improved responsive design techniques:"
+      ],
+      "central_keyword": "Improved responsive design techniques:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "51": {
+      "keywords": [
+        "Enhanced screen reader compatibility:"
+      ],
+      "central_keyword": "Enhanced screen reader compatibility:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "52": {
+      "keywords": [
+        "Accessibility in AR/VR"
+      ],
+      "central_keyword": "Accessibility in AR/VR",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "53": {
+      "keywords": [
+        "Cognitive Accessibility"
+      ],
+      "central_keyword": "Cognitive Accessibility",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "54": {
+      "keywords": [
+        "Types of Website Accessibility Software"
+      ],
+      "central_keyword": "Types of Website Accessibility Software",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "55": {
+      "keywords": [
+        "Automated Tools:"
+      ],
+      "central_keyword": "Automated Tools:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "56": {
+      "keywords": [
+        "Manual Testing Tools:"
+      ],
+      "central_keyword": "Manual Testing Tools:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "57": {
+      "keywords": [
+        "Remediation Tools:"
+      ],
+      "central_keyword": "Remediation Tools:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "58": {
+      "keywords": [
+        "Training and Consulting Solutions:"
+      ],
+      "central_keyword": "Training and Consulting Solutions:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "59": {
+      "keywords": [
+        "Deployment Types"
+      ],
+      "central_keyword": "Deployment Types",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "60": {
+      "keywords": [
+        "Cloud-based solutions:"
+      ],
+      "central_keyword": "Cloud-based solutions:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "61": {
+      "keywords": [
+        "On-premises solutions:"
+      ],
+      "central_keyword": "On-premises solutions:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "62": {
+      "keywords": [
+        "End-user Segmentation"
+      ],
+      "central_keyword": "End-user Segmentation",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "63": {
+      "keywords": [
+        "Enterprises:"
+      ],
+      "central_keyword": "Enterprises:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "64": {
+      "keywords": [
+        "Small and Medium-sized Enterprises (SMEs):"
+      ],
+      "central_keyword": "Small and Medium-sized Enterprises (SMEs):",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "65": {
+      "keywords": [
+        "Government Organizations:"
+      ],
+      "central_keyword": "Government Organizations:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "66": {
+      "keywords": [
+        "Non-profits:"
+      ],
+      "central_keyword": "Non-profits:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "67": {
+      "keywords": [
+        "Geographic Segmentation"
+      ],
+      "central_keyword": "Geographic Segmentation",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "68": {
+      "keywords": [
+        "North America:"
+      ],
+      "central_keyword": "North America:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "69": {
+      "keywords": [
+        "Europe:"
+      ],
+      "central_keyword": "Europe:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "70": {
+      "keywords": [
+        "Asia Pacific:"
+      ],
+      "central_keyword": "Asia Pacific:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "71": {
+      "keywords": [
+        "Challenges and Restraints"
+      ],
+      "central_keyword": "Challenges and Restraints",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "72": {
+      "keywords": [
+        "Lack of Awareness:"
+      ],
+      "central_keyword": "Lack of Awareness:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "73": {
+      "keywords": [
+        "Cost Concerns:"
+      ],
+      "central_keyword": "Cost Concerns:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "74": {
+      "keywords": [
+        "Technical Complexity:"
+      ],
+      "central_keyword": "Technical Complexity:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "75": {
+      "keywords": [
+        "Resistance to Change:"
+      ],
+      "central_keyword": "Resistance to Change:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "76": {
+      "keywords": [
+        "Legal and Regulatory Landscape"
+      ],
+      "central_keyword": "Legal and Regulatory Landscape",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "77": {
+      "keywords": [
+        "Americans with Disabilities Act (ADA) in the USA:"
+      ],
+      "central_keyword": "Americans with Disabilities Act (ADA) in the USA:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "78": {
+      "keywords": [
+        "Accessibility for Ontarians with Disabilities Act (AODA) in Canada:"
+      ],
+      "central_keyword": "Accessibility for Ontarians with Disabilities Act (AODA) in Canada:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "79": {
+      "keywords": [
+        "European Accessibility Act (EAA) in Europe:"
+      ],
+      "central_keyword": "European Accessibility Act (EAA) in Europe:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "80": {
+      "keywords": [
+        "Competitive Landscape"
+      ],
+      "central_keyword": "Competitive Landscape",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "81": {
+      "keywords": [
+        "SWOT Analysis of WebAbility.io"
+      ],
+      "central_keyword": "SWOT Analysis of WebAbility.io",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "82": {
+      "keywords": [
+        "Strengths:"
+      ],
+      "central_keyword": "Strengths:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "83": {
+      "keywords": [
+        "Innovative Technology:"
+      ],
+      "central_keyword": "Innovative Technology:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "84": {
+      "keywords": [
+        "Strong Customer Service:"
+      ],
+      "central_keyword": "Strong Customer Service:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "85": {
+      "keywords": [
+        "Focus on User Experience:"
+      ],
+      "central_keyword": "Focus on User Experience:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "86": {
+      "keywords": [
+        "Potential use of low code development platforms:"
+      ],
+      "central_keyword": "Potential use of low code development platforms:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "87": {
+      "keywords": [
+        "Potential for leveraging client-side computation:"
+      ],
+      "central_keyword": "Potential for leveraging client-side computation:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "88": {
+      "keywords": [
+        "Weaknesses:"
+      ],
+      "central_keyword": "Weaknesses:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "89": {
+      "keywords": [
+        "High Production Costs:"
+      ],
+      "central_keyword": "High Production Costs:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "90": {
+      "keywords": [
+        "Limited Market Share:"
+      ],
+      "central_keyword": "Limited Market Share:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "91": {
+      "keywords": [
+        "Lack of Brand Awareness:"
+      ],
+      "central_keyword": "Lack of Brand Awareness:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "92": {
+      "keywords": [
+        "Opportunities:"
+      ],
+      "central_keyword": "Opportunities:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "93": {
+      "keywords": [
+        "Market Growth:"
+      ],
+      "central_keyword": "Market Growth:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "94": {
+      "keywords": [
+        "Emerging Technologies:"
+      ],
+      "central_keyword": "Emerging Technologies:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "95": {
+      "keywords": [
+        "Strategic Partnerships:"
+      ],
+      "central_keyword": "Strategic Partnerships:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "96": {
+      "keywords": [
+        "Increasing demand for AI-powered accessibility solutions:"
+      ],
+      "central_keyword": "Increasing demand for AI-powered accessibility solutions:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "97": {
+      "keywords": [
+        "Growing focus on mobile accessibility:"
+      ],
+      "central_keyword": "Growing focus on mobile accessibility:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "98": {
+      "keywords": [
+        "Need for solutions that comply with WCAG 2.2:"
+      ],
+      "central_keyword": "Need for solutions that comply with WCAG 2.2:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "99": {
+      "keywords": [
+        "Threats:"
+      ],
+      "central_keyword": "Threats:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "100": {
+      "keywords": [
+        "Competition:"
+      ],
+      "central_keyword": "Competition:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "101": {
+      "keywords": [
+        "Rapid Technological Changes:"
+      ],
+      "central_keyword": "Rapid Technological Changes:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "102": {
+      "keywords": [
+        "Regulatory Changes:"
+      ],
+      "central_keyword": "Regulatory Changes:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "103": {
+      "keywords": [
+        "WebAbility.io's Competitive Advantage:"
+      ],
+      "central_keyword": "WebAbility.io's Competitive Advantage:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "104": {
+      "keywords": [
+        "Innovative technology:"
+      ],
+      "central_keyword": "Innovative technology:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "105": {
+      "keywords": [
+        "Strong customer service:"
+      ],
+      "central_keyword": "Strong customer service:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "106": {
+      "keywords": [
+        "Focus on user experience:"
+      ],
+      "central_keyword": "Focus on user experience:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "107": {
+      "keywords": [
+        "Immediate Implementation Plan"
+      ],
+      "central_keyword": "Immediate Implementation Plan",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "108": {
+      "keywords": [
+        "Phase 1: Strengthen Foundation (0-3 Months)"
+      ],
+      "central_keyword": "Phase 1: Strengthen Foundation (0-3 Months)",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "109": {
+      "keywords": [
+        "Enhance Website Accessibility:"
+      ],
+      "central_keyword": "Enhance Website Accessibility:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "110": {
+      "keywords": [
+        "Develop Comprehensive Marketing Strategy:"
+      ],
+      "central_keyword": "Develop Comprehensive Marketing Strategy:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "111": {
+      "keywords": [
+        "Build Strategic Partnerships:"
+      ],
+      "central_keyword": "Build Strategic Partnerships:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "112": {
+      "keywords": [
+        "Phase 2: Expand Reach and Offerings (3-6 Months)"
+      ],
+      "central_keyword": "Phase 2: Expand Reach and Offerings (3-6 Months)",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "113": {
+      "keywords": [
+        "Enhance Product Features:"
+      ],
+      "central_keyword": "Enhance Product Features:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "114": {
+      "keywords": [
+        "Develop Targeted Marketing Campaigns:"
+      ],
+      "central_keyword": "Develop Targeted Marketing Campaigns:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "115": {
+      "keywords": [
+        "Expand into New Markets:"
+      ],
+      "central_keyword": "Expand into New Markets:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "116": {
+      "keywords": [
+        "Phase 3: Optimize and Scale (6-12 Months)"
+      ],
+      "central_keyword": "Phase 3: Optimize and Scale (6-12 Months)",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "117": {
+      "keywords": [
+        "Analyze Website Traffic and User Behavior:"
+      ],
+      "central_keyword": "Analyze Website Traffic and User Behavior:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "118": {
+      "keywords": [
+        "Optimize SEO Strategy:"
+      ],
+      "central_keyword": "Optimize SEO Strategy:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "119": {
+      "keywords": [
+        "Refine Revenue Model:"
+      ],
+      "central_keyword": "Refine Revenue Model:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "120": {
+      "keywords": [
+        "Monitor and Evaluate Performance:"
+      ],
+      "central_keyword": "Monitor and Evaluate Performance:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "121": {
+      "keywords": [
+        "Website Traffic Analysis"
+      ],
+      "central_keyword": "Website Traffic Analysis",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "122": {
+      "keywords": [
+        "Reverse Outreach Strategy"
+      ],
+      "central_keyword": "Reverse Outreach Strategy",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "123": {
+      "keywords": [
+        "Web accessibility best practices for specific industries:"
+      ],
+      "central_keyword": "Web accessibility best practices for specific industries:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "124": {
+      "keywords": [
+        "Case studies of successful accessibility implementations:"
+      ],
+      "central_keyword": "Case studies of successful accessibility implementations:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "125": {
+      "keywords": [
+        "Expert interviews with accessibility specialists:"
+      ],
+      "central_keyword": "Expert interviews with accessibility specialists:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "126": {
+      "keywords": [
+        "Guest blogging on relevant websites:"
+      ],
+      "central_keyword": "Guest blogging on relevant websites:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "127": {
+      "keywords": [
+        "Country-Specific Growth Opportunities"
+      ],
+      "central_keyword": "Country-Specific Growth Opportunities",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "128": {
+      "keywords": [
+        "Guerrilla Marketing Ideas"
+      ],
+      "central_keyword": "Guerrilla Marketing Ideas",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "129": {
+      "keywords": [
+        "Partner with disability advocacy groups:"
+      ],
+      "central_keyword": "Partner with disability advocacy groups:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "130": {
+      "keywords": [
+        "Host online contests and challenges:"
+      ],
+      "central_keyword": "Host online contests and challenges:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "131": {
+      "keywords": [
+        "Create shareable infographics and videos:"
+      ],
+      "central_keyword": "Create shareable infographics and videos:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "132": {
+      "keywords": [
+        "Leverage user-generated content:"
+      ],
+      "central_keyword": "Leverage user-generated content:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "133": {
+      "keywords": [
+        "Organize flash mobs or public demonstrations:"
+      ],
+      "central_keyword": "Organize flash mobs or public demonstrations:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "134": {
+      "keywords": [
+        "Offer free accessibility consultations:"
+      ],
+      "central_keyword": "Offer free accessibility consultations:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "135": {
+      "keywords": [
+        "Emotional Impact and Connection"
+      ],
+      "central_keyword": "Emotional Impact and Connection",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "136": {
+      "keywords": [
+        "Sharing stories of people with disabilities:"
+      ],
+      "central_keyword": "Sharing stories of people with disabilities:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "137": {
+      "keywords": [
+        "Emphasizing the social impact of accessibility:"
+      ],
+      "central_keyword": "Emphasizing the social impact of accessibility:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "138": {
+      "keywords": [
+        "Creating a sense of community:"
+      ],
+      "central_keyword": "Creating a sense of community:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "139": {
+      "keywords": [
+        "Highlighting the importance of considering diverse user groups, including children 12, when designing accessible solutions:"
+      ],
+      "central_keyword": "Highlighting the importance of considering diverse user groups, including children 12, when designing accessible solutions:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "140": {
+      "keywords": [
+        "Potential Partnerships and Integrations"
+      ],
+      "central_keyword": "Potential Partnerships and Integrations",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "141": {
+      "keywords": [
+        "Accessibility Testing"
+      ],
+      "central_keyword": "Accessibility Testing",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "142": {
+      "keywords": [
+        "Automated Accessibility Testing Tools:"
+      ],
+      "central_keyword": "Automated Accessibility Testing Tools:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "143": {
+      "keywords": [
+        "Manual Testing:"
+      ],
+      "central_keyword": "Manual Testing:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "144": {
+      "keywords": [
+        "User Feedback Mechanisms:"
+      ],
+      "central_keyword": "User Feedback Mechanisms:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "145": {
+      "keywords": [
+        "Accessibility Audits:"
+      ],
+      "central_keyword": "Accessibility Audits:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "146": {
+      "keywords": [
+        "Accessibility Training and Resources"
+      ],
+      "central_keyword": "Accessibility Training and Resources",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "147": {
+      "keywords": [
+        "Accessibility Training Programs:"
+      ],
+      "central_keyword": "Accessibility Training Programs:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "148": {
+      "keywords": [
+        "Workshops and Webinars:"
+      ],
+      "central_keyword": "Workshops and Webinars:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "149": {
+      "keywords": [
+        "Accessibility Resources and Documentation:"
+      ],
+      "central_keyword": "Accessibility Resources and Documentation:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "150": {
+      "keywords": [
+        "Industry Best Practices"
+      ],
+      "central_keyword": "Industry Best Practices",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "151": {
+      "keywords": [
+        "Microsoft's Accessibility Initiatives:"
+      ],
+      "central_keyword": "Microsoft's Accessibility Initiatives:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "152": {
+      "keywords": [
+        "Apple's Commitment to Accessibility:"
+      ],
+      "central_keyword": "Apple's Commitment to Accessibility:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "153": {
+      "keywords": [
+        "BBC's Accessible Content Initiatives:"
+      ],
+      "central_keyword": "BBC's Accessible Content Initiatives:",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "154": {
+      "keywords": [
+        "Research Methodology"
+      ],
+      "central_keyword": "Research Methodology",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "155": {
+      "keywords": [
+        "Financial Projections"
+      ],
+      "central_keyword": "Financial Projections",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "156": {
+      "keywords": [
+        "Conclusion"
+      ],
+      "central_keyword": "Conclusion",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "157": {
+      "keywords": [
+        "Works cited"
+      ],
+      "central_keyword": "Works cited",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "158": {
+      "keywords": [
+        "**webability.io:"
+      ],
+      "central_keyword": "**webability.io:",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "159": {
+      "keywords": [
+        "immediate"
+      ],
+      "central_keyword": "immediate",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "160": {
+      "keywords": [
+        "implementation"
+      ],
+      "central_keyword": "implementation",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "161": {
+      "keywords": [
+        "plan"
+      ],
+      "central_keyword": "plan",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "162": {
+      "keywords": [
+        "success"
+      ],
+      "central_keyword": "success",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "163": {
+      "keywords": [
+        "market**"
+      ],
+      "central_keyword": "market**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "164": {
+      "keywords": [
+        "**web"
+      ],
+      "central_keyword": "**web",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "165": {
+      "keywords": [
+        "market"
+      ],
+      "central_keyword": "market",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "166": {
+      "keywords": [
+        "overview**"
+      ],
+      "central_keyword": "overview**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "167": {
+      "keywords": [
+        "**global"
+      ],
+      "central_keyword": "**global",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "168": {
+      "keywords": [
+        "awareness"
+      ],
+      "central_keyword": "awareness",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "169": {
+      "keywords": [
+        "day**"
+      ],
+      "central_keyword": "day**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "170": {
+      "keywords": [
+        "statistics**"
+      ],
+      "central_keyword": "statistics**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "171": {
+      "keywords": [
+        "**pillars"
+      ],
+      "central_keyword": "**pillars",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "172": {
+      "keywords": [
+        "accessibility**"
+      ],
+      "central_keyword": "accessibility**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "173": {
+      "keywords": [
+        "**enhancing"
+      ],
+      "central_keyword": "**enhancing",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "174": {
+      "keywords": [
+        "website"
+      ],
+      "central_keyword": "website",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "175": {
+      "keywords": [
+        "**accessibility"
+      ],
+      "central_keyword": "**accessibility",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "176": {
+      "keywords": [
+        "ar/vr**"
+      ],
+      "central_keyword": "ar/vr**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "177": {
+      "keywords": [
+        "**cognitive"
+      ],
+      "central_keyword": "**cognitive",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "178": {
+      "keywords": [
+        "**types"
+      ],
+      "central_keyword": "**types",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "179": {
+      "keywords": [
+        "software**"
+      ],
+      "central_keyword": "software**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "180": {
+      "keywords": [
+        "**deployment"
+      ],
+      "central_keyword": "**deployment",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "181": {
+      "keywords": [
+        "types**"
+      ],
+      "central_keyword": "types**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "182": {
+      "keywords": [
+        "**end-user"
+      ],
+      "central_keyword": "**end-user",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "183": {
+      "keywords": [
+        "segmentation**"
+      ],
+      "central_keyword": "segmentation**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "184": {
+      "keywords": [
+        "**geographic"
+      ],
+      "central_keyword": "**geographic",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "185": {
+      "keywords": [
+        "**challenges"
+      ],
+      "central_keyword": "**challenges",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "186": {
+      "keywords": [
+        "restraints**"
+      ],
+      "central_keyword": "restraints**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "187": {
+      "keywords": [
+        "**legal"
+      ],
+      "central_keyword": "**legal",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "188": {
+      "keywords": [
+        "regulatory"
+      ],
+      "central_keyword": "regulatory",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "189": {
+      "keywords": [
+        "landscape**"
+      ],
+      "central_keyword": "landscape**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "190": {
+      "keywords": [
+        "**competitive"
+      ],
+      "central_keyword": "**competitive",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "191": {
+      "keywords": [
+        "**swot"
+      ],
+      "central_keyword": "**swot",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "192": {
+      "keywords": [
+        "analysis"
+      ],
+      "central_keyword": "analysis",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "193": {
+      "keywords": [
+        "webability.io**"
+      ],
+      "central_keyword": "webability.io**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "194": {
+      "keywords": [
+        "**immediate"
+      ],
+      "central_keyword": "**immediate",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "195": {
+      "keywords": [
+        "plan**"
+      ],
+      "central_keyword": "plan**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "196": {
+      "keywords": [
+        "**website"
+      ],
+      "central_keyword": "**website",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "197": {
+      "keywords": [
+        "traffic"
+      ],
+      "central_keyword": "traffic",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "198": {
+      "keywords": [
+        "analysis**"
+      ],
+      "central_keyword": "analysis**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "199": {
+      "keywords": [
+        "**reverse"
+      ],
+      "central_keyword": "**reverse",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "200": {
+      "keywords": [
+        "outreach"
+      ],
+      "central_keyword": "outreach",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "201": {
+      "keywords": [
+        "strategy**"
+      ],
+      "central_keyword": "strategy**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "202": {
+      "keywords": [
+        "**country-specific"
+      ],
+      "central_keyword": "**country-specific",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "203": {
+      "keywords": [
+        "growth"
+      ],
+      "central_keyword": "growth",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "204": {
+      "keywords": [
+        "opportunities**"
+      ],
+      "central_keyword": "opportunities**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "205": {
+      "keywords": [
+        "**guerrilla"
+      ],
+      "central_keyword": "**guerrilla",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "206": {
+      "keywords": [
+        "marketing"
+      ],
+      "central_keyword": "marketing",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "207": {
+      "keywords": [
+        "ideas**"
+      ],
+      "central_keyword": "ideas**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "208": {
+      "keywords": [
+        "**emotional"
+      ],
+      "central_keyword": "**emotional",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "209": {
+      "keywords": [
+        "impact"
+      ],
+      "central_keyword": "impact",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "210": {
+      "keywords": [
+        "connection**"
+      ],
+      "central_keyword": "connection**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "211": {
+      "keywords": [
+        "**potential"
+      ],
+      "central_keyword": "**potential",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "212": {
+      "keywords": [
+        "partnerships"
+      ],
+      "central_keyword": "partnerships",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "213": {
+      "keywords": [
+        "integrations**"
+      ],
+      "central_keyword": "integrations**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "214": {
+      "keywords": [
+        "testing**"
+      ],
+      "central_keyword": "testing**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "215": {
+      "keywords": [
+        "training"
+      ],
+      "central_keyword": "training",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "216": {
+      "keywords": [
+        "resources**"
+      ],
+      "central_keyword": "resources**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "217": {
+      "keywords": [
+        "**industry"
+      ],
+      "central_keyword": "**industry",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "218": {
+      "keywords": [
+        "best"
+      ],
+      "central_keyword": "best",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "219": {
+      "keywords": [
+        "practices**"
+      ],
+      "central_keyword": "practices**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "220": {
+      "keywords": [
+        "**research"
+      ],
+      "central_keyword": "**research",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "221": {
+      "keywords": [
+        "methodology**"
+      ],
+      "central_keyword": "methodology**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "222": {
+      "keywords": [
+        "**financial"
+      ],
+      "central_keyword": "**financial",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "223": {
+      "keywords": [
+        "projections**"
+      ],
+      "central_keyword": "projections**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "224": {
+      "keywords": [
+        "**conclusion**"
+      ],
+      "central_keyword": "**conclusion**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "225": {
+      "keywords": [
+        "**works"
+      ],
+      "central_keyword": "**works",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "226": {
+      "keywords": [
+        "cited**"
+      ],
+      "central_keyword": "cited**",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "227": {
+      "keywords": [
+        "installation"
+      ],
+      "central_keyword": "installation",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "228": {
+      "keywords": [
+        "integrations"
+      ],
+      "central_keyword": "integrations",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "229": {
+      "keywords": [
+        "widget"
+      ],
+      "central_keyword": "widget",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "230": {
+      "keywords": [
+        "wcag"
+      ],
+      "central_keyword": "wcag",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "231": {
+      "keywords": [
+        "compliance"
+      ],
+      "central_keyword": "compliance",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "232": {
+      "keywords": [
+        "industries"
+      ],
+      "central_keyword": "industries",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "233": {
+      "keywords": [
+        "webability.io"
+      ],
+      "central_keyword": "webability.io",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "234": {
+      "keywords": [
+        "Strengths"
+      ],
+      "central_keyword": "Strengths",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "235": {
+      "keywords": [
+        "Weaknesses"
+      ],
+      "central_keyword": "Weaknesses",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "236": {
+      "keywords": [
+        "Target Market"
+      ],
+      "central_keyword": "Target Market",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "237": {
+      "keywords": [
+        "Unique Features"
+      ],
+      "central_keyword": "Unique Features",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "238": {
+      "keywords": [
+        "Advanced Research Integration"
+      ],
+      "central_keyword": "Advanced Research Integration",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "239": {
+      "keywords": [
+        "Superior Content Humanization"
+      ],
+      "central_keyword": "Superior Content Humanization",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "240": {
+      "keywords": [
+        "Memory Management"
+      ],
+      "central_keyword": "Memory Management",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "241": {
+      "keywords": [
+        "Customizable Workflows"
+      ],
+      "central_keyword": "Customizable Workflows",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "242": {
+      "keywords": [
+        "Integration Capabilities"
+      ],
+      "central_keyword": "Integration Capabilities",
+      "size": 1,
+      "average_priority": 2.0
+    },
+    "243": {
+      "keywords": [
+        "competitor"
+      ],
+      "central_keyword": "competitor",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "244": {
+      "keywords": [
+        "major"
+      ],
+      "central_keyword": "major",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "245": {
+      "keywords": [
+        "competitors"
+      ],
+      "central_keyword": "competitors",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "246": {
+      "keywords": [
+        "contentiq"
+      ],
+      "central_keyword": "contentiq",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "247": {
+      "keywords": [
+        "seopro"
+      ],
+      "central_keyword": "seopro",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "248": {
+      "keywords": [
+        "writer"
+      ],
+      "central_keyword": "writer",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "249": {
+      "keywords": [
+        "bloggenius"
+      ],
+      "central_keyword": "bloggenius",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "250": {
+      "keywords": [
+        "competitive"
+      ],
+      "central_keyword": "competitive",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "251": {
+      "keywords": [
+        "advantages"
+      ],
+      "central_keyword": "advantages",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "252": {
+      "keywords": [
+        "positioning"
+      ],
+      "central_keyword": "positioning",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "253": {
+      "keywords": [
+        "docs"
+      ],
+      "central_keyword": "docs",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "254": {
+      "keywords": [
+        "target"
+      ],
+      "central_keyword": "target",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "255": {
+      "keywords": [
+        "audience"
+      ],
+      "central_keyword": "audience",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "256": {
+      "keywords": [
+        "profile"
+      ],
+      "central_keyword": "profile",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "257": {
+      "keywords": [
+        "demographics"
+      ],
+      "central_keyword": "demographics",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "258": {
+      "keywords": [
+        "psychographics"
+      ],
+      "central_keyword": "psychographics",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "259": {
+      "keywords": [
+        "pain"
+      ],
+      "central_keyword": "pain",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "260": {
+      "keywords": [
+        "points"
+      ],
+      "central_keyword": "points",
+      "size": 1,
+      "average_priority": 1.0
+    },
+    "261": {
+      "keywords": [
+        "preferences"
+      ],
+      "central_keyword": "preferences",
+      "size": 1,
+      "average_priority": 1.0
+    }
+  },
+  "relationships": []
+}

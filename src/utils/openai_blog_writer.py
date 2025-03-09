@@ -40,6 +40,23 @@ class ContentMetrics(BaseModel):
     funnel_stage: str = "middle"
     reader_level: str = "intermediate"
     read_time_minutes: int = 5
+    
+    # Enhanced content metrics
+    readability_score: float = 0.0
+    seo_score: float = 0.0
+    engagement_score: float = 0.0
+    has_real_data: bool = False
+    has_case_studies: bool = False
+    has_expert_quotes: bool = False
+    enhanced_formatting: bool = False
+
+class EnhancementData(BaseModel):
+    """Data related to content enhancements."""
+    industry: Optional[str] = None
+    case_studies: List[Dict[str, str]] = []
+    expert_quotes: List[Dict[str, str]] = []
+    statistics: List[Dict[str, str]] = []
+    has_enhanced_formatting: bool = False
 
 class BlogPost(BaseModel):
     """Generated blog post with metrics."""
@@ -49,15 +66,29 @@ class BlogPost(BaseModel):
     keywords: List[str]
     outline: List[str]
     
+    # Enhanced content features
+    industry: Optional[str] = None
+    enhancement_data: Optional[EnhancementData] = None
+    generation_time: Optional[float] = None
+    
     def model_dump(self) -> Dict[str, Any]:
         """Custom serialization to handle metrics."""
-        return {
+        data = {
             'title': self.title,
             'content': self.content,
             'metrics': self.metrics.model_dump(),
             'keywords': self.keywords,
-            'outline': self.outline
+            'outline': self.outline,
+            'generation_time': self.generation_time
         }
+        
+        if self.industry:
+            data['industry'] = self.industry
+            
+        if self.enhancement_data:
+            data['enhancement_data'] = self.enhancement_data.model_dump()
+            
+        return data
 
 def calculate_content_metrics(
     content: str,

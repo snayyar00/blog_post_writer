@@ -9,15 +9,16 @@ import json
 from datetime import datetime
 from functools import partial
 import asyncio
-import openai
+from openai import AsyncOpenAI  # Use AsyncOpenAI
 from dotenv import load_dotenv
 from src.models.analysis_models import BlogAnalysis, AnalysisSection, AnalysisRequest
+from src.utils.logging_manager import log_info, log_error, log_debug
 
 # Load environment variables
 load_dotenv()
 
-# Configure OpenAI
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Initialize AsyncOpenAI client
+client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Define structured output schema for OpenAI
 ANALYSIS_SCHEMA = {
@@ -48,16 +49,20 @@ ANALYSIS_SCHEMA = {
     "required": ["score", "strengths", "weaknesses", "suggestions"]
 }
 
-async def get_openai_response(prompt: str) -> Optional[Dict[str, Any]]:
+async def get_openai_response(prompt: str, is_content_generation: bool = False) -> Optional[Dict[str, Any]]:
     """Get structured response from OpenAI with error handling."""
     try:
         # Early validation
         if not prompt:
             raise ValueError("Prompt cannot be empty")
         
+        # Select model based on task
+        model = "gpt-4" if is_content_generation else "gpt-3.5-turbo"
+        log_debug(f"Using {model} for {'content generation' if is_content_generation else 'analysis'}", "ANALYSIS")
+        
         # Make async API call
-        response = await openai.chat.completions.acreate(
-            model="gpt-4",
+        response = await client.chat.completions.create(
+            model=model,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
             max_tokens=1000,
@@ -71,13 +76,15 @@ async def get_openai_response(prompt: str) -> Optional[Dict[str, Any]]:
         
         # Parse and validate response
         try:
-            return json.loads(response.choices[0].message.function_call.arguments)
+            result = json.loads(response.choices[0].message.function_call.arguments)
+            log_debug("Successfully parsed OpenAI response", "ANALYSIS")
+            return result
         except json.JSONDecodeError as e:
-            print(f"Error parsing OpenAI response: {e}")
+            log_error(f"Error parsing OpenAI response: {e}", "ANALYSIS")
             return None
             
     except Exception as e:
-        print(f"OpenAI API error: {e}")
+        log_error(f"OpenAI API error: {e}", "ANALYSIS")
         return None
 
 def create_analysis_prompt(
@@ -125,54 +132,6 @@ def create_analysis_prompt(
     
     return "\n".join(prompt_parts)
 
-
-
-def get_openai_response(prompt: str) -> Optional[str]:
-    """Get response from OpenAI with error handling."""
-    try:
-        response = openai.chat.completions.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
-            max_tokens=1000
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        print(f"OpenAI API error: {e}")
-        return None
-
-def extract_score(lines: List[str]) -> float:
-    """Extract score from response lines with error handling."""
-    try:
-        score_lines = [l for l in lines if "Score" in l]
-        if not score_lines:
-            return 5.0
-        score_text = score_lines[0].split(":")[-1].strip()
-        return float(score_text)
-    except (ValueError, IndexError):
-        return 5.0
-
-def extract_section_content(lines: List[str], section_num: int, section_name: str) -> List[str]:
-    """Extract content from a numbered section."""
-    section_start = f"{section_num}. {section_name}"
-    section_lines = []
-    in_section = False
-    
-    for line in lines:
-        line = line.strip()
-        if not line:
-            continue
-            
-        if line.startswith(section_start):
-            in_section = True
-            continue
-        elif line[0].isdigit() and line[1] == ".":
-            in_section = False
-        elif in_section and line.startswith("-"):
-            section_lines.append(line.strip("- *"))
-    
-    return section_lines
-
 def clean_insights(insights: List[str]) -> List[str]:
     """Clean and deduplicate insights."""
     # Remove empty, numbered, or generic lines
@@ -185,26 +144,6 @@ def clean_insights(insights: List[str]) -> List[str]:
     # Remove duplicates while preserving order
     seen = set()
     return [x for x in filtered if not (x.lower() in seen or seen.add(x.lower()))]
-
-def parse_response(result: Optional[str]) -> Tuple[float, List[str], List[str], List[str]]:
-    """Parse OpenAI response with error handling."""
-    if not result:
-        return 5.0, ["Basic content"], ["Needs improvement"], ["Add more details"]
-    
-    lines = result.split("\n")
-    score = extract_score(lines)
-    
-    # Extract sections using functional approach
-    raw_strengths = extract_section_content(lines, 2, "Strengths")
-    raw_improvements = extract_section_content(lines, 3, "Areas to Improve")
-    raw_suggestions = extract_section_content(lines, 4, "Actionable Suggestions")
-    
-    # Clean and deduplicate insights
-    strengths = clean_insights(raw_strengths) or ["Content provides basic information"]
-    weaknesses = clean_insights(raw_improvements) or ["Could be enhanced with more specific examples"]
-    suggestions = clean_insights(raw_suggestions) or ["Consider adding more concrete details"]
-    
-    return score, strengths, weaknesses, suggestions
 
 async def analyze_with_openai(
     request: AnalysisRequest,
@@ -233,7 +172,7 @@ async def analyze_with_openai(
         )
         
         # Get OpenAI response
-        response = await get_openai_response(prompt)
+        response = await get_openai_response(prompt, is_content_generation=False)
         if not response:
             return default_analysis
         
@@ -241,10 +180,10 @@ async def analyze_with_openai(
         return AnalysisSection(**response)
         
     except ValueError as e:
-        print(f"Validation error: {e}")
+        log_error(f"Validation error: {e}", "ANALYSIS")
         return default_analysis
     except Exception as e:
-        print(f"Error in analysis: {e}")
+        log_error(f"Error in analysis: {e}", "ANALYSIS")
         return AnalysisSection(
             score=5.0,
             strengths=["Content structure unclear"],
@@ -281,7 +220,7 @@ async def analyze_content(
     content: str,
     keyword: Optional[str] = None,
     competitor_insights: Optional[Dict[str, List[str]]] = None
-) -> BlogAnalysis:
+) -> Dict[str, Any]:  # Return Dict instead of BlogAnalysis for JSON serialization
     """Perform comprehensive content analysis using structured outputs."""
     # Early validation
     if not content:
@@ -326,54 +265,56 @@ async def analyze_content(
         
         # Map results to analysis types
         analyses = {
-            request[0]: result 
+            request[0]: result.dict()  # Convert Pydantic models to dict
             for request, result in zip(analysis_requests, analysis_results)
         }
         
         # Calculate overall score
-        scores = [section.score for section in analyses.values()]
+        scores = [section["score"] for section in analyses.values()]
         overall_score = sum(scores) / len(scores)
         
-        # Return validated analysis
-        return BlogAnalysis(
-            overall_score=overall_score,
-            structure=analyses["structure"],
-            accessibility=analyses["accessibility"],
-            empathy=analyses["empathy"]
-        )
+        # Return dictionary for JSON serialization
+        return {
+            "overall_score": overall_score,
+            "structure": analyses["structure"],
+            "accessibility": analyses["accessibility"],
+            "empathy": analyses["empathy"]
+        }
         
     except ValueError as e:
-        raise ValueError(f"Analysis validation error: {e}")
+        log_error(f"Analysis validation error: {e}", "ANALYSIS")
+        raise
     except Exception as e:
-        raise Exception(f"Unexpected error in analysis: {e}")
+        log_error(f"Unexpected error in analysis: {e}", "ANALYSIS")
+        raise
 
-def format_section_report(section: AnalysisSection, title: str) -> List[str]:
+def format_section_report(section: Dict[str, Any], title: str) -> List[str]:
     """Format a section of the analysis report."""
     return [
         f"## {title} Analysis",
-        f"Score: {section.score:.1f}/10\n",
+        f"Score: {section['score']:.1f}/10\n",
         "### Strengths",
-        *[f"- {strength}" for strength in section.strengths],
+        *[f"- {strength}" for strength in section['strengths']],
         "\n### Areas for Improvement",
-        *[f"- {weakness}" for weakness in section.weaknesses],
+        *[f"- {weakness}" for weakness in section['weaknesses']],
         "\n### Suggestions",
-        *[f"- {suggestion}" for suggestion in section.suggestions],
+        *[f"- {suggestion}" for suggestion in section['suggestions']],
         "\n"
     ]
 
-def generate_report(analysis: BlogAnalysis) -> str:
-    """Generate a markdown report from analysis results using Pydantic models."""
+def generate_report(analysis: Dict[str, Any]) -> str:
+    """Generate a markdown report from analysis results."""
     # Start with header and overall score
     report_sections = [
         "# Blog Post Analysis Report\n",
-        f"## Overall Score: {analysis.overall_score:.1f}/10\n"
+        f"## Overall Score: {analysis['overall_score']:.1f}/10\n"
     ]
     
     # Define sections to analyze
     sections = [
-        ("Structure", analysis.structure),
-        ("Accessibility", analysis.accessibility),
-        ("Empathy", analysis.empathy)
+        ("Structure", analysis["structure"]),
+        ("Accessibility", analysis["accessibility"]),
+        ("Empathy", analysis["empathy"])
     ]
     
     # Use list comprehension to flatten the sections
@@ -384,24 +325,6 @@ def generate_report(analysis: BlogAnalysis) -> str:
     ]
     
     report_sections.extend(section_lines)
-    return "\n".join(report_sections)
-
-def generate_report(analysis: BlogAnalysis) -> str:
-    """Generate a markdown report from analysis results using Pydantic models."""
-    report_sections = [
-        "# Blog Post Analysis Report\n",
-        f"## Overall Score: {analysis.overall_score:.1f}/10\n"
-    ]
-    
-    sections = [
-        ("Structure", analysis.structure),
-        ("Accessibility", analysis.accessibility),
-        ("Empathy", analysis.empathy)
-    ]
-    
-    for title, section in sections:
-        report_sections.extend(format_section_report(section, title))
-    
     return "\n".join(report_sections)
 
 async def analyze_and_save(
@@ -436,7 +359,7 @@ async def analyze_and_save(
         # Save analysis as JSON
         analysis_file = output_path / f"analysis_{timestamp}.json"
         with open(analysis_file, "w") as f:
-            json.dump(analysis.model_dump(), f, indent=2)
+            json.dump(analysis, f, indent=2)
         
         # Save report as markdown
         report_file = output_path / f"report_{timestamp}.md"
@@ -449,14 +372,16 @@ async def analyze_and_save(
         }
         
     except ValueError as e:
-        raise ValueError(f"Invalid input: {str(e)}")
+        log_error(f"Invalid input: {str(e)}", "ANALYSIS")
+        raise
     except Exception as e:
-        raise Exception(f"Analysis error: {str(e)}")
+        log_error(f"Analysis error: {str(e)}", "ANALYSIS")
+        raise
 
 if __name__ == "__main__":
     example = "This is an example blog post about web accessibility..."
     try:
-        report_path = analyze_and_save(example)
-        print(f"Analysis saved to: {report_path}")
+        asyncio.run(analyze_and_save(example))
+        log_info("Analysis completed successfully", "ANALYSIS")
     except Exception as e:
-        print(f"Error: {str(e)}")
+        log_error(f"Error: {str(e)}", "ANALYSIS")

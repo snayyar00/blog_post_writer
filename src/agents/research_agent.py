@@ -8,11 +8,11 @@ import os
 import json
 import random
 from typing import List, Dict, Any, Optional, Union, Literal
-import requests
+import aiohttp
 from datetime import datetime
 from enum import Enum
-import tiktoken
 from src.utils.cost_tracker import log_api_call
+from openai import AsyncOpenAI  # Import AsyncOpenAI instead of OpenAI
 
 class AIProvider(Enum):
     """Enum for supported AI providers."""
@@ -36,15 +36,7 @@ class ResearchAgent:
                  anthropic_api_key: Optional[str] = None,
                  openai_api_key: Optional[str] = None,
                  default_provider: AIProvider = AIProvider.AUTO):
-        """
-        Initialize the research agent with available API keys.
-        
-        Args:
-            perplexity_api_key: API key for Perplexity
-            anthropic_api_key: API key for Anthropic
-            openai_api_key: API key for OpenAI
-            default_provider: Default AI provider to use
-        """
+        """Initialize the research agent with available API keys."""
         self.api_keys = {
             AIProvider.PERPLEXITY: perplexity_api_key,
             AIProvider.ANTHROPIC: anthropic_api_key,
@@ -82,31 +74,24 @@ class ResearchAgent:
                 import anthropic
                 self.anthropic_client = anthropic.Anthropic(api_key=anthropic_api_key)
             except ImportError:
-                print("Anthropic package not installed. Run 'pip install anthropic' to use Anthropic.")
+                from src.utils.logging_manager import log_warning
+                log_warning("Anthropic package not installed. Run 'pip install anthropic' to use Anthropic.")
                 self.anthropic_client = None
         else:
             self.anthropic_client = None
             
         if openai_api_key:
             try:
-                from openai import OpenAI
-                self.openai_client = OpenAI(api_key=openai_api_key)
+                self.openai_client = AsyncOpenAI(api_key=openai_api_key)  # Use AsyncOpenAI
             except ImportError:
-                print("OpenAI package not installed. Run 'pip install openai' to use OpenAI.")
+                from src.utils.logging_manager import log_warning
+                log_warning("OpenAI package not installed. Run 'pip install openai' to use OpenAI.")
                 self.openai_client = None
         else:
             self.openai_client = None
     
     def _select_provider(self, task_type: str) -> AIProvider:
-        """
-        Intelligently select the best provider for a given task.
-        
-        Args:
-            task_type: Type of task (research, seo, competitor_analysis, etc.)
-            
-        Returns:
-            Selected AI provider
-        """
+        """Intelligently select the best provider for a given task."""
         if self.default_provider != AIProvider.AUTO:
             # Use default provider if specified and available
             if self.api_keys[self.default_provider]:
@@ -137,27 +122,22 @@ class ResearchAgent:
         # Select provider with lowest usage (simple load balancing)
         return min(available_providers, key=lambda p: self.usage_stats[p])
     
-    def research_topic(self,
-                      topic: str,
-                      business_context: Optional[Dict] = None,
-                      competitor_blogs: Optional[List[Dict]] = None,
-                      depth: int = 3,
-                      mode: Union[ResearchMode, str] = ResearchMode.DEEP,
-                      provider: Optional[Union[AIProvider, str]] = None) -> List[Dict]:
-        """
-        Perform comprehensive research on a topic using the best available AI provider.
+    async def research_topic(self,
+                           topic: str,
+                           business_context: Optional[Dict] = None,
+                           competitor_blogs: Optional[List[Dict]] = None,
+                           depth: int = 3,
+                           mode: Union[ResearchMode, str] = ResearchMode.DEEP,
+                           provider: Optional[Union[AIProvider, str]] = None) -> List[Dict]:
+        """Perform comprehensive research on a topic using the best available AI provider."""
+        from src.utils.logging_manager import log_info, log_debug
+        log_info(f"Starting research on topic: {topic}", "RESEARCH")
         
-        Args:
-            topic: The main topic to research
-            business_context: Optional business context to tailor research
-            competitor_blogs: Optional list of competitor blog content
-            depth: How many levels deep to research (1-5)
-            mode: Research mode (deep, seo, trend, competitor)
-            provider: Specific provider to use (overrides automatic selection)
-            
-        Returns:
-            List of research findings with sources
-        """
+        # Cache key for this research request
+        cache_key = f"{topic}_{mode}_{depth}"
+        if hasattr(self, '_research_cache') and cache_key in self._research_cache:
+            log_debug("Using cached research results")
+            return self._research_cache[cache_key]
         # Convert string mode to enum if needed
         if isinstance(mode, str):
             try:
@@ -189,21 +169,23 @@ class ResearchAgent:
         
         # Dispatch to appropriate provider method
         if provider == AIProvider.PERPLEXITY:
-            return self._research_with_perplexity(topic, business_context, competitor_blogs, depth, mode)
+            return await self._research_with_perplexity(topic, business_context, competitor_blogs, depth, mode)
         elif provider == AIProvider.ANTHROPIC:
-            return self._research_with_anthropic(topic, business_context, competitor_blogs, depth, mode)
+            return await self._research_with_anthropic(topic, business_context, competitor_blogs, depth, mode)
         elif provider == AIProvider.OPENAI:
-            return self._research_with_openai(topic, business_context, competitor_blogs, depth, mode)
+            return await self._research_with_openai(topic, business_context, competitor_blogs, depth, mode)
         else:
             raise ValueError(f"Unsupported provider: {provider}")
     
-    def _research_with_perplexity(self,
+    async def _research_with_perplexity(self,
                                 topic: str,
                                 business_context: Optional[Dict],
                                 competitor_blogs: Optional[List[Dict]],
                                 depth: int,
                                 mode: ResearchMode) -> List[Dict]:
         """Research using Perplexity API."""
+        from src.utils.logging_manager import log_info
+        log_info("Using Perplexity API for research", "RESEARCH")
         api_key = self.api_keys[AIProvider.PERPLEXITY]
         if not api_key:
             raise ValueError("Perplexity API key not provided")
@@ -214,68 +196,23 @@ class ResearchAgent:
             "content-type": "application/json"
         }
         
-        # Build a more targeted research query based on business context and mode
-        research_query = f"Comprehensive research about {topic}"
-        
-        # Add business context if available
-        if business_context:
-            business_type = business_context.get('business_type', '')
-            industry = business_context.get('industry', '')
-            target_audience = business_context.get('target_audience', '')
-            
-            if business_type or industry:
-                research_query += f" specifically for {business_type or industry} businesses"
-            
-            if target_audience:
-                research_query += f" targeting {target_audience}"
-        
-        # Add competitor insights if available
-        competitor_insights = ""
-        if competitor_blogs and len(competitor_blogs) > 0:
-            competitor_insights = "\n\nCompetitor content analysis:\n"
-            for i, blog in enumerate(competitor_blogs[:3]):
-                competitor_insights += f"Competitor {i+1}: {blog.get('title', 'Untitled')}\n"
-                competitor_insights += f"Key points: {blog.get('summary', 'No summary available')}\n"
-        
-        # Customize system prompt based on research mode
-        system_prompt = "You are a specialized research assistant for content marketing."
-        user_prompt_suffix = "Include market data, statistics, expert opinions, and actionable insights. Focus on practical applications and business value."
-        
-        if mode == ResearchMode.SEO:
-            # Add SEO jargon to make content more enticing
-            seo_terms = random.sample(self.seo_jargon, min(5, len(self.seo_jargon)))
-            seo_jargon_str = ", ".join(seo_terms)
-            
-            system_prompt = "You are an elite SEO content strategist with expertise in search optimization and content marketing."
-            user_prompt_suffix = f"Focus on SEO optimization strategies incorporating concepts like {seo_jargon_str}. Include keyword research, search intent analysis, and content structure recommendations. Provide actionable insights for ranking improvement."
-            
-        elif mode == ResearchMode.TREND:
-            system_prompt = "You are a trend analysis expert specializing in identifying emerging patterns and opportunities."
-            user_prompt_suffix = "Focus on current trends, emerging patterns, and future predictions. Include recent statistics, market shifts, and actionable insights for staying ahead of the curve."
-            
-        elif mode == ResearchMode.COMPETITOR:
-            system_prompt = "You are a competitive intelligence specialist with expertise in market positioning and competitor analysis."
-            user_prompt_suffix = "Focus on competitive landscape analysis, market positioning strategies, and differentiation opportunities. Provide actionable insights for competitive advantage."
-        
-        # Prepare messages for chat completions API
-        system_content = system_prompt + " Provide comprehensive, factual information with sources that is directly relevant to the user's business context."
-        user_content = f"{research_query}. {user_prompt_suffix} {competitor_insights}\n\nCite your sources."
+        # Build research query and prompts
+        research_query, system_prompt, user_prompt_suffix = self._build_research_prompts(
+            topic, business_context, competitor_blogs, mode)
         
         messages = [
             {
                 "role": "system",
-                "content": system_content
+                "content": system_prompt
             },
             {
                 "role": "user",
-                "content": user_content
+                "content": f"{research_query}. {user_prompt_suffix}"
             }
         ]
         
-        # Use a more cost-effective model when appropriate
-        model = "sonar-medium-online"  # Less expensive than sonar-deep-research
-        if mode == ResearchMode.DEEP or depth > 3:
-            model = "sonar-deep-research"  # Use deep research only when necessary
+        # Always use the most cost-effective model
+        model = "llama-3-sonar-small-online"  # Updated model name for Perplexity
         
         payload = {
             "model": model,
@@ -283,34 +220,27 @@ class ResearchAgent:
         }
         
         try:
-            response = requests.post(
-                "https://api.perplexity.ai/chat/completions",
-                headers=headers,
-                json=payload
-            )
-            response.raise_for_status()
+            # Debugging payload
+            log_debug(f"Perplexity API payload: {json.dumps(payload, indent=2)}", "RESEARCH")
             
-            research_data = response.json()
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    "https://api.perplexity.ai/chat/completions",
+                    headers=headers,
+                    json=payload,
+                    timeout=30  # Add timeout
+                ) as response:
+                    if response.status != 200:
+                        error_text = await response.text()
+                        log_error(f"Perplexity API error: {response.status}, {error_text}", "RESEARCH")
+                    response.raise_for_status()
+                    research_data = await response.json()
             
             # Extract content and sources from the response
             findings = []
             if "choices" in research_data and research_data["choices"]:
                 content = research_data["choices"][0]["message"]["content"]
-                
-                # Extract sources from the content (improved implementation)
-                sources = []
-                in_sources_section = False
-                
-                for line in content.split("\n"):
-                    if line.lower().startswith(("source", "reference", "citation", "[")):
-                        in_sources_section = True
-                        sources.append(line)
-                    elif in_sources_section and line.strip() and not line.startswith("#"):
-                        # Continue adding lines that appear to be part of sources
-                        sources.append(line)
-                    elif in_sources_section and not line.strip():
-                        # Empty line might end the sources section
-                        in_sources_section = False
+                sources = self._extract_sources(content)
                 
                 findings.append({
                     "content": content,
@@ -318,102 +248,48 @@ class ResearchAgent:
                     "confidence": 0.9,  # Default confidence for Perplexity API
                     "provider": "perplexity",
                     "model": model,
-                    "tokens": {"input": input_tokens, "output": output_tokens},
+                    "tokens": self._count_tokens(content),
                     "timestamp": datetime.now().isoformat()
                 })
                 
             return findings
             
         except Exception as e:
-            print(f"Error during Perplexity research: {str(e)}")
+            from src.utils.logging_manager import log_error
+            log_error(f"Error during Perplexity research: {str(e)}")
             return []
     
-    def _research_with_anthropic(self,
+    async def _research_with_anthropic(self,
                                topic: str,
                                business_context: Optional[Dict],
                                competitor_blogs: Optional[List[Dict]],
                                depth: int,
                                mode: ResearchMode) -> List[Dict]:
         """Research using Anthropic API."""
+        from src.utils.logging_manager import log_info
+        log_info("Using Anthropic API for research", "RESEARCH")
         if not self.anthropic_client:
             raise ValueError("Anthropic client not initialized")
             
-        # Build research query similar to Perplexity but tailored for Anthropic
-        research_query = f"Comprehensive research about {topic}"
-        
-        # Add business context if available
-        if business_context:
-            business_type = business_context.get('business_type', '')
-            industry = business_context.get('industry', '')
-            target_audience = business_context.get('target_audience', '')
-            
-            if business_type or industry:
-                research_query += f" specifically for {business_type or industry} businesses"
-            
-            if target_audience:
-                research_query += f" targeting {target_audience}"
-        
-        # Add competitor insights if available
-        competitor_insights = ""
-        if competitor_blogs and len(competitor_blogs) > 0:
-            competitor_insights = "\n\nCompetitor content analysis:\n"
-            for i, blog in enumerate(competitor_blogs[:3]):
-                competitor_insights += f"Competitor {i+1}: {blog.get('title', 'Untitled')}\n"
-                competitor_insights += f"Key points: {blog.get('summary', 'No summary available')}\n"
-        
-        # Customize system prompt based on research mode
-        system_prompt = "You are a specialized research assistant for content marketing."
-        user_prompt_suffix = "Include market data, statistics, expert opinions, and actionable insights. Focus on practical applications and business value."
-        
-        if mode == ResearchMode.SEO:
-            # Add SEO jargon to make content more enticing
-            seo_terms = random.sample(self.seo_jargon, min(5, len(self.seo_jargon)))
-            seo_jargon_str = ", ".join(seo_terms)
-            
-            system_prompt = "You are an elite SEO content strategist with expertise in search optimization and content marketing."
-            user_prompt_suffix = f"Focus on SEO optimization strategies incorporating concepts like {seo_jargon_str}. Include keyword research, search intent analysis, and content structure recommendations. Provide actionable insights for ranking improvement."
-            
-        elif mode == ResearchMode.TREND:
-            system_prompt = "You are a trend analysis expert specializing in identifying emerging patterns and opportunities."
-            user_prompt_suffix = "Focus on current trends, emerging patterns, and future predictions. Include recent statistics, market shifts, and actionable insights for staying ahead of the curve."
-            
-        elif mode == ResearchMode.COMPETITOR:
-            system_prompt = "You are a competitive intelligence specialist with expertise in market positioning and competitor analysis."
-            user_prompt_suffix = "Focus on competitive landscape analysis, market positioning strategies, and differentiation opportunities. Provide actionable insights for competitive advantage."
-        
-        # Prepare messages and system prompt
-        system_content = system_prompt + " Provide comprehensive, factual information with sources that is directly relevant to the user's business context."
-        user_content = f"{research_query}. {user_prompt_suffix} {competitor_insights}\n\nCite your sources."
+        # Build research query and prompts
+        research_query, system_prompt, user_prompt_suffix = self._build_research_prompts(
+            topic, business_context, competitor_blogs, mode)
         
         try:
             # Use cheaper model (claude-3-haiku) instead of opus
             model = "claude-3-haiku-20240307"
             
-            response = self.anthropic_client.messages.create(
+            response = await self.anthropic_client.messages.create(
                 model=model,
                 max_tokens=4000,
-                system=system_content,
+                system=system_prompt,
                 messages=[
-                    {"role": "user", "content": user_content}
+                    {"role": "user", "content": f"{research_query}. {user_prompt_suffix}"}
                 ]
             )
             
             content = response.content[0].text
-            
-            # Extract sources from the content
-            sources = []
-            in_sources_section = False
-            
-            for line in content.split("\n"):
-                if line.lower().startswith(("source", "reference", "citation", "[")):
-                    in_sources_section = True
-                    sources.append(line)
-                elif in_sources_section and line.strip() and not line.startswith("#"):
-                    # Continue adding lines that appear to be part of sources
-                    sources.append(line)
-                elif in_sources_section and not line.strip():
-                    # Empty line might end the sources section
-                    in_sources_section = False
+            sources = self._extract_sources(content)
             
             return [{
                 "content": content,
@@ -421,25 +297,70 @@ class ResearchAgent:
                 "confidence": 0.90,  # Slightly lower confidence for haiku vs opus
                 "provider": "anthropic",
                 "model": model,
-                "tokens": {"input": input_tokens, "output": output_tokens},
+                "tokens": self._count_tokens(content),
                 "timestamp": datetime.now().isoformat()
             }]
             
         except Exception as e:
-            print(f"Error during Anthropic research: {str(e)}")
+            from src.utils.logging_manager import log_error
+            log_error(f"Error during Anthropic research: {str(e)}")
             return []
     
-    def _research_with_openai(self,
+    async def _research_with_openai(self,
                             topic: str,
                             business_context: Optional[Dict],
                             competitor_blogs: Optional[List[Dict]],
                             depth: int,
                             mode: ResearchMode) -> List[Dict]:
         """Research using OpenAI API."""
+        from src.utils.logging_manager import log_info
+        log_info("Using OpenAI API for research", "RESEARCH")
         if not self.openai_client:
             raise ValueError("OpenAI client not initialized")
             
-        # Build research query similar to other providers but tailored for OpenAI
+        # Build research query and prompts
+        research_query, system_prompt, user_prompt_suffix = self._build_research_prompts(
+            topic, business_context, competitor_blogs, mode)
+        
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"{research_query}. {user_prompt_suffix}"}
+        ]
+        
+        try:
+            # Use cheaper model (gpt-3.5-turbo) instead of gpt-4
+            model = "gpt-3.5-turbo"
+            
+            response = await self.openai_client.chat.completions.create(
+                model=model,
+                messages=messages,
+                max_tokens=4000
+            )
+            
+            content = response.choices[0].message.content
+            sources = self._extract_sources(content)
+            
+            return [{
+                "content": content,
+                "sources": sources,
+                "confidence": 0.92,
+                "provider": "openai",
+                "model": model,
+                "tokens": self._count_tokens(content),
+                "timestamp": datetime.now().isoformat()
+            }]
+            
+        except Exception as e:
+            from src.utils.logging_manager import log_error
+            log_error(f"Error during OpenAI research: {str(e)}")
+            return []
+    
+    def _build_research_prompts(self,
+                              topic: str,
+                              business_context: Optional[Dict],
+                              competitor_blogs: Optional[List[Dict]],
+                              mode: ResearchMode) -> tuple[str, str, str]:
+        """Build research query and prompts based on inputs."""
         research_query = f"Comprehensive research about {topic}"
         
         # Add business context if available
@@ -482,229 +403,51 @@ class ResearchAgent:
             system_prompt = "You are a competitive intelligence specialist with expertise in market positioning and competitor analysis."
             user_prompt_suffix = "Focus on competitive landscape analysis, market positioning strategies, and differentiation opportunities. Provide actionable insights for competitive advantage."
         
-        # Prepare messages
-        system_message = {"role": "system", "content": system_prompt + " Provide comprehensive, factual information with sources that is directly relevant to the user's business context."}
-        user_message = {"role": "user", "content": f"{research_query}. {user_prompt_suffix} {competitor_insights}\n\nCite your sources."}
-        messages = [system_message, user_message]
+        system_prompt += " Provide comprehensive, factual information with sources that is directly relevant to the user's business context."
+        user_prompt_suffix += f"{competitor_insights}\n\nCite your sources."
         
-        try:
-            # Use cheaper model (gpt-4o-mini) instead of gpt-4-turbo
-            model = "gpt-4o-mini"
-            
-            response = self.openai_client.chat.completions.create(
-                model=model,
-                messages=messages,
-                max_tokens=4000
-            )
-            
-            content = response.choices[0].message.content
-            
-            # Extract sources from the content
-            sources = []
-            in_sources_section = False
-            
-            for line in content.split("\n"):
-                if line.lower().startswith(("source", "reference", "citation", "[")):
-                    in_sources_section = True
-                    sources.append(line)
-                elif in_sources_section and line.strip() and not line.startswith("#"):
-                    # Continue adding lines that appear to be part of sources
-                    sources.append(line)
-                elif in_sources_section and not line.strip():
-                    # Empty line might end the sources section
-                    in_sources_section = False
-            
-            return [{
-                "content": content,
-                "sources": sources,
-                "confidence": 0.92,
-                "provider": "openai",
-                "model": model,
-                "tokens": {"input": input_tokens, "output": output_tokens},
-                "timestamp": datetime.now().isoformat()
-            }]
-            
-        except Exception as e:
-            print(f"Error during OpenAI research: {str(e)}")
-            return []
-            
-    def _get_company_context_perplexity(self, company_name: str) -> Dict:
-        """Get company context using Perplexity API."""
-        api_key = self.api_keys[AIProvider.PERPLEXITY]
-        if not api_key:
-            raise ValueError("Perplexity API key not provided")
-            
-        headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
-        }
-        
-        query = {
-            "query": f"""Detailed analysis of {company_name} including:
-            1. Company history and background
-            2. Products and services
-            3. Market position and competitors
-            4. Recent news and developments
-            5. Company culture and values
-            6. Financial performance
-            7. Future outlook""",
-            "max_tokens": 3000
-        }
-        
-        try:
-            response = requests.post(
-                f"{self.perplexity_base_url}/query",
-                headers=headers,
-                json=query
-            )
-            response.raise_for_status()
-            
-            company_data = response.json()
-            return {
-                "context": company_data.get("answer", ""),
-                "sources": company_data.get("sources", []),
-                "last_updated": company_data.get("timestamp", ""),
-                "provider": "perplexity"
-            }
-            
-        except Exception as e:
-            print(f"Error getting company context from Perplexity: {str(e)}")
-            return {}
-
-    def _get_company_context_anthropic(self, company_name: str) -> Dict:
-        """Get company context using Anthropic API."""
-        if not self.anthropic_client:
-            raise ValueError("Anthropic client not initialized")
-            
-        try:
-            response = self.anthropic_client.messages.create(
-                model="claude-3-opus-20240229",
-                max_tokens=3000,
-                system="You are a business intelligence analyst specializing in company research.",
-                messages=[
-                    {"role": "user", "content": f"""Detailed analysis of {company_name} including:
-                    1. Company history and background
-                    2. Products and services
-                    3. Market position and competitors
-                    4. Recent news and developments
-                    5. Company culture and values
-                    6. Financial performance
-                    7. Future outlook
-                    
-                    Provide comprehensive information with sources."""}
-                ]
-            )
-            
-            content = response.content[0].text
-            
-            # Extract sources
-            sources = []
-            for line in content.split("\n"):
-                if line.lower().startswith(("source", "reference", "citation", "[")):
-                    sources.append(line)
-            
-            return {
-                "context": content,
-                "sources": sources,
-                "last_updated": datetime.now().isoformat(),
-                "provider": "anthropic"
-            }
-            
-        except Exception as e:
-            print(f"Error getting company context from Anthropic: {str(e)}")
-            return {}
-
-    def _get_company_context_openai(self, company_name: str) -> Dict:
-        """Get company context using OpenAI API."""
-        if not self.openai_client:
-            raise ValueError("OpenAI client not initialized")
-            
-        try:
-            response = self.openai_client.chat.completions.create(
-                model="gpt-4-turbo",
-                messages=[
-                    {"role": "system", "content": "You are a business intelligence analyst specializing in company research."},
-                    {"role": "user", "content": f"""Detailed analysis of {company_name} including:
-                    1. Company history and background
-                    2. Products and services
-                    3. Market position and competitors
-                    4. Recent news and developments
-                    5. Company culture and values
-                    6. Financial performance
-                    7. Future outlook
-                    
-                    Provide comprehensive information with sources."""}
-                ],
-                max_tokens=3000
-            )
-            
-            content = response.choices[0].message.content
-            
-            # Extract sources
-            sources = []
-            for line in content.split("\n"):
-                if line.lower().startswith(("source", "reference", "citation", "[")):
-                    sources.append(line)
-            
-            return {
-                "context": content,
-                "sources": sources,
-                "last_updated": datetime.now().isoformat(),
-                "provider": "openai"
-            }
-            
-        except Exception as e:
-            print(f"Error getting company context from OpenAI: {str(e)}")
-            return {}
+        return research_query, system_prompt, user_prompt_suffix
     
-    def get_company_context(self, company_name: str, provider: Optional[Union[AIProvider, str]] = None) -> Dict:
-        """
-        Get detailed context about a company using the best available AI provider.
+    def _extract_sources(self, content: str) -> List[str]:
+        """Extract sources from content."""
+        sources = []
+        in_sources_section = False
         
-        Args:
-            company_name: Name of the company to research
-            provider: Specific provider to use (overrides automatic selection)
-            
-        Returns:
-            Dictionary containing company information
-        """
-        # Convert string provider to enum if needed
-        if isinstance(provider, str) and provider:
-            try:
-                provider = AIProvider(provider.lower())
-            except ValueError:
-                provider = None
+        for line in content.split("\n"):
+            if line.lower().startswith(("source", "reference", "citation", "[")):
+                in_sources_section = True
+                sources.append(line)
+            elif in_sources_section and line.strip() and not line.startswith("#"):
+                # Continue adding lines that appear to be part of sources
+                sources.append(line)
+            elif in_sources_section and not line.strip():
+                # Empty line might end the sources section
+                in_sources_section = False
         
-        # Select provider if not specified
-        if not provider:
-            provider = self._select_provider("research")
-        
-        # Track usage
-        self.usage_stats[provider] = self.usage_stats.get(provider, 0) + 1
-        
-        # Dispatch to appropriate provider method
-        if provider == AIProvider.PERPLEXITY:
-            return self._get_company_context_perplexity(company_name)
-        elif provider == AIProvider.ANTHROPIC:
-            return self._get_company_context_anthropic(company_name)
-        elif provider == AIProvider.OPENAI:
-            return self._get_company_context_openai(company_name)
-        else:
-            raise ValueError(f"Unsupported provider: {provider}")
-
-
-def research_topic(keywords: List[str], mode: str = "deep", business_context: Optional[Dict] = None) -> Dict[str, Any]:
-    """
-    Research content based on a list of keywords using the best available AI provider.
+        return sources
     
-    Args:
-        keywords: List of keywords to research
-        mode: Research mode ('deep', 'seo', 'trend', 'competitor')
-        business_context: Optional business context to tailor research
+    def _count_tokens(self, text: str) -> Dict[str, int]:
+        """Count tokens in text using word-based approach."""
+        # Rough token estimation: 1 token ≈ 4 characters
+        char_count = len(text)
+        token_estimate = char_count // 4
         
-    Returns:
-        Dictionary containing research results
-    """
+        # Add extra tokens for special characters and spaces
+        special_chars = len([c for c in text if not c.isalnum()])
+        token_estimate += special_chars // 2
+        
+        # Ensure minimum token count
+        token_estimate = max(token_estimate, 1)
+        
+        return {
+            "input": token_estimate,
+            "output": token_estimate
+        }
+
+async def research_topic(keywords: List[str], mode: str = "deep", business_context: Optional[Dict] = None) -> Dict[str, Any]:
+    """Research content based on a list of keywords using the best available AI provider."""
+    from src.utils.logging_manager import log_info
+    log_info(f"Starting research for keywords: {', '.join(keywords)}")
     # Get API keys from environment variables
     perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
     anthropic_api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY")
@@ -712,7 +455,8 @@ def research_topic(keywords: List[str], mode: str = "deep", business_context: Op
     
     # Check if any API keys are available
     if not any([perplexity_api_key, anthropic_api_key, openai_api_key]):
-        print("Warning: No API keys found for research. Using mock data.")
+        from src.utils.logging_manager import log_warning
+        log_warning("No API keys found for research. Using mock data.")
         return {
             "findings": [
                 {
@@ -748,7 +492,7 @@ def research_topic(keywords: List[str], mode: str = "deep", business_context: Op
                 research_mode = ResearchMode.DEEP
         
         # Perform research with the specified mode
-        findings = agent.research_topic(
+        findings = await agent.research_topic(
             topic=main_topic,
             business_context=business_context,
             mode=research_mode
@@ -756,40 +500,36 @@ def research_topic(keywords: List[str], mode: str = "deep", business_context: Op
         
         # If no findings were returned, try with a different provider
         if not findings:
+            log_warning(f"Research attempt with AUTO provider returned no data, trying specific providers", "RESEARCH")
             # Try each provider in sequence until one works
-            for provider in [AIProvider.PERPLEXITY, AIProvider.ANTHROPIC, AIProvider.OPENAI]:
+            for provider in [AIProvider.OPENAI, AIProvider.ANTHROPIC, AIProvider.PERPLEXITY]:
                 if agent.api_keys[provider]:
                     try:
-                        findings = agent.research_topic(
+                        log_info(f"Research attempt with {provider.value} provider", "RESEARCH")
+                        findings = await agent.research_topic(
                             topic=main_topic,
                             business_context=business_context,
                             mode=research_mode,
                             provider=provider
                         )
                         if findings:
+                            log_info(f"Successfully retrieved research data with {provider.value}", "RESEARCH")
                             break
                     except Exception as provider_error:
-                        print(f"Error with {provider.value}: {str(provider_error)}")
-        
-        # If still no findings, use a simple fallback
-        if not findings:
-            findings = [{
-                "content": f"Research on {main_topic}:\n\nUnable to retrieve detailed information at this time. Please try again later or refine your search terms.",
-                "sources": [],
-                "confidence": 0.5,
-                "provider": "fallback",
-                "timestamp": datetime.now().isoformat()
-            }]
+                        from src.utils.logging_manager import log_error
+                        log_error(f"Error with {provider.value}: {str(provider_error)}")
+                        continue
         
         return {
-            "findings": findings,
+            "findings": findings if findings else [],
             "keywords_used": keywords,
             "mode": mode,
             "timestamp": datetime.now().isoformat()
         }
         
     except Exception as e:
-        print(f"Error in research_topic: {str(e)}")
+        from src.utils.logging_manager import log_error
+        log_error(f"Error in research_topic: {str(e)}")
         return {
             "findings": [],
             "keywords_used": keywords,

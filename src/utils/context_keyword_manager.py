@@ -1,322 +1,278 @@
 """
-Context keyword manager that extracts keywords from context files and maintains a keyword directory.
-Uses functional programming patterns and follows RORO principles.
+Manages keyword extraction and selection from context files.
 """
-from typing import List, Dict, Any, Optional, Set
-from pathlib import Path
-import json
-import csv
+
 import re
-import os
+from pathlib import Path
+from typing import Dict, List, Any, Optional
 from collections import Counter
-from datetime import datetime
+from src.utils.logging_manager import log_debug, log_info, log_warning
 
 def load_context_files(context_dir: Path) -> Dict[str, str]:
-    """
-    Load all context files from the context directory.
+    """Load all context files from the specified directory.
     
     Args:
         context_dir: Path to the context directory
         
     Returns:
-        Dictionary mapping filenames to file contents
+        Dict mapping filenames to their content
     """
-    if not context_dir.exists():
-        return {}
-    
     context_data = {}
+    if not context_dir.exists():
+        log_warning(f"Context directory not found: {context_dir}", "CONTEXT")
+        return context_data
     
-    # Load all text files in the context directory
-    for file_path in context_dir.glob("**/*"):
-        if file_path.is_file() and file_path.suffix in ['.md', '.txt', '.csv']:
+    try:
+        for file_path in context_dir.glob("*.md"):
             try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    content = f.read()
+                content = file_path.read_text()
                 context_data[file_path.name] = content
+                log_debug(f"Loaded context file: {file_path.name}", "CONTEXT")
             except Exception as e:
-                print(f"Error loading context file {file_path}: {e}")
+                log_warning(f"Error reading {file_path}: {e}", "CONTEXT")
+    except Exception as e:
+        log_warning(f"Error accessing context directory: {e}", "CONTEXT")
     
+    log_info(f"Loaded {len(context_data)} context files", "CONTEXT")
     return context_data
 
 def extract_keywords_from_context(context_data: Dict[str, str]) -> List[Dict[str, Any]]:
-    """
-    Extract keywords from context files.
+    """Extract keywords from context files with priority and metadata.
     
     Args:
-        context_data: Dictionary mapping filenames to file contents
+        context_data: Dict mapping filenames to their content
         
     Returns:
-        List of keyword dictionaries with metadata
+        List of dicts containing keyword info (keyword, priority, source, etc.)
     """
     keywords = []
     
-    # Look for keyword files specifically
-    keyword_files = ["Webability_Updated Keyword Research.xlsx - webability.csv", "SEO Content.md"]
-    keyword_candidates = []
+    # First, look for SEO Content.md as it contains high-priority keywords
+    if "SEO Content.md" in context_data:
+        content = context_data["SEO Content.md"]
+        
+        # Extract high-value keywords section
+        high_value_match = re.search(r'### \*\*High-Value Keywords\*\*\s*(.*?)##', content, re.DOTALL)
+        if high_value_match:
+            high_value_section = high_value_match.group(1)
+            # Extract keywords and their descriptions
+            keyword_blocks = re.findall(r'\*\s*\*\*([^:]+):\*\*\s*([^*]+)', high_value_section)
+            for keyword, description in keyword_blocks:
+                keywords.append({
+                    "keyword": keyword.strip(),
+                    "priority": "critical",  # Highest priority for explicitly listed high-value keywords
+                    "source": "SEO Content.md",
+                    "description": description.strip(),
+                    "frequency": 10  # Give high weight to these keywords
+                })
+        
+        # Extract keywords from content calendar
+        calendar_match = re.search(r'\| Journalist Keywords \|(.*?)##', content, re.DOTALL)
+        if calendar_match:
+            calendar_section = calendar_match.group(1)
+            journalist_keywords = re.findall(r'\| ([^|]+?) \|', calendar_section)
+            for kw_group in journalist_keywords[1:]:  # Skip header row
+                for kw in kw_group.split(','):
+                    if kw.strip() and not kw.strip().startswith('**'):
+                        keywords.append({
+                            "keyword": kw.strip(),
+                            "priority": "high",
+                            "source": "SEO Content.md",
+                            "frequency": 5
+                        })
     
+    # Process other context files
     for filename, content in context_data.items():
-        # Check if this is a keyword research file
-        if any(kf in filename for kf in keyword_files):
-            if filename.endswith(".csv") and isinstance(content, str):
-                # Parse CSV content
-                lines = content.strip().split("\n")
-                for line in lines[1:]:  # Skip header row
-                    parts = line.split(",")
-                    if len(parts) >= 3 and parts[2].strip():
-                        keyword = parts[2].strip().lower()
-                        search_volume = int(parts[3]) if len(parts) > 3 and parts[3].strip().isdigit() else 0
-                        keyword_candidates.append({
-                            "keyword": keyword,
-                            "source": filename,
-                            "search_volume": search_volume,
-                            "priority": "high" if search_volume > 100 else "medium"
-                        })
-            elif filename.endswith(".md") and isinstance(content, str):
-                # Extract keywords from markdown content
-                # Look for sections with keywords
-                if "High-Value Keywords" in content:
-                    section = content.split("High-Value Keywords")[1].split("##")[0]
-                    # Extract keywords from bullet points
-                    bullet_points = re.findall(r'\*\s*\*\*([^:]+):\*\*', section)
-                    for kw in bullet_points:
-                        keyword_candidates.append({
-                            "keyword": kw.strip().lower(),
-                            "source": filename,
-                            "search_volume": 0,
-                            "priority": "high"
-                        })
-                
-                # Look for other keyword mentions
-                keyword_matches = re.findall(r'\*\*([^\*]+)\*\*', content)
-                potential_keywords = [match.strip().lower() for match in keyword_matches 
-                                    if 3 <= len(match.strip()) <= 50 and not match.strip().startswith("http")]
-                for kw in potential_keywords:
-                    keyword_candidates.append({
-                        "keyword": kw,
-                        "source": filename,
-                        "search_volume": 0,
-                        "priority": "medium"
-                    })
+        if filename == "SEO Content.md":
+            continue  # Already processed
+            
+        log_debug(f"Extracting keywords from {filename}", "CONTEXT")
         
-        # Extract keywords from business context files
-        if "business_competitors.md" in filename and isinstance(content, str):
-            # Extract competitor names and features
-            competitor_names = re.findall(r'###\s+([^\n]+)', content)
-            for name in competitor_names:
-                keyword_candidates.append({
-                    "keyword": name.strip().lower(),
-                    "source": filename,
-                    "search_volume": 0,
-                    "priority": "medium",
-                    "category": "competitor"
-                })
-            
-            # Extract features
-            features = re.findall(r'\*\*Unique Features\*\*:\s+([^\n]+)', content)
-            for feature_list in features:
-                feature_keywords = feature_list.split(",")
-                for kw in feature_keywords:
-                    keyword_candidates.append({
-                        "keyword": kw.strip().lower(),
-                        "source": filename,
-                        "search_volume": 0,
-                        "priority": "medium",
-                        "category": "feature"
-                    })
-        
-        # Extract keywords from WebAbility.io info
-        if "WebAbility.io" in filename and isinstance(content, str):
-            # Extract key phrases related to web accessibility
-            phrases = ["web accessibility", "ADA compliance", "WCAG", "accessibility standards",
-                      "digital accessibility", "inclusive design", "screen readers", "assistive technology"]
-            
-            for phrase in phrases:
-                keyword_candidates.append({
-                    "keyword": phrase.lower(),
-                    "source": filename,
-                    "search_volume": 0,
-                    "priority": "high",
-                    "category": "core"
-                })
-    
-    # Count keyword frequency and prioritize
-    keyword_counter = Counter([k["keyword"] for k in keyword_candidates])
-    
-    # Create final keyword list with metadata
-    seen_keywords = set()
-    for kw_data in keyword_candidates:
-        keyword = kw_data["keyword"]
-        if keyword not in seen_keywords and len(keyword) > 3:
-            # Adjust priority based on frequency
-            frequency = keyword_counter[keyword]
-            if frequency > 2:
-                kw_data["priority"] = "high"
-            
+        # Extract explicitly marked keywords (in bold)
+        bold_keywords = re.findall(r'\*\*([^\*]+)\*\*', content)
+        for kw in bold_keywords:
             keywords.append({
-                "keyword": keyword,
-                "source": kw_data["source"],
-                "search_volume": kw_data.get("search_volume", 0),
-                "frequency": frequency,
-                "priority": kw_data.get("priority", "medium"),
-                "category": kw_data.get("category", "general")
+                "keyword": kw.strip(),
+                "priority": "high",
+                "source": filename,
+                "frequency": 1
             })
-            seen_keywords.add(keyword)
+        
+        # Extract keywords from headings
+        headings = re.findall(r'#+\s*(.+)', content)
+        for heading in headings:
+            # Split heading into words and filter
+            words = [w.strip() for w in heading.split() if len(w.strip()) > 3]
+            for word in words:
+                keywords.append({
+                    "keyword": word.lower(),
+                    "priority": "medium",
+                    "source": filename,
+                    "frequency": 1
+                })
     
-    # Sort by priority and frequency
-    return sorted(keywords, key=lambda x: (
-        0 if x["priority"] == "high" else 1 if x["priority"] == "medium" else 2,
-        -x["frequency"],
-        -x["search_volume"]
-    ))
+    # Count keyword frequencies
+    keyword_counts = Counter(k["keyword"].lower() for k in keywords)
+    
+    # Update frequencies and adjust priorities
+    for keyword in keywords:
+        kw_lower = keyword["keyword"].lower()
+        freq = keyword_counts[kw_lower]
+        if keyword["priority"] != "critical":  # Don't modify frequency of critical keywords
+            keyword["frequency"] = freq
+            
+            # Upgrade priority if keyword appears frequently
+            if freq > 3 and keyword["priority"] == "medium":
+                keyword["priority"] = "high"
+    
+    log_info(f"Extracted {len(keywords)} keywords from context", "CONTEXT")
+    return keywords
 
-def load_keyword_directory(directory_path: Path) -> Dict[str, Any]:
-    """
-    Load the keyword directory from a JSON file.
+def get_initial_keyword() -> str:
+    """Get an initial keyword when no context is available."""
+    from src.utils.keyword_history_manager import KeywordHistoryManager
+    keyword_history = KeywordHistoryManager()
+    
+    # Default keywords with their priorities
+    default_keywords = [
+        ("Web Accessibility", "high"),
+        ("WCAG Guidelines", "high"),
+        ("ADA Compliance", "high"),
+        ("Digital Inclusion", "medium"),
+        ("Screen Reader Optimization", "medium"),
+        ("Accessibility Testing", "medium"),
+        ("Keyboard Navigation", "medium"),
+        ("Color Contrast", "medium"),
+        ("Alt Text Best Practices", "medium"),
+        ("Accessible Forms", "medium")
+    ]
+    
+    # First try to get keywords from context
+    context_dir = Path("./context")
+    if context_dir.exists():
+        context_data = load_context_files(context_dir)
+        if context_data:
+            keywords = extract_keywords_from_context(context_data)
+            if keywords:
+                # Sort by priority and frequency
+                priority_scores = {"critical": 3, "high": 2, "medium": 1}
+                sorted_keywords = sorted(
+                    keywords,
+                    key=lambda x: (priority_scores.get(x["priority"], 0), x["frequency"]),
+                    reverse=True
+                )
+                
+                # Try each keyword until we find one that's not recently used
+                for kw in sorted_keywords:
+                    if keyword_history.is_keyword_available(kw["keyword"]):
+                        log_info(f"Selected available keyword from context: {kw['keyword']}", "CONTEXT")
+                        return kw["keyword"]
+    
+    # If no context keywords are available, try default keywords
+    from random import shuffle
+    shuffled_keywords = default_keywords.copy()
+    shuffle(shuffled_keywords)
+    
+    # Try each default keyword until we find one that's not recently used
+    for keyword, _ in shuffled_keywords:
+        if keyword_history.is_keyword_available(keyword):
+            log_info(f"Selected available default keyword: {keyword}", "CONTEXT")
+            return keyword
+    
+    # If all keywords are in cooldown, force use the least recently used one
+    least_used = min(shuffled_keywords, key=lambda x: keyword_history.get_keyword_usage(x[0])[-1] if keyword_history.get_keyword_usage(x[0]) else "")[0]
+    log_warning(f"All keywords in cooldown, using least recently used: {least_used}", "CONTEXT")
+    return least_used
+
+def filter_keywords(keywords: List[Dict[str, Any]], min_frequency: int = 2) -> List[Dict[str, Any]]:
+    """Filter keywords based on frequency and other criteria.
     
     Args:
-        directory_path: Path to the keyword directory file
+        keywords: List of keyword dictionaries
+        min_frequency: Minimum frequency threshold
         
     Returns:
-        Dictionary containing keyword directory data
+        Filtered list of keywords
     """
-    if not directory_path.exists():
-        return {"keywords": [], "last_updated": datetime.now().isoformat()}
+    filtered = []
+    seen = set()
     
-    try:
-        with open(directory_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception as e:
-        print(f"Error loading keyword directory: {e}")
-        return {"keywords": [], "last_updated": datetime.now().isoformat()}
+    # First add all critical keywords regardless of frequency
+    for kw in keywords:
+        if kw["priority"] == "critical" and kw["keyword"].lower() not in seen:
+            filtered.append(kw)
+            seen.add(kw["keyword"].lower())
+    
+    # Then add other keywords that meet criteria
+    for kw in keywords:
+        keyword = kw["keyword"].lower()
+        if (
+            keyword not in seen and
+            kw["priority"] != "critical" and  # Skip critical keywords as they're already added
+            kw["frequency"] >= min_frequency and
+            len(keyword) > 3  # Skip very short keywords
+        ):
+            filtered.append(kw)
+            seen.add(keyword)
+    
+    log_info(f"Filtered {len(keywords)} keywords to {len(filtered)}", "CONTEXT")
+    return filtered
 
-def save_keyword_directory(directory: Dict[str, Any], directory_path: Path) -> None:
-    """
-    Save the keyword directory to a JSON file.
+def rank_keywords(keywords: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Rank keywords by priority and frequency.
     
     Args:
-        directory: Dictionary containing keyword directory data
-        directory_path: Path to save the keyword directory file
-    """
-    directory["last_updated"] = datetime.now().isoformat()
-    
-    # Ensure directory exists
-    directory_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    try:
-        with open(directory_path, 'w', encoding='utf-8') as f:
-            json.dump(directory, f, indent=2)
-    except Exception as e:
-        print(f"Error saving keyword directory: {e}")
-
-def update_keyword_directory(context_dir: Path, directory_path: Path) -> Dict[str, Any]:
-    """
-    Update the keyword directory with keywords from context files.
-    
-    Args:
-        context_dir: Path to the context directory
-        directory_path: Path to the keyword directory file
+        keywords: List of keyword dictionaries
         
     Returns:
-        Updated keyword directory dictionary
+        Sorted list of keywords
     """
-    # Load existing directory
-    directory = load_keyword_directory(directory_path)
+    # Define priority scores
+    priority_scores = {
+        "critical": 4,  # Highest priority
+        "high": 3,
+        "medium": 2,
+        "low": 1
+    }
     
-    # Load context files
-    context_data = load_context_files(context_dir)
+    # Sort by priority score (high to low) then frequency (high to low)
+    ranked = sorted(
+        keywords,
+        key=lambda x: (
+            priority_scores.get(x.get("priority", "low"), 0),
+            x.get("frequency", 0)
+        ),
+        reverse=True
+    )
     
-    # Extract keywords from context
-    new_keywords = extract_keywords_from_context(context_data)
-    
-    # Create a set of existing keywords
-    existing_keywords = {kw["keyword"] for kw in directory.get("keywords", [])}
-    
-    # Add new keywords
-    for kw_data in new_keywords:
-        if kw_data["keyword"] not in existing_keywords:
-            directory.setdefault("keywords", []).append(kw_data)
-            existing_keywords.add(kw_data["keyword"])
-    
-    # Save updated directory
-    save_keyword_directory(directory, directory_path)
-    
-    return directory
+    log_debug(f"Ranked {len(keywords)} keywords", "CONTEXT")
+    return ranked
 
-def get_top_keywords(directory: Dict[str, Any], count: int = 10, category: Optional[str] = None) -> List[str]:
-    """
-    Get top keywords from the directory.
+def get_keyword_suggestions(context_data: Dict[str, str], count: int = 5) -> List[str]:
+    """Get top keyword suggestions from context.
     
     Args:
-        directory: Keyword directory dictionary
+        context_data: Dict mapping filenames to their content
         count: Number of keywords to return
-        category: Optional category filter
         
     Returns:
         List of top keywords
     """
-    keywords = directory.get("keywords", [])
+    # Extract and process keywords
+    keywords = extract_keywords_from_context(context_data)
+    filtered = filter_keywords(keywords)
+    ranked = rank_keywords(filtered)
     
-    # Filter by category if specified
-    if category:
-        keywords = [kw for kw in keywords if kw.get("category") == category]
+    # Get top keywords
+    suggestions = []
+    seen = set()
+    for kw in ranked:
+        if len(suggestions) >= count:
+            break
+        keyword = kw["keyword"].lower()
+        if keyword not in seen:
+            suggestions.append(kw["keyword"])
+            seen.add(keyword)
     
-    # Sort by priority, frequency, and search volume
-    sorted_keywords = sorted(keywords, key=lambda x: (
-        0 if x.get("priority") == "high" else 1 if x.get("priority") == "medium" else 2,
-        -x.get("frequency", 0),
-        -x.get("search_volume", 0)
-    ))
-    
-    # Return top keywords
-    return [kw["keyword"] for kw in sorted_keywords[:count]]
-
-def get_random_keyword(directory: Dict[str, Any], category: Optional[str] = None) -> str:
-    """
-    Get a random keyword from the directory.
-    
-    Args:
-        directory: Keyword directory dictionary
-        category: Optional category filter
-        
-    Returns:
-        Random keyword string
-    """
-    import random
-    
-    keywords = directory.get("keywords", [])
-    
-    # Filter by category if specified
-    if category:
-        keywords = [kw for kw in keywords if kw.get("category") == category]
-    
-    # Filter to high priority keywords
-    high_priority = [kw for kw in keywords if kw.get("priority") == "high"]
-    
-    # Use high priority if available, otherwise use all
-    keyword_pool = high_priority if high_priority else keywords
-    
-    if not keyword_pool:
-        return "web accessibility"  # Default fallback
-    
-    # Select random keyword
-    selected = random.choice(keyword_pool)
-    return selected["keyword"]
-
-def get_initial_keyword() -> str:
-    """
-    Get an initial keyword from the context files.
-    
-    Returns:
-        Initial keyword string
-    """
-    context_dir = Path(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "context"))
-    directory_path = Path(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data", "keyword_directory.json"))
-    
-    # Update directory if it doesn't exist or is older than 1 day
-    if not directory_path.exists() or (datetime.now() - datetime.fromtimestamp(directory_path.stat().st_mtime)).days > 0:
-        directory = update_keyword_directory(context_dir, directory_path)
-    else:
-        directory = load_keyword_directory(directory_path)
-    
-    # Get a random high-priority keyword
-    return get_random_keyword(directory)
+    log_info(f"Generated {len(suggestions)} keyword suggestions", "CONTEXT")
+    return suggestions
