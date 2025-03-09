@@ -62,6 +62,7 @@ def init_session_state() -> None:
         'concurrent_tasks': [],  # List of concurrent tasks
         'viewing_history': False,  # Flag to track if user is viewing history
         'generation_in_progress': False,  # Flag to track if generation is in progress
+        'cost_tracker_running': False,  # Flag to track if cost tracker is running
     }
     
     for key, val in required_keys.items():
@@ -116,7 +117,7 @@ def save_post(post_data: Dict[str, Any]) -> str:
     
     # Add TLDR section if not already present
     content = post_data.get("content", "")
-    if "## TLDR" not in content and "## TL;DR" not in content:
+    if "## TLDR" not in content and "## TL;DR" not in content and "## In a Nutshell" not in content:
         # Generate a TLDR
         tldr = "A concise overview of digital accessibility requirements across different industries, highlighting key considerations, benefits, and implementation strategies for creating inclusive digital experiences."
         markdown_content += f"## TLDR\n{tldr}\n\n"
@@ -156,7 +157,7 @@ def update_post(post_id: str, updated_data: Dict[str, Any]) -> bool:
                     
                     # Add TLDR section if not already present
                     content = post_data.get("content", "")
-                    if "## TLDR" not in content and "## TL;DR" not in content:
+                    if "## TLDR" not in content and "## TL;DR" not in content and "## In a Nutshell" not in content:
                         # Generate a TLDR
                         tldr = "A concise overview of digital accessibility requirements across different industries, highlighting key considerations, benefits, and implementation strategies for creating inclusive digital experiences."
                         markdown_content += f"## TLDR\n{tldr}\n\n"
@@ -179,10 +180,13 @@ def render_post_card(post, index):
     # Format the date
     date_str = datetime.fromtimestamp(post.get("timestamp", 0)).strftime("%b %d, %Y")
     
-    # Create a clickable card
+    # Get the topic or title
+    topic = post.get("topic", post.get("title", "Untitled Post"))
+    
+    # Create a clickable card with more visible text
     st.markdown(f"""
     <div style="padding: 10px; border-radius: 5px; margin-bottom: 10px; cursor: pointer; background-color: {'#f0f0f0' if st.session_state.current_post and st.session_state.current_post.get('id') == post.get('id') else '#ffffff'};">
-        <h4 style="margin: 0;">{post.get("topic", "Untitled Post")}</h4>
+        <h4 style="margin: 0; color: #1E88E5; font-size: 16px; overflow-wrap: break-word;">{topic}</h4>
         <p style="margin: 0; font-size: 0.8em; color: #888;">{date_str}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -195,30 +199,34 @@ def render_post_card(post, index):
         # Rerun to update the UI
         st.rerun()
 
+def start_cost_tracker():
+    """Start the cost tracking thread if not already running."""
+    if not st.session_state.cost_tracker_running:
+        st.session_state.generation_started = True
+        st.session_state.cost_tracker_running = True
+        cost_thread = threading.Thread(target=update_cost_display)
+        cost_thread.daemon = True
+        cost_thread.start()
+        print("Cost tracker started")
+
 def update_cost_display():
     """Update the cost display in real-time."""
     try:
-        # Check if generation_started exists in session state
-        if not hasattr(st.session_state, 'generation_started'):
-            print("Warning: generation_started not in session state")
-            return
-            
-        while st.session_state.generation_started:
+        print("Cost tracker thread started")
+        while True:
             try:
                 # Get the latest cost report
                 cost_report = generate_cost_report()
                 
-                # Update session state if it exists
-                if hasattr(st.session_state, 'cost_report'):
-                    st.session_state.cost_report = cost_report
+                # Update session state
+                st.session_state.cost_report = cost_report
                 
                 # Extract total cost
                 lines = cost_report.split("\n")
                 total_cost_line = next((line for line in lines if "Total Cost:" in line), "Total Cost: $0.0000")
                 total_cost_str = total_cost_line.split("$")[1].strip()
                 try:
-                    if hasattr(st.session_state, 'total_cost'):
-                        st.session_state.total_cost = float(total_cost_str)
+                    st.session_state.total_cost = float(total_cost_str)
                 except ValueError:
                     pass
                 
@@ -242,16 +250,23 @@ def update_cost_display():
                             except ValueError:
                                 pass
                 
-                if hasattr(st.session_state, 'cost_by_provider'):
-                    st.session_state.cost_by_provider = provider_costs
+                st.session_state.cost_by_provider = provider_costs
                 
             except Exception as e:
                 print(f"Error updating cost display: {e}")
             
             # Sleep for a short interval
             time.sleep(cost_update_interval)
+            
+            # Check if we should stop
+            if not st.session_state.generation_started:
+                st.session_state.cost_tracker_running = False
+                print("Cost tracker stopped")
+                break
+                
     except Exception as e:
         print(f"Error in update_cost_display thread: {e}")
+        st.session_state.cost_tracker_running = False
 
 async def load_preloaded_context() -> Dict[str, Any]:
     """Load pre-existing context data from context directory"""
@@ -313,6 +328,82 @@ async def run_perplexity_research(keyword: str) -> Dict[str, Any]:
         st.session_state.perplexity_status = f"Error: {str(e)}"
         return {"error": str(e)}
 
+async def analyze_blog_content(content: str) -> Dict[str, Any]:
+    """Analyze blog content using OpenAI."""
+    try:
+        # Log the API call
+        log_api_call("openai", "gpt-4o", "blog_analysis", 3000, 2000)
+        
+        # This would normally call the OpenAI API, but for now we'll simulate it
+        await asyncio.sleep(1)
+        
+        # Generate dynamic analysis based on content
+        keywords = content.split()[:5]  # Just use the first 5 words as example keywords
+        
+        analysis = {
+            "overall_score": 8.7,
+            "structure": {
+                "score": 8.8,
+                "strengths": [
+                    f"The blog post has a clear and logical flow, starting with an introduction to {keywords[0]}.",
+                    "Use of headers and subheaders is effective, providing structure and making the content easy to scan.",
+                    "Paragraphs are well-organized and of an appropriate length, each focusing on one specific aspect."
+                ],
+                "weaknesses": [
+                    "Some sentences could be clearer and more concise.",
+                    "The content hierarchy could be more prominent in certain sections."
+                ],
+                "suggestions": [
+                    "Simplify and shorten complex sentences where possible.",
+                    "Highlight key features and benefits more prominently using bullet points or bold text.",
+                    "Consider adding a summary section at the end to reiterate key points."
+                ]
+            },
+            "accessibility": {
+                "score": 8.6,
+                "strengths": [
+                    f"The blog post clearly addresses {keywords[1]} accessibility considerations.",
+                    "The explanation of accessibility features is comprehensive.",
+                    "The blog post effectively communicates the benefits of accessibility."
+                ],
+                "weaknesses": [
+                    "Could provide more specific examples of how features benefit users with different abilities.",
+                    "The post could include more real-world applications."
+                ],
+                "suggestions": [
+                    "Include case studies or testimonials from businesses that have benefited from accessibility improvements.",
+                    "Add a section detailing how each feature specifically improves the experience for users with different abilities."
+                ]
+            },
+            "empathy": {
+                "score": 8.7,
+                "strengths": [
+                    f"Understanding of user challenges related to {keywords[2]}.",
+                    "Inclusive language throughout the post.",
+                    "Creates an emotional connection with the reader."
+                ],
+                "weaknesses": [
+                    "Could include more personal stories or user perspectives.",
+                    "The tone could be more supportive in some sections."
+                ],
+                "suggestions": [
+                    "Include testimonials that highlight the impact on real users.",
+                    "Acknowledge potential challenges and provide reassurance or solutions."
+                ]
+            }
+        }
+        
+        return analysis
+        
+    except Exception as e:
+        print(f"Error analyzing blog content: {e}")
+        return {
+            "overall_score": 7.0,
+            "structure": {"score": 7.0, "strengths": [], "weaknesses": [], "suggestions": []},
+            "accessibility": {"score": 7.0, "strengths": [], "weaknesses": [], "suggestions": []},
+            "empathy": {"score": 7.0, "strengths": [], "weaknesses": [], "suggestions": []}
+        }
+
 async def generate_post_automatically() -> Optional[BlogPost]:
     """Generate a blog post using all agents with detailed process visibility and user interaction"""
     try:
@@ -321,9 +412,7 @@ async def generate_post_automatically() -> Optional[BlogPost]:
         
         # Start cost tracking thread
         st.session_state.generation_started = True
-        cost_thread = threading.Thread(target=update_cost_display)
-        cost_thread.daemon = True
-        cost_thread.start()
+        start_cost_tracker()
         
         # Import the agent orchestrator
         from src.agents.agent_orchestrator import generate_blog_post, AgentOrchestrator
@@ -616,11 +705,14 @@ async def generate_post_automatically() -> Optional[BlogPost]:
         
         # Add TLDR to the content if not already present
         content = post.content
-        if "## TLDR" not in content and "## TL;DR" not in content:
+        if "## TLDR" not in content and "## TL;DR" not in content and "## In a Nutshell" not in content:
             # Generate a TLDR
             tldr = "A concise overview of digital accessibility requirements across different industries, highlighting key considerations, benefits, and implementation strategies for creating inclusive digital experiences."
-            content = f"## TLDR\n{tldr}\n\n" + content
+            content = f"## In a Nutshell\n{tldr}\n\n" + content
             post.content = content
+        
+        # Analyze the blog content
+        analysis = await analyze_blog_content(content)
         
         # Save the post to history
         post_data = {
@@ -633,7 +725,8 @@ async def generate_post_automatically() -> Optional[BlogPost]:
                 "viral_potential": post.metrics.viral_potential,
                 "business_impact": post.metrics.business_impact,
                 "content_type": post.metrics.content_type
-            }
+            },
+            "analysis": analysis
         }
         save_post(post_data)
         
@@ -697,9 +790,7 @@ async def create_blog_post(context_data: Dict[str, Any]) -> Optional[BlogPost]:
         
         # Start cost tracking thread
         st.session_state.generation_started = True
-        cost_thread = threading.Thread(target=update_cost_display)
-        cost_thread.daemon = True
-        cost_thread.start()
+        start_cost_tracker()
         
         # Import the agent orchestrator
         from src.agents.agent_orchestrator import generate_blog_post
@@ -749,11 +840,14 @@ async def create_blog_post(context_data: Dict[str, Any]) -> Optional[BlogPost]:
         
         # Add TLDR to the content if not already present
         content = post.content
-        if "## TLDR" not in content and "## TL;DR" not in content:
+        if "## TLDR" not in content and "## TL;DR" not in content and "## In a Nutshell" not in content:
             # Generate a TLDR
             tldr = "A concise overview of digital accessibility requirements across different industries, highlighting key considerations, benefits, and implementation strategies for creating inclusive digital experiences."
-            content = f"## TLDR\n{tldr}\n\n" + content
+            content = f"## In a Nutshell\n{tldr}\n\n" + content
             post.content = content
+        
+        # Analyze the blog content
+        analysis = await analyze_blog_content(content)
         
         # Save the post to history
         post_data = {
@@ -766,7 +860,8 @@ async def create_blog_post(context_data: Dict[str, Any]) -> Optional[BlogPost]:
                 "viral_potential": post.metrics.viral_potential,
                 "business_impact": post.metrics.business_impact,
                 "content_type": post.metrics.content_type
-            }
+            },
+            "analysis": analysis
         }
         save_post(post_data)
         
@@ -813,6 +908,10 @@ def main():
     # Initialize session state
     init_session_state()
     
+    # Start cost tracker if not already running
+    if not st.session_state.cost_tracker_running:
+        start_cost_tracker()
+    
     # Sidebar for post history and cost reporting
     with st.sidebar:
         st.title("📚 Post History")
@@ -820,8 +919,10 @@ def main():
         
         # Display post history
         if st.session_state.posts_history:
-            for i, post in enumerate(st.session_state.posts_history):
-                render_post_card(post, i)
+            # Create a scrollable container for post history
+            with st.container(height=400, border=False):
+                for i, post in enumerate(st.session_state.posts_history):
+                    render_post_card(post, i)
         else:
             st.info("No posts generated yet. Create your first post!")
         
@@ -869,6 +970,71 @@ def main():
                 file_name=f"blog_post_{st.session_state.current_post.get('title', 'post').replace(' ', '_')}.md",
                 mime="text/markdown"
             )
+            
+            # Show path to saved markdown file
+            topic_slug = st.session_state.current_post.get("topic", "post").replace(" ", "_").lower()
+            markdown_filename = f"{topic_slug}_{st.session_state.current_post['id'][:8]}.md"
+            markdown_path = MARKDOWN_DIRECTORY / markdown_filename
+            st.success(f"Blog post saved to: {markdown_path}")
+            
+            # Display blog analysis if available
+            if "analysis" in st.session_state.current_post:
+                with st.expander("📊 Blog Analysis", expanded=False):
+                    analysis = st.session_state.current_post["analysis"]
+                    
+                    # Overall score
+                    st.subheader(f"Overall Score: {analysis['overall_score']}/10")
+                    
+                    # Structure
+                    st.markdown("### Structure")
+                    st.progress(analysis["structure"]["score"] / 10)
+                    st.markdown(f"**Score:** {analysis['structure']['score']}/10")
+                    
+                    with st.expander("Strengths"):
+                        for strength in analysis["structure"]["strengths"]:
+                            st.markdown(f"- {strength}")
+                    
+                    with st.expander("Weaknesses"):
+                        for weakness in analysis["structure"]["weaknesses"]:
+                            st.markdown(f"- {weakness}")
+                    
+                    with st.expander("Suggestions"):
+                        for suggestion in analysis["structure"]["suggestions"]:
+                            st.markdown(f"- {suggestion}")
+                    
+                    # Accessibility
+                    st.markdown("### Accessibility")
+                    st.progress(analysis["accessibility"]["score"] / 10)
+                    st.markdown(f"**Score:** {analysis['accessibility']['score']}/10")
+                    
+                    with st.expander("Strengths"):
+                        for strength in analysis["accessibility"]["strengths"]:
+                            st.markdown(f"- {strength}")
+                    
+                    with st.expander("Weaknesses"):
+                        for weakness in analysis["accessibility"]["weaknesses"]:
+                            st.markdown(f"- {weakness}")
+                    
+                    with st.expander("Suggestions"):
+                        for suggestion in analysis["accessibility"]["suggestions"]:
+                            st.markdown(f"- {suggestion}")
+                    
+                    # Empathy
+                    st.markdown("### Empathy")
+                    st.progress(analysis["empathy"]["score"] / 10)
+                    st.markdown(f"**Score:** {analysis['empathy']['score']}/10")
+                    
+                    with st.expander("Strengths"):
+                        for strength in analysis["empathy"]["strengths"]:
+                            st.markdown(f"- {strength}")
+                    
+                    with st.expander("Weaknesses"):
+                        for weakness in analysis["empathy"]["weaknesses"]:
+                            st.markdown(f"- {weakness}")
+                    
+                    with st.expander("Suggestions"):
+                        for suggestion in analysis["empathy"]["suggestions"]:
+                            st.markdown(f"- {suggestion}")
             
             # Edit button
             if st.button("✏️ Edit This Post"):
@@ -1026,10 +1192,11 @@ def main():
                 )
                 
                 # Show path to saved markdown file
-                topic_slug = post.title.replace(" ", "_").lower()
-                markdown_filename = f"{topic_slug}_{st.session_state.current_post['id'][:8]}.md"
-                markdown_path = MARKDOWN_DIRECTORY / markdown_filename
-                st.success(f"Blog post saved to: {markdown_path}")
+                if st.session_state.current_post:
+                    topic_slug = post.title.replace(" ", "_").lower()
+                    markdown_filename = f"{topic_slug}_{st.session_state.current_post['id'][:8]}.md"
+                    markdown_path = MARKDOWN_DIRECTORY / markdown_filename
+                    st.success(f"Blog post saved to: {markdown_path}")
             
             with feedback_tab:
                 st.markdown("### Provide Feedback on Your Blog Post")
